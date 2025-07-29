@@ -28,9 +28,9 @@ intervals.
 * **Animated Timer:** The timer digits animate smoothly, offering a dynamic and visually
   pleasing experience.
 * **Interactive Controls:**
-    * The Play/Pause button animates to clearly indicate the timer's state.
-    * A satisfying rotation animation plays on the reset button when clicked.
-* **Routine Management:** Easily switch between **Pomodoro (25 min)**, **Short Break (5
+	* The Play/Pause button animates to clearly indicate the timer's state.
+	* A satisfying rotation animation plays on the reset button when clicked.
+* **Routine Management:** Switch between **Pomodoro (25 min)**, **Short Break (5
   min)**, and **Long Break (20 min)** routines.
 * **Audio Notifications:** The app plays a sound when the timer completes.
 * **Cross-Platform:** Native installers are provided for Windows, macOS, and Linux on
@@ -40,30 +40,33 @@ intervals.
 
 ## Download & Run
 
-You can download the latest version of Pomolin from the *
-*[Releases](https://github.com/RedddFoxxyy/pomolin/releases)** page.
+You can download the latest version of Pomolin from the
+**[Releases](https://github.com/RedddFoxxyy/pomolin/releases)** page.
 
 ### Windows
 
 1. Download the `.msi` or `.exe` file.
 2. Run the installer and follow the on-screen instructions.
 
-> NOTE: For Windows ARM64, to run the jar file use Java21.
-
 ### macOS
 
 1. Download the `.dmg` or `.pkg` file.
 2. Open the file and drag the `Pomolin.app` to your `Applications` folder.
 
-> NOTE: The app has not been tested for MacOS yet. You can help me to test for MACOS.
+> NOTE: For macOS, it will not allow you to run the .pkg or the app installed using .dmg, to do so you will have to go
+> to privacy and security in settings, and then allow the execution of the app.
 
 ### Linux
 
-1. Download the `.deb` file.
-2. Install it using your package manager, for example:
+1. Download the `.deb` or `.AppImage` file.
+2. Install `deb` using your package manager, for example:
    ```bash
    sudo apt install ./pomolin_1.0.2_amd64.deb
    ```
+   or Install `AppImage` using `AppImageLauncher` or equivalent. You can run the AppImage just by double-clicking on it
+   too, no need to install it.
+
+   > NOTE: AppImage is the preferred way to run the app on Linux-based distributions.
 
 ### JVM
 
@@ -90,14 +93,18 @@ To build Pomolin from the source code, you'll need to have **JDK** and **Git** i
 
 2. **Build the application using Gradle:**
 
-* On **Linux/macOS**:
-    ```bash
-    ./gradlew packageReleaseDeb
-    ```
-* On **Windows**:
-    ```bash
-    .\gradlew.bat packageReleaseMsi
-    ```
+	* On **Linux**:
+	    ```bash
+		./gradlew packageReleaseDeb
+		```
+	* On **macOS**:
+	    ```bash
+		./gradlew packageReleaseDmg
+		```
+	* On **Windows**:
+	    ```bash
+		.\gradlew.bat packageReleaseMsi
+		```
 
 3. The compiled application will be available in the `composeApp/build/compose/binaries/` directory.
 

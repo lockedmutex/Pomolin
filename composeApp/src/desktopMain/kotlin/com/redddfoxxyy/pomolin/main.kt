@@ -12,15 +12,19 @@ import javax.swing.SwingUtilities
 
 fun main() = application {
 	val icon = painterResource(Res.drawable.Pomolin)
+	val minWindowDimensions = Pair(380, 500)
 	Window(
 		onCloseRequest = ::exitApplication,
 		title = "Pomolin",
 		resizable = true,
-		state = rememberWindowState(width = 400.dp, height = 550.dp),
+		state = rememberWindowState(
+			width = minWindowDimensions.first.dp,
+			height = minWindowDimensions.second.dp
+		),
 		icon = icon,
 	) {
 		SwingUtilities.getWindowAncestor(this.window.rootPane)?.apply {
-			minimumSize = Dimension(400, 550)
+			minimumSize = Dimension(minWindowDimensions.first, minWindowDimensions.second)
 		}
 		App()
 	}

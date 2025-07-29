@@ -8,16 +8,11 @@ enum class PomoDoroRoutines(val displayName: String, val duration: Float) {
 	LongBreak("Long Break", 20f)
 }
 
-internal class RoutineManager {
-	init {
-		// So that this shit gets created here and not when its method is run for the first time.
-		Audio
-	}
-
+internal class PomoDoro {
 	val routines = PomoDoroRoutines.entries.toList()
 	val currentRoutine = mutableStateOf(PomoDoroRoutines.Working)
-	internal val currentTimer = mutableStateOf(Timer(25f, ::progressToNextRoutine))
-
+	internal val appAudioManager = Audio()
+	internal val currentTimer = mutableStateOf(Timer(25f, appAudioManager, ::progressToNextRoutine))
 	internal var workSessionDuration = 2
 	private var workSessionsCompleted = 0
 	internal fun startTimer() = currentTimer.value.startTimer()
