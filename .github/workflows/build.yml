@@ -16,16 +16,26 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-latest
+          - os: ubuntu-22.04
             arch: "x64"
-            runner: "ubuntu-latest"
-            gradle_task: "packageReleaseDeb createReleaseDistributable"
+            runner: "ubuntu-22.04"
+            gradle_task: "packageReleaseDeb"
             os_name: "linux"
-          - os: ubuntu-24.04-arm
+          - os: ubuntu-22.04-arm
             arch: "arm64"
-            runner: "ubuntu-24.04-arm"
-            gradle_task: "packageReleaseDeb createReleaseDistributable"
+            runner: "ubuntu-22.04-arm"
+            gradle_task: "packageReleaseDeb"
             os_name: "linux"
+          - os: ubuntu-22.04
+            arch: "x64"
+            runner: "ubuntu-22.04"
+            gradle_task: "createReleaseDistributable"
+            os_name: "linux-AppImage"
+          - os: ubuntu-22.04-arm
+            arch: "arm64"
+            runner: "ubuntu-22.04-arm"
+            gradle_task: "createReleaseDistributable"
+            os_name: "linux-AppImage"
 
           - os: macos-13
             arch: "x64"
@@ -34,7 +44,7 @@ jobs:
             os_name: "macos"
           - os: macos-latest
             arch: "arm64"
-            runner: "macos-14"
+            runner: "macos-15"
             gradle_task: "packageReleaseDmg packageReleasePkg"
             os_name: "macos"
 
@@ -55,10 +65,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Dependencies for Ubuntu
+      - name: Update and Install Dependencies for Ubuntu
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
+
+      - name: Install Dependencies for linux-AppImage
+        if: matrix.os_name == 'linux-AppImage'
+        run: |
           sudo apt-get install -y libfuse2
 
       - name: Set up JDK 21 for Windows ARM
@@ -81,17 +95,25 @@ jobs:
         if: runner.os != 'Windows'
         run: chmod +x ./gradlew
 
-      - name: Build with Gradle on Windows
-        if: runner.os == 'Windows'
+      - name: Build Jar with Gradle on Windows
+        if: matrix.os_name == 'windows'
         shell: bash
         run: ./gradlew.bat -PosArch=${{ matrix.arch }} ${{ matrix.gradle_task }} packageReleaseUberJarForCurrentOS
 
-      - name: Build with Gradle on Linux/macOS
-        if: runner.os != 'Windows'
+      - name: Build Jar with Gradle on macOS
+        if: matrix.os_name == 'macos'
         run: ./gradlew -PosArch=${{ matrix.arch }} ${{ matrix.gradle_task }} packageReleaseUberJarForCurrentOS
 
-      - name: Create AppImage (Linux only)
-        if: runner.os == 'Linux'
+      - name: Build Jar with Gradle on Ubuntu-24
+        if: matrix.os_name == 'linux'
+        run: ./gradlew -PosArch=${{ matrix.arch }} ${{ matrix.gradle_task }} packageReleaseUberJarForCurrentOS
+
+      - name: Build DistributablePackage with Gradle on Ubuntu-22
+        if: matrix.os_name == 'linux-AppImage'
+        run: ./gradlew -PosArch=${{ matrix.arch }} ${{ matrix.gradle_task }}
+
+      - name: Build AppImage on Ubuntu-22
+        if: matrix.os_name == 'linux-AppImage'
         shell: bash
         run: |
           # 1. Define paths and variables
@@ -188,7 +210,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: package-${{ runner.os }}-${{ matrix.arch }}
+          name: package-${{ matrix.os_name }}-${{ matrix.arch }}
           path: |
             composeApp/build/compose/binaries/main-release/deb/*.deb
             # <--- ADDED: Include the AppImage in the upload

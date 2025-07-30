@@ -19,16 +19,26 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-latest
+          - os: ubuntu-22.04
             arch: "x64"
-            runner: "ubuntu-latest"
-            gradle_task: "packageReleaseDeb createReleaseDistributable"
+            runner: "ubuntu-22.04"
+            gradle_task: "packageReleaseDeb"
             os_name: "linux"
-          - os: ubuntu-24.04-arm
+          - os: ubuntu-22.04-arm
             arch: "arm64"
-            runner: "ubuntu-24.04-arm"
-            gradle_task: "packageReleaseDeb createReleaseDistributable"
+            runner: "ubuntu-22.04-arm"
+            gradle_task: "packageReleaseDeb"
             os_name: "linux"
+          - os: ubuntu-22.04
+            arch: "x64"
+            runner: "ubuntu-22.04"
+            gradle_task: "createReleaseDistributable"
+            os_name: "linux-AppImage"
+          - os: ubuntu-22.04-arm
+            arch: "arm64"
+            runner: "ubuntu-22.04-arm"
+            gradle_task: "createReleaseDistributable"
+            os_name: "linux-AppImage"
 
           - os: macos-13
             arch: "x64"
@@ -37,7 +47,7 @@ jobs:
             os_name: "macos"
           - os: macos-latest
             arch: "arm64"
-            runner: "macos-14"
+            runner: "macos-15"
             gradle_task: "packageReleaseDmg packageReleasePkg"
             os_name: "macos"
 
@@ -58,10 +68,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Dependencies for Ubuntu
+      - name: Update and Install Dependencies for Ubuntu
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
+
+      - name: Install Dependencies for linux-AppImage
+        if: matrix.os_name == 'linux-AppImage'
+        run: |
           sudo apt-get install -y libfuse2
 
       - name: Set up JDK 21 for Windows ARM
@@ -84,45 +98,54 @@ jobs:
         if: runner.os != 'Windows'
         run: chmod +x ./gradlew
 
-      - name: Build with Gradle on Windows
-        if: runner.os == 'Windows'
+      - name: Build Jar with Gradle on Windows
+        if: matrix.os_name == 'windows'
         shell: bash
         run: ./gradlew.bat -PosArch=${{ matrix.arch }} ${{ matrix.gradle_task }} packageReleaseUberJarForCurrentOS
 
-      - name: Build with Gradle on Linux/macOS
-        if: runner.os != 'Windows'
+      - name: Build Jar with Gradle on macOS
+        if: matrix.os_name == 'macos'
         run: ./gradlew -PosArch=${{ matrix.arch }} ${{ matrix.gradle_task }} packageReleaseUberJarForCurrentOS
 
-      - name: Create AppImage (Linux only)
-        if: runner.os == 'Linux'
+      - name: Build Jar with Gradle on Ubuntu-24
+        if: matrix.os_name == 'linux'
+        run: ./gradlew -PosArch=${{ matrix.arch }} ${{ matrix.gradle_task }} packageReleaseUberJarForCurrentOS
+
+      - name: Build DistributablePackage with Gradle on Ubuntu-22
+        if: matrix.os_name == 'linux-AppImage'
+        run: ./gradlew -PosArch=${{ matrix.arch }} ${{ matrix.gradle_task }}
+
+      - name: Build AppImage on Ubuntu-22
+        if: matrix.os_name == 'linux-AppImage'
         shell: bash
         run: |
+          # 1. Define paths and variables
           ARTIFACT_DIR="composeApp/build/compose/binaries/main-release"
           APP_NAME="pomolin"
           GRADLE_APP_DIR="$ARTIFACT_DIR/app/$APP_NAME"
           APPDIR_NAME="$APP_NAME.AppDir"
 
+          # 2. Dynamically select and download the correct appimagetool
           if [ "${{ matrix.arch }}" = "arm64" ]; then
             TOOL_ARCH="aarch64"
           else
             TOOL_ARCH="x86_64"
           fi
-
+          
           TOOL_FILENAME="appimagetool-${TOOL_ARCH}.AppImage"
           TOOL_URL="https://github.com/AppImage/AppImageKit/releases/download/continuous/${TOOL_FILENAME}"
 
           echo "Downloading $TOOL_FILENAME..."
           wget -q "$TOOL_URL"
           chmod +x "$TOOL_FILENAME"
-          
-          echo "Extracting $TOOL_FILENAME to run it without FUSE..."
-          ./"$TOOL_FILENAME" --appimage-extract
 
+          # 3. Create the AppDir structure
           echo "Creating $APPDIR_NAME..."
           mkdir -p "$APPDIR_NAME/usr/lib"
           echo "Moving $GRADLE_APP_DIR to $APPDIR_NAME/usr/lib/"
           mv "$GRADLE_APP_DIR" "$APPDIR_NAME/usr/lib/"
 
+          # 4. Create the .desktop file
           echo "Creating .desktop file..."
           cat <<EOF > "$APPDIR_NAME/$APP_NAME.desktop"
           [Desktop Entry]
@@ -135,12 +158,14 @@ jobs:
           Categories=Utility
           EOF
 
+          # 5. Copy the icon
           echo "Copying icon..."
           ICON_STD_PATH="$APPDIR_NAME/usr/share/icons/hicolor/512x512/apps"
           mkdir -p "$ICON_STD_PATH"
           cp "$APPDIR_NAME/usr/lib/$APP_NAME/lib/$APP_NAME.png" "$ICON_STD_PATH/$APP_NAME.png"
           cp "$APPDIR_NAME/usr/lib/$APP_NAME/lib/$APP_NAME.png" "$APPDIR_NAME/$APP_NAME.png"
 
+          # 6. Create the AppRun script
           echo "Creating AppRun script..."
           cat <<EOF > "$APPDIR_NAME/AppRun"
           #!/bin/sh
@@ -148,10 +173,13 @@ jobs:
           EOF
           chmod +x "$APPDIR_NAME/AppRun"
 
-          echo "Building AppImage with extracted tool..."
-          ./squashfs-root/AppRun "$APPDIR_NAME"
+          # 7. Run the correct appimagetool
+          echo "Building AppImage with $TOOL_FILENAME..."
+          ./"$TOOL_FILENAME" "$APPDIR_NAME"
 
+          # 8. Move the final AppImage to the artifacts directory for upload
           mkdir -p "$ARTIFACT_DIR/appimage"
+          # Use a wildcard to move the generated AppImage regardless of its arch name
           mv pomolin-*.AppImage "$ARTIFACT_DIR/appimage/"
           echo "AppImage created successfully!"
 
@@ -185,7 +213,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: package-${{ runner.os }}-${{ matrix.arch }}
+          name: package-${{ matrix.os_name }}-${{ matrix.arch }}
           path: |
             composeApp/build/compose/binaries/main-release/deb/*.deb
             # <--- ADDED: Include the AppImage in the upload
