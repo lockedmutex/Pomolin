@@ -12,11 +12,12 @@ import javax.swing.SwingUtilities
 
 fun main() = application {
 	val icon = painterResource(Res.drawable.Pomolin)
-	val minWindowDimensions = Pair(380, 500)
+	val minWindowDimensions = Pair(400, 570)
 	Window(
 		onCloseRequest = ::exitApplication,
 		title = "Pomolin",
-		resizable = true,
+//		resizable = false,
+//		undecorated = true,
 		state = rememberWindowState(
 			width = minWindowDimensions.first.dp,
 			height = minWindowDimensions.second.dp
@@ -26,6 +27,11 @@ fun main() = application {
 		SwingUtilities.getWindowAncestor(this.window.rootPane)?.apply {
 			minimumSize = Dimension(minWindowDimensions.first, minWindowDimensions.second)
 		}
+//		WindowDraggableArea {
+//			Box(Modifier.fillMaxWidth().height(20.dp).background(Color.DarkGray))
+//		}
 		App()
 	}
 }
+
+

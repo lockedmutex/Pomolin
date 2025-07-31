@@ -1,4 +1,4 @@
-// composite.kt
+// Timer.kt
 package com.redddfoxxyy.pomolin.ui.screens
 
 import androidx.compose.animation.*
@@ -19,46 +19,55 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.redddfoxxyy.pomolin.handlers.PomoDoro
 import com.redddfoxxyy.pomolin.handlers.PomoDoroRoutines
-import com.redddfoxxyy.pomolin.ui.*
+import com.redddfoxxyy.pomolin.ui.ThemeManager
 import org.jetbrains.compose.resources.painterResource
-import pomolin.composeapp.generated.resources.Res
-import pomolin.composeapp.generated.resources.pause
-import pomolin.composeapp.generated.resources.play_arrow
-import pomolin.composeapp.generated.resources.reset
+import pomolin.composeapp.generated.resources.*
 
 @Composable
 @Preview
-fun CompositeScreen() {
-	val manager = remember { PomoDoro() }
-	val currentRoutine by manager.currentRoutine
-	val isRunning by manager.currentTimer.value.isTimerRunning.collectAsState()
-	val formattedTime = manager.currentTimer.value.formatedTime.value
+internal fun TimerScreen(pomoDoroManager: PomoDoro, onNavigateToSettings: () -> Unit) {
 
-	Column(
-		Modifier.fillMaxSize().background(Base),
-		horizontalAlignment = Alignment.CenterHorizontally
-	) {
-		Spacer(Modifier.height(24.dp))
+	val currentRoutine = pomoDoroManager.currentRoutine
+	val isRunning = pomoDoroManager.currentTimer.isTimerRunning.collectAsState()
+	val formattedTime = pomoDoroManager.currentTimer.formatedTime.value
 
-		RoutineSelector(
-			routines = manager.routines,
-			selectedRoutine = currentRoutine,
-			onRoutineSelected = { manager.setRoutine(it) }
-		)
+	Box(modifier = Modifier.fillMaxSize()) {
+		Column(
+			Modifier.fillMaxSize().background(ThemeManager.colors.base),
+			horizontalAlignment = Alignment.CenterHorizontally
+		) {
+			Spacer(Modifier.height(15.dp))
 
-		Spacer(Modifier.height(80.dp))
+			RoutineSelector(
+				routines = pomoDoroManager.routineList,
+				selectedRoutine = currentRoutine,
+				onRoutineSelected = { pomoDoroManager.setRoutine(it) }
+			)
 
-		TimerDisplay(time = formattedTime)
+			Spacer(Modifier.height(75.dp))
 
-		Spacer(Modifier.height(50.dp))
+			TimerDisplay(time = formattedTime)
 
-		ControlButtons(
-			isRunning = isRunning,
-			onPlayPauseClick = {
-				if (isRunning) manager.pauseTimer() else manager.startTimer()
-			},
-			onResetClick = { manager.resetTimer() }
-		)
+			Spacer(Modifier.height(60.dp))
+
+			ControlButtons(
+				isRunning = isRunning.value,
+				onPlayPauseClick = {
+					if (isRunning.value) pomoDoroManager.pauseTimer() else pomoDoroManager.startTimer()
+				},
+				onResetClick = { pomoDoroManager.resetTimer() }
+			)
+		}
+		IconButton(
+			onClick = onNavigateToSettings,
+			modifier = Modifier.align(Alignment.BottomStart).padding(5.dp)
+		) {
+			Icon(
+				painter = painterResource(Res.drawable.settings),
+				contentDescription = "Settings",
+				tint = ThemeManager.colors.mauve,
+			)
+		}
 	}
 }
 
@@ -79,12 +88,12 @@ fun RoutineSelector(
 				selected = routine == selectedRoutine,
 				label = { Text(routine.displayName) },
 				colors = SegmentedButtonDefaults.colors(
-					activeContainerColor = Mauve,
+					activeContainerColor = ThemeManager.colors.mauve,
 					inactiveContainerColor = Color.Transparent,
-					activeContentColor = Crust,
-					inactiveContentColor = White
+					activeContentColor = ThemeManager.colors.crust,
+					inactiveContentColor = ThemeManager.colors.text
 				),
-				border = BorderStroke(1.dp, Mauve),
+				border = BorderStroke(1.dp, ThemeManager.colors.mauve),
 			)
 		}
 	}
@@ -108,7 +117,7 @@ fun TimerDisplay(time: String) {
 					text = targetChar.toString(),
 					fontWeight = FontWeight.ExtraBold,
 					fontSize = 100.sp,
-					color = Lavender
+					color = ThemeManager.colors.lavender
 				)
 			}
 		}
@@ -127,8 +136,8 @@ fun ControlButtons(
 		animationSpec = tween(durationMillis = 400),
 		label = "ResetIconRotation"
 	)
-	val buttonColor by animateColorAsState(
-		targetValue = if (isRunning) Peach else Green,
+	val actionButtonColor by animateColorAsState(
+		targetValue = if (isRunning) ThemeManager.colors.peach else ThemeManager.colors.green,
 		label = "ButtonColor"
 	)
 
@@ -137,12 +146,12 @@ fun ControlButtons(
 		verticalAlignment = Alignment.CenterVertically,
 		modifier = Modifier.fillMaxWidth()
 	) {
-		// Play/Pause Button
+		// Play/Pause(Action) Button
 		Button(
 			onClick = onPlayPauseClick,
 			colors = ButtonDefaults.buttonColors(
-				containerColor = buttonColor,
-				contentColor = White
+				containerColor = actionButtonColor,
+				contentColor = ThemeManager.colors.text
 			),
 			modifier = Modifier.padding(5.dp)
 		) {
@@ -155,7 +164,7 @@ fun ControlButtons(
 					painter = if (running) painterResource(Res.drawable.pause)
 					else painterResource(Res.drawable.play_arrow),
 					contentDescription = if (running) "Pause" else "Play",
-					tint = Crust
+					tint = ThemeManager.colors.crust
 				)
 			}
 		}
@@ -168,13 +177,16 @@ fun ControlButtons(
 				onResetClick()
 				resetIconRotation.value -= 360f
 			},
-			colors = ButtonDefaults.buttonColors(containerColor = Red, contentColor = White),
+			colors = ButtonDefaults.buttonColors(
+				containerColor = ThemeManager.colors.red,
+				contentColor = ThemeManager.colors.text
+			),
 			modifier = Modifier.padding(5.dp)
 		) {
 			Icon(
 				painter = painterResource(Res.drawable.reset),
 				contentDescription = "Reset",
-				tint = Crust,
+				tint = ThemeManager.colors.crust,
 				modifier = Modifier.rotate(animatedResetIconRotation)
 			)
 		}
