@@ -1,0 +1,15 @@
+<svg width="8000" height="8000" viewBox="0 0 8000 8000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="125" y="125" width="7750" height="7750" rx="1278.51" fill="url(#paint0_radial_20_34)" stroke="#CBA6F7" stroke-width="250"/>
+<g clip-path="url(#clip0_20_34)">
+<path d="M5080 1480H2920C2722 1480 2560 1642 2560 1840V2772.4C2560 2869.6 2599.6 2959.6 2664.4 3028L3640 4000L2664.4 4975.6C2599.6 5040.4 2560 5134 2560 5227.6V6160C2560 6358 2722 6520 2920 6520H5080C5278 6520 5440 6358 5440 6160V5227.6C5440 5130.4 5400.4 5040.4 5335.6 4972L4360 4000L5335.6 3024.4C5400.4 2959.6 5440 2866 5440 2772.4V1840C5440 1642 5278 1480 5080 1480ZM5080 5227.6V5980C5080 6080.8 5000.8 6160 4900 6160H3100C2999.2 6160 2920 6080.8 2920 5980V5227.6L4000 4147.6L5080 5227.6Z" fill="#CBA6F7"/>
+</g>
+<defs>
+<radialGradient id="paint0_radial_20_34" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(4000 4000) rotate(90) scale(4000)">
+<stop offset="0.475962" stop-color="#1E1E2E"/>
+<stop offset="0.985577" stop-color="#11111B"/>
+</radialGradient>
+<clipPath id="clip0_20_34">
+<rect width="7200" height="7200" fill="white" transform="translate(400 400)"/>
+</clipPath>
+</defs>
+</svg>

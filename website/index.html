@@ -393,16 +393,16 @@
         <nav class="nav">
             <div class="logo-section">
                 <img alt="Pomolin Logo" class="logo"
-                     src="../composeApp/src/desktopMain/composeResources/drawable/PomolinSVG.svg"
+                     src="./static/Pomolin.svg"
                 >
                 <span class="brand-name">Pomolin</span>
             </div>
             <div class="nav-controls">
                 <a class="github-link" href="https://github.com/RedddFoxxyy/Pomolin" target="_blank">
-                    <img alt="dark mode" class="github-icon" id="githubIcon" src="../gitAssets/github.svg"/>
+                    <img alt="dark mode" class="github-icon" id="githubIcon" src="static/github.svg"/>
                 </a>
                 <button class="theme-toggle" onclick="toggleTheme()">
-                    <img alt="dark mode" class="theme-icon" id="themeIcon" src="../gitAssets/moon.svg"/>
+                    <img alt="dark mode" class="theme-icon" id="themeIcon" src="static/moon.svg"/>
                 </button>
 
             </div>
@@ -503,12 +503,10 @@
     function applyTheme(theme) {
         if (theme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
-<!--            themeToggle.textContent = 'Light';-->
-            themeIcon.src = "../gitAssets/moon.svg";
+            themeIcon.src = "./static/moon.svg";
         } else {
             document.documentElement.removeAttribute('data-theme');
-<!--            themeToggle.textContent = 'Dark';-->
-            themeIcon.src = "../gitAssets/sun.svg"
+            themeIcon.src = "./static/sun.svg"
         }
     }
 
