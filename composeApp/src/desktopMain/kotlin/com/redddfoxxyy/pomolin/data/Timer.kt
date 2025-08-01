@@ -1,32 +1,40 @@
-package com.redddfoxxyy.pomolin.handlers
+package com.redddfoxxyy.pomolin.data
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.MutableStateFlow
+import androidx.compose.runtime.setValue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 internal class Timer(durationMinutes: Float, val audio: Audio, private val onFinished: () -> Unit) {
-	private var coroutineScope = CoroutineScope(Dispatchers.Main)
 
-	// Timer Handlers
+	internal var isTimerRunning by mutableStateOf(false)
 	private var initialTimeMillis = (durationMinutes * 60 * 1000L).toLong()
 	private var remainingTimeMillis = initialTimeMillis
-	internal val formatedTime = mutableStateOf(formatTime(initialTimeMillis))
+	private var timerProgress = 1.0f
+	internal var formatedTime by mutableStateOf(formatTime(initialTimeMillis))
 	private var lastUpdateTime = 0L
-	internal val isTimerRunning = MutableStateFlow(false)
+
+	private var coroutineScope = CoroutineScope(Dispatchers.Main)
+
 	private var completionAudioPlayed = false
 
 	internal fun startTimer() {
-		if (isTimerRunning.value || remainingTimeMillis <= 0L) return
+		if (isTimerRunning || remainingTimeMillis <= 0L) return
 
 		coroutineScope.launch {
 			lastUpdateTime = System.currentTimeMillis()
-			isTimerRunning.value = true
+			isTimerRunning = true
 
-			while (isTimerRunning.value && remainingTimeMillis > 0) {
+			while (isTimerRunning && remainingTimeMillis > 0) {
 				delay(50L)
 				val elapsed = System.currentTimeMillis() - lastUpdateTime
 				remainingTimeMillis -= elapsed
 				lastUpdateTime = System.currentTimeMillis()
+				timerProgress = remainingTimeMillis.toFloat() / initialTimeMillis.toFloat()
 
 				if (remainingTimeMillis < 0L) {
 					remainingTimeMillis = 0L
@@ -37,11 +45,11 @@ internal class Timer(durationMinutes: Float, val audio: Audio, private val onFin
 					completionAudioPlayed = true
 				}
 
-				formatedTime.value = formatTime(remainingTimeMillis)
+				formatedTime = formatTime(remainingTimeMillis)
 			}
 
 			if (remainingTimeMillis <= 0L) {
-				isTimerRunning.value = false
+				isTimerRunning = false
 				completionAudioPlayed = false
 				onFinished()
 			}
@@ -49,14 +57,14 @@ internal class Timer(durationMinutes: Float, val audio: Audio, private val onFin
 	}
 
 	internal fun pause() {
-		isTimerRunning.value = false
+		isTimerRunning = false
 	}
 
 	internal fun reset() {
-		isTimerRunning.value = false
+		isTimerRunning = false
 		remainingTimeMillis = initialTimeMillis
 		lastUpdateTime = 0L
-		formatedTime.value = formatTime(initialTimeMillis)
+		formatedTime = formatTime(initialTimeMillis)
 		completionAudioPlayed = false
 		coroutineScope.cancel()
 		coroutineScope = CoroutineScope(Dispatchers.Main)
@@ -66,7 +74,11 @@ internal class Timer(durationMinutes: Float, val audio: Audio, private val onFin
 		reset()
 		initialTimeMillis = (durationMinutes * 60 * 1000L).toLong()
 		remainingTimeMillis = initialTimeMillis
-		formatedTime.value = formatTime(initialTimeMillis)
+		formatedTime = formatTime(initialTimeMillis)
+	}
+
+	internal fun getTimerProgress(): Float {
+		return timerProgress
 	}
 
 	private fun formatTime(millis: Long): String {

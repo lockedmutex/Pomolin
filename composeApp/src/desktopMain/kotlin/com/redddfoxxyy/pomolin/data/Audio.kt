@@ -1,4 +1,4 @@
-package com.redddfoxxyy.pomolin.handlers
+package com.redddfoxxyy.pomolin.data
 
 import javazoom.jlgui.basicplayer.BasicPlayer
 import pomolin.composeapp.generated.resources.Res

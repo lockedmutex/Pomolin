@@ -247,7 +247,7 @@ jobs:
       - name: Create Draft Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Pomolin v${{ steps.get_version.outputs.version }} Alpha
+          name: Pomolin v${{ steps.get_version.outputs.version }} Beta
           draft: true
           tag_name: v${{ steps.get_version.outputs.version }}
           body: |

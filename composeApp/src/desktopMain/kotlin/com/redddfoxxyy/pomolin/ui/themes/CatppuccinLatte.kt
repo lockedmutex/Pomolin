@@ -15,10 +15,14 @@ data class CatppuccinLatte(
 
 data class CatppuccinLatteColors(
 	override val base: Color = Color.hsl(220f, 0.23f, 0.95f),
+	override val mantle: Color = Color.hsl(240f, 0.21f, 0.12f),
 	override val crust: Color = Color.hsl(220f, 0.21f, 0.89f),
+	override val surface: Color = Color.hsl(240f, 0.23f, 0.09f),
+	override val surface100: Color = Color.hsl(240f, 0.23f, 0.09f),
+	override val surface200: Color = Color.hsl(240f, 0.23f, 0.09f),
 	override val text: Color = Color.hsl(234f, 0.16f, 0.35f),
-	override val textLight: Color = Color.hsl(233f, 0.10f, 0.41f),
-	override val textDark: Color = Color.hsl(233f, 0.10f, 0.47f),
+	override val text100: Color = Color.hsl(233f, 0.10f, 0.41f),
+	override val text200: Color = Color.hsl(233f, 0.10f, 0.47f),
 	override val green: Color = Color.hsl(109f, 0.58f, 0.40f),
 	override val red: Color = Color.hsl(347f, 0.87f, 0.44f),
 	override val blue: Color = Color.hsl(217f, 0.92f, 0.78f),

@@ -9,9 +9,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.redddfoxxyy.pomolin.handlers.PomoDoro
+import com.redddfoxxyy.pomolin.data.PomoDoro
 import com.redddfoxxyy.pomolin.ui.screens.SettingsScreen
 import com.redddfoxxyy.pomolin.ui.screens.TimerScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -33,21 +37,20 @@ fun App() {
 				transitionSpec = {
 					if (targetState == Screen.Settings) {
 						slideInHorizontally(
-							animationSpec = tween(400),
+							animationSpec = tween(300),
 							initialOffsetX = { fullWidth -> -fullWidth }
 						) togetherWith
-
 								slideOutHorizontally(
-									animationSpec = tween(400),
+									animationSpec = tween(300),
 									targetOffsetX = { fullWidth -> fullWidth }
 								)
 					} else {
 						slideInHorizontally(
-							animationSpec = tween(400),
+							animationSpec = tween(300),
 							initialOffsetX = { fullWidth -> fullWidth }
 						) togetherWith
 								slideOutHorizontally(
-									animationSpec = tween(400),
+									animationSpec = tween(300),
 									targetOffsetX = { fullWidth -> -fullWidth }
 								)
 					}

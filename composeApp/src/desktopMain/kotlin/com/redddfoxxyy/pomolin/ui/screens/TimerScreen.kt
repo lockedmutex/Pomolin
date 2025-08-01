@@ -1,15 +1,37 @@
-// Timer.kt
 package com.redddfoxxyy.pomolin.ui.screens
 
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -17,19 +39,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.redddfoxxyy.pomolin.handlers.PomoDoro
-import com.redddfoxxyy.pomolin.handlers.PomoDoroRoutines
+import com.redddfoxxyy.pomolin.data.PomoDoro
+import com.redddfoxxyy.pomolin.data.PomoDoroRoutines
 import com.redddfoxxyy.pomolin.ui.ThemeManager
+import com.redddfoxxyy.pomolin.ui.components.TimerDisplay
 import org.jetbrains.compose.resources.painterResource
-import pomolin.composeapp.generated.resources.*
+import pomolin.composeapp.generated.resources.Res
+import pomolin.composeapp.generated.resources.pause
+import pomolin.composeapp.generated.resources.play_arrow
+import pomolin.composeapp.generated.resources.reset
+import pomolin.composeapp.generated.resources.settings
 
 @Composable
 @Preview
 internal fun TimerScreen(pomoDoroManager: PomoDoro, onNavigateToSettings: () -> Unit) {
 
 	val currentRoutine = pomoDoroManager.currentRoutine
-	val isRunning = pomoDoroManager.currentTimer.isTimerRunning.collectAsState()
-	val formattedTime = pomoDoroManager.currentTimer.formatedTime.value
+	val isRunning = pomoDoroManager.timerInstance.isTimerRunning
+	val formattedTime = pomoDoroManager.timerInstance.formatedTime
+	val enableProgressIndicator = pomoDoroManager.appSettings.enableProgressIndicator
+	val workSessionsCompleted = pomoDoroManager.workSessionsCompleted
+	val workSessionDuration = pomoDoroManager.appSettings.workSessionDuration
 
 	Box(modifier = Modifier.fillMaxSize()) {
 		Column(
@@ -44,16 +74,24 @@ internal fun TimerScreen(pomoDoroManager: PomoDoro, onNavigateToSettings: () -> 
 				onRoutineSelected = { pomoDoroManager.setRoutine(it) }
 			)
 
-			Spacer(Modifier.height(75.dp))
+			if (enableProgressIndicator) {
+				Spacer(Modifier.height(30.dp))
+			} else {
+				Spacer(Modifier.height(70.dp))
+			}
 
-			TimerDisplay(time = formattedTime)
+			TimerDisplay(time = formattedTime, pomoDoroManager)
 
-			Spacer(Modifier.height(60.dp))
+			if (enableProgressIndicator) {
+				Spacer(Modifier.height(20.dp))
+			} else {
+				Spacer(Modifier.height(60.dp))
+			}
 
 			ControlButtons(
-				isRunning = isRunning.value,
+				isRunning = isRunning,
 				onPlayPauseClick = {
-					if (isRunning.value) pomoDoroManager.pauseTimer() else pomoDoroManager.startTimer()
+					if (isRunning) pomoDoroManager.pauseTimer() else pomoDoroManager.startTimer()
 				},
 				onResetClick = { pomoDoroManager.resetTimer() }
 			)
@@ -68,6 +106,13 @@ internal fun TimerScreen(pomoDoroManager: PomoDoro, onNavigateToSettings: () -> 
 				tint = ThemeManager.colors.mauve,
 			)
 		}
+		Text(
+			modifier = Modifier.align(Alignment.BottomEnd).padding(bottom = 18.dp, end = 15.dp),
+			text = "$workSessionsCompleted/$workSessionDuration",
+			color = ThemeManager.colors.mauve,
+			fontWeight = FontWeight.SemiBold,
+			fontSize = 22.sp,
+		)
 	}
 }
 
@@ -93,33 +138,8 @@ fun RoutineSelector(
 					activeContentColor = ThemeManager.colors.crust,
 					inactiveContentColor = ThemeManager.colors.text
 				),
-				border = BorderStroke(1.dp, ThemeManager.colors.mauve),
+				border = BorderStroke(1.dp, ThemeManager.colors.mauve)
 			)
-		}
-	}
-}
-
-@Composable
-fun TimerDisplay(time: String) {
-	Row(
-		horizontalArrangement = Arrangement.Center,
-		verticalAlignment = Alignment.CenterVertically
-	) {
-		time.forEach { char ->
-			AnimatedContent(
-				targetState = char,
-				transitionSpec = {
-					slideInVertically { height -> height } togetherWith
-							slideOutVertically { height -> -height }
-				}
-			) { targetChar ->
-				Text(
-					text = targetChar.toString(),
-					fontWeight = FontWeight.ExtraBold,
-					fontSize = 100.sp,
-					color = ThemeManager.colors.lavender
-				)
-			}
 		}
 	}
 }

@@ -15,10 +15,14 @@ data class CatppuccinMocha(
 
 data class CatppuccinMochaColors(
 	override val base: Color = Color.hsl(240f, 0.21f, 0.15f),
+	override val mantle: Color = Color.hsl(240f, 0.21f, 0.12f),
 	override val crust: Color = Color.hsl(240f, 0.23f, 0.09f),
+	override val surface: Color = Color.hsl(237f, 0.16f, 0.23f),
+	override val surface100: Color = Color.hsl(234f, 0.13f, 0.31f),
+	override val surface200: Color = Color.hsl(233f, 0.12f, 0.39f),
 	override val text: Color = Color.hsl(226f, 0.64f, 0.88f),
-	override val textLight: Color = Color.hsl(227f, 0.44f, 0.80f),
-	override val textDark: Color = Color.hsl(228f, 0.29f, 0.73f),
+	override val text100: Color = Color.hsl(227f, 0.44f, 0.80f),
+	override val text200: Color = Color.hsl(228f, 0.29f, 0.73f),
 	override val green: Color = Color.hsl(96f, 0.44f, 0.68f),
 	override val red: Color = Color.hsl(343f, 0.81f, 0.75f),
 	override val blue: Color = Color.hsl(217f, 0.92f, 0.78f),

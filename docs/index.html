@@ -10,7 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
     <meta content="Pomolin - Pomodoro Timer" property="og:title">
-    <meta content="A simple Pomodoro App written in Kotlin. Focus on what matters!" property="og:description">
+    <meta content="A simple Pomodoro App written in Kotlin. Focus on what matters!"
+          property="og:description">
     <meta content="https://redddfoxxyy.github.io/Pomolin/" property="og:url">
     <meta content="https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/refs/heads/main/docs/static/urlBanner.png"
           property="og:image">
@@ -157,10 +158,6 @@
             transition: filter 0.3s ease;
         }
 
-        /*[data-theme="light"] .theme-icon {*/
-        /*    filter: invert(30%) sepia(52%) saturate(319%) hue-rotate(196deg) brightness(98%) contrast(88%);*/
-        /*}*/
-
         .theme-toggle {
             background: transparent;
             border: 1px solid transparent;
@@ -181,9 +178,8 @@
             transform: translateY(-2px);
         }
 
-        /* Hero Section */
         .hero {
-            padding: 4rem 0;
+            padding: 4rem 0 0 0;
             display: flex;
             align-items: center;
             min-height: 80vh;
@@ -191,14 +187,14 @@
 
         .hero-content {
             display: grid;
-            grid-template-columns: 1fr auto;
+            grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
             width: 100%;
         }
 
         .hero-text h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--accent), var(--accent-hover));
@@ -237,7 +233,62 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
-        /* Download Section */
+        .hero-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title-icon {
+            width: 80px;
+            height: 80px;
+            /*animation: fadeInLeft 0.8s ease 0.2s both, float 3s ease-in-out infinite;*/
+            animation: fadeInUp 0.8s ease;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+            transition: filter 0.3s ease;
+        }
+
+        .hero-title-icon:hover {
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
+        }
+
+        .hero-title h1 {
+            margin-bottom: 0;
+        }
+
+        .showcase-section {
+            padding: 0 0 4rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+        }
+
+        .showcase-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .showcase-image {
+            width: 280px;
+            height: 361px;
+            border-radius: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            animation: fadeInRight 0.8s ease 0.8s both;
+            border: 2px solid var(--accent);
+            justify-self: center;
+        }
+
+        .showcase-image:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            border-color: var(--accent-hover);
+        }
+
         .download-section {
             padding: 4rem 0;
             background: var(--bg-secondary);
@@ -313,7 +364,7 @@
         }
 
         .download-btn.arm64 {
-            background: var(--mauve);
+            background: var(--icon-purple);
         }
 
         .download-btn.arm64:hover {
@@ -352,12 +403,21 @@
             }
         }
 
-        /* Theme transition animation */
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         * {
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .hero-content {
                 grid-template-columns: 1fr;
@@ -369,24 +429,26 @@
                 font-size: 2.5rem;
             }
 
-            .hero-logo {
-                width: 150px;
-                height: 150px;
-                font-size: 3rem;
-                margin-inline: auto;
+            .hero-title {
+                justify-content: center;
+            }
+
+            .hero-title-icon {
+                width: 50px;
+                height: 50px;
             }
 
             .download-grid {
                 grid-template-columns: 1fr;
             }
 
-            /*.nav {*/
-            /*    flex-direction: column;*/
-            /*    gap: 1rem;*/
-            /*}*/
+            .showcase-image {
+                width: 250px;
+                height: 322px;
+                margin: 2rem auto 3rem auto;
+            }
         }
 
-        /* Footer */
         .footer {
             padding: 2rem 0;
             text-align: center;
@@ -406,8 +468,10 @@
                 <span class="brand-name">Pomolin</span>
             </div>
             <div class="nav-controls">
-                <a class="github-link" href="https://github.com/RedddFoxxyy/Pomolin" target="_blank">
-                    <img alt="dark mode" class="github-icon" id="githubIcon" src="static/github.svg"/>
+                <a class="github-link" href="https://github.com/RedddFoxxyy/Pomolin"
+                   target="_blank">
+                    <img alt="dark mode" class="github-icon" id="githubIcon"
+                         src="static/github.svg"/>
                 </a>
                 <button class="theme-toggle" onclick="toggleTheme()">
                     <img alt="dark mode" class="theme-icon" id="themeIcon" src="static/moon.svg"/>
@@ -423,20 +487,31 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>Pomolin</h1>
+                    <div class="hero-title">
+                        <img alt="Pomolin Logo" class="hero-title-icon" src="./static/Pomolin.svg">
+                        <h1>Pomolin</h1>
+                    </div>
                     <p class="hero-quote">"Focus on what Matters!"</p>
                     <p class="hero-description">
-                        A beautiful, minimalist pomodoro timer that helps you stay focused and productive.
-                        Built with simplicity in mind, Pomolin provides a distraction-free environment
+                        A beautiful, minimalist pomodoro timer that helps you stay focused and
+                        productive.
+                        Built with simplicity in mind, Pomolin provides a distraction-free
+                        environment
                         for your work sessions.
                     </p>
                 </div>
-                <img alt="Pomolin Logo" class="hero-logo"
-                     src="./static/Pomolin.svg"
-                >
+                <img alt="Pomolin App Preview" class="showcase-image" src="./static/pomolin.gif">
             </div>
         </div>
     </section>
+
+    <!--    <section class="showcase-section">-->
+    <!--        <div class="container">-->
+    <!--            <div class="showcase-content">-->
+    <!--                <img alt="Pomolin App Preview" class="showcase-image" src="./static/pomolin.gif">-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </section>-->
 
     <section class="download-section">
         <div class="container">
@@ -444,16 +519,15 @@
             <div class="download-grid">
                 <div class="os-card">
                     <h3 class="os-title">
-                        <!--                        <span class="os-icon">🪟</span>-->
                         Windows
                     </h3>
                     <div class="download-links">
                         <a class="download-btn"
-                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.0.3-x64.exe">
+                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.1.0-x64.exe">
                             Intel/AMD
                         </a>
                         <a class="download-btn arm64"
-                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.0.3-arm64.exe">
+                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.1.0-arm64.exe">
                             ARM64
                         </a>
                     </div>
@@ -461,16 +535,15 @@
 
                 <div class="os-card">
                     <h3 class="os-title">
-                        <!--                        <span class="os-icon">🍎</span>-->
                         macOS
                     </h3>
                     <div class="download-links">
                         <a class="download-btn"
-                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.0.3-x64.dmg">
+                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.1.0-x64.dmg">
                             Intel
                         </a>
                         <a class="download-btn arm64"
-                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.0.3-arm64.dmg">
+                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.1.0-arm64.dmg">
                             Apple Silicon
                         </a>
                     </div>
@@ -478,7 +551,6 @@
 
                 <div class="os-card">
                     <h3 class="os-title">
-                        <!--                        <span class="os-icon">🐧</span>-->
                         Linux
                     </h3>
                     <div class="download-links">
@@ -523,7 +595,6 @@
         localStorage.setItem('theme', currentTheme);
         applyTheme(currentTheme);
 
-        // Add a subtle animation effect
         document.body.style.transition = 'all 0.3s ease';
         setTimeout(() => {
             document.body.style.transition = '';
@@ -533,7 +604,6 @@
     // Initialize theme
     applyTheme(currentTheme);
 
-    // Add scroll effect to header
     window.addEventListener('scroll', () => {
         const header = document.querySelector('.header');
         if (window.scrollY > 100) {
@@ -545,14 +615,12 @@
         }
     });
 
-    // Add parallax effect to hero logo
     window.addEventListener('scroll', () => {
         const heroLogo = document.querySelector('.hero-logo');
         const scrolled = window.pageYOffset;
         heroLogo.style.transform = `translateY(${scrolled * 0.2}px)`;
     });
 
-    // Animate cards on scroll
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'

@@ -1,6 +1,7 @@
-package com.redddfoxxyy.pomolin.handlers
+package com.redddfoxxyy.pomolin.data
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
@@ -10,74 +11,75 @@ enum class PomoDoroRoutines(val displayName: String) {
 	LongBreak("Long Break")
 }
 
-internal data class PomoDoroSettings(
-	var workingDuration: Float = 25f,
-	var shortBreakDuration: Float = 5f,
-	var longBreakDuration: Float = 20f,
-	var workSessionDuration: Int = 2
-)
+internal class PomoDoroSettings {
+	var workingDuration by mutableFloatStateOf(25f)
+	var shortBreakDuration by mutableFloatStateOf(5f)
+	var longBreakDuration by mutableFloatStateOf(20f)
+	var workSessionDuration by mutableStateOf(4)
+	var enableProgressIndicator by mutableStateOf(true)
+}
 
 
 internal class PomoDoro {
 	internal val appAudioManager = Audio()
-	internal val currentTimer by mutableStateOf(Timer(25f, appAudioManager, ::progressToNextRoutine))
+	internal val timerInstance = Timer(25f, appAudioManager, ::progressToNextRoutine)
 
 	internal val routineList = PomoDoroRoutines.entries.toList()
-	internal var routineSettings by mutableStateOf(PomoDoroSettings())
+	internal var appSettings = PomoDoroSettings()
 	internal var currentRoutine by mutableStateOf(PomoDoroRoutines.Working)
-	private var workSessionsCompleted = 0
+	internal var workSessionsCompleted by mutableStateOf(0)
 
-	internal fun startTimer() = currentTimer.startTimer()
-	internal fun pauseTimer() = currentTimer.pause()
+	internal fun startTimer() = timerInstance.startTimer()
+	internal fun pauseTimer() = timerInstance.pause()
 	internal fun resetTimer() {
-		currentTimer.reset()
+		timerInstance.reset()
 	}
 
 	private fun getDurationFor(routine: PomoDoroRoutines): Float = when (routine) {
-		PomoDoroRoutines.Working -> routineSettings.workingDuration
-		PomoDoroRoutines.ShortBreak -> routineSettings.shortBreakDuration
-		PomoDoroRoutines.LongBreak -> routineSettings.longBreakDuration
+		PomoDoroRoutines.Working -> appSettings.workingDuration
+		PomoDoroRoutines.ShortBreak -> appSettings.shortBreakDuration
+		PomoDoroRoutines.LongBreak -> appSettings.longBreakDuration
 	}
 
 	internal fun setRoutine(routine: PomoDoroRoutines) {
-		currentTimer.updateDuration(getDurationFor(routine))
+		timerInstance.updateDuration(getDurationFor(routine))
 		currentRoutine = routine
 	}
 
 	internal fun changeWorkingDuration(duration: Float) {
 		val durationStepped = duration.toInt().toFloat()
-		routineSettings = routineSettings.copy(workingDuration = durationStepped)
+		appSettings.workingDuration = durationStepped
 		if (currentRoutine == PomoDoroRoutines.Working) {
-			currentTimer.updateDuration(durationStepped)
+			timerInstance.updateDuration(durationStepped)
 		}
 	}
 
 	internal fun changeShortBreakDuration(duration: Float) {
 		val durationStepped = duration.toInt().toFloat()
-		routineSettings = routineSettings.copy(shortBreakDuration = durationStepped)
+		appSettings.shortBreakDuration = durationStepped
 		if (currentRoutine == PomoDoroRoutines.ShortBreak) {
-			currentTimer.updateDuration(durationStepped)
+			timerInstance.updateDuration(durationStepped)
 		}
 	}
 
 	internal fun changeLongBreakDuration(duration: Float) {
 		val durationStepped = duration.toInt().toFloat()
-		routineSettings = routineSettings.copy(longBreakDuration = durationStepped)
+		appSettings.longBreakDuration = durationStepped
 		if (currentRoutine == PomoDoroRoutines.LongBreak) {
-			currentTimer.updateDuration(durationStepped)
+			timerInstance.updateDuration(durationStepped)
 		}
 	}
 
 	internal fun changeWorkSessionDuration(duration: Float) {
 		val durationStepped = duration.toInt()
-		routineSettings = routineSettings.copy(workSessionDuration = durationStepped)
+		appSettings.workSessionDuration = durationStepped
 	}
 
 	private fun progressToNextRoutine() {
 		when (currentRoutine) {
 			PomoDoroRoutines.Working -> {
 				workSessionsCompleted++
-				if (workSessionsCompleted >= routineSettings.workSessionDuration) {
+				if (workSessionsCompleted >= appSettings.workSessionDuration) {
 					setRoutine(PomoDoroRoutines.LongBreak)
 					workSessionsCompleted = 0
 				} else {

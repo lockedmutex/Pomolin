@@ -31,11 +31,16 @@ interface Theme {
 }
 
 interface ThemeColors {
-	val base: Color
+
 	val crust: Color
+	val mantle: Color
+	val base: Color
+	val surface: Color
+	val surface100: Color
+	val surface200: Color
 	val text: Color
-	val textLight: Color
-	val textDark: Color
+	val text100: Color
+	val text200: Color
 	val green: Color
 	val red: Color
 	val blue: Color
