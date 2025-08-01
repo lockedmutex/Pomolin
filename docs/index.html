@@ -1,643 +1,648 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Pomolin - Pomodoro Timer</title>
-    <link href="./static/Pomolin.svg" rel="icon" type="image/svg+xml">
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
-    <meta content="Pomolin - Pomodoro Timer" property="og:title">
-    <meta content="A simple Pomodoro App written in Kotlin. Focus on what matters!"
-          property="og:description">
-    <meta content="https://redddfoxxyy.github.io/Pomolin/" property="og:url">
-    <meta content="https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/refs/heads/main/docs/static/urlBanner.png"
-          property="og:image">
-    <meta content="./static/urlBanner.png" name="twitter:card"/>
-    <meta content="website" property="og:type">
-    <style>
-        :root {
-            /* Dark theme (default) - matching your icon */
-            --base: hsl(240, 21%, 15%);
-            --crust: hsl(235, 25%, 12%);
-            --white: hsl(226, 64%, 88%);
-            --text-light: hsl(227, 44%, 80%);
-            --text-dark: hsl(228, 29%, 73%);
-            --green: hsl(96, 44%, 68%);
-            --red: hsl(343, 81%, 75%);
-            --blue: hsl(217, 92%, 78%);
-            --maroon: hsl(350, 65%, 77%);
-            --sapphire: hsl(199, 55%, 69%);
-            --mauve: hsl(267, 84%, 81%);
-            --yellow: hsl(41, 86%, 83%);
-            --peach: hsl(23, 92%, 75%);
-            --lavender: hsl(267, 70%, 75%);
-            --icon-purple: hsl(267, 60%, 70%);
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>Pomolin - Pomodoro Timer</title>
+	<link href="./static/Pomolin.svg" rel="icon" type="image/svg+xml">
+	<link href="https://fonts.googleapis.com" rel="preconnect">
+	<link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+	      rel="stylesheet">
+	<meta content="Pomolin - Pomodoro Timer" property="og:title">
+	<meta content="A simple Pomodoro App written in Kotlin. Focus on what matters!"
+	      property="og:description">
+	<meta content="https://redddfoxxyy.github.io/Pomolin/" property="og:url">
+	<meta content="https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/refs/heads/main/docs/static/urlBanner.png"
+	      property="og:image">
+	<meta content="./static/urlBanner.png" name="twitter:card"/>
+	<meta content="website" property="og:type">
+	<style>
+		:root {
+			/* Dark theme (default) - matching your icon */
+			--base: hsl(240, 21%, 15%);
+			--crust: hsl(235, 25%, 12%);
+			--white: hsl(226, 64%, 88%);
+			--text-light: hsl(227, 44%, 80%);
+			--text-dark: hsl(228, 29%, 73%);
+			--green: hsl(96, 44%, 68%);
+			--red: hsl(343, 81%, 75%);
+			--blue: hsl(217, 92%, 78%);
+			--maroon: hsl(350, 65%, 77%);
+			--sapphire: hsl(199, 55%, 69%);
+			--mauve: hsl(267, 84%, 81%);
+			--yellow: hsl(41, 86%, 83%);
+			--peach: hsl(23, 92%, 75%);
+			--lavender: hsl(267, 70%, 75%);
+			--icon-purple: hsl(267, 60%, 70%);
 
-            /* Current theme variables - icon-inspired */
-            --bg-primary: var(--crust);
-            --bg-secondary: var(--base);
-            --text-primary: var(--lavender);
-            --text-secondary: hsl(267, 40%, 65%);
-            --accent: var(--icon-purple);
-            --accent-hover: var(--mauve);
-        }
+			/* Current theme variables - icon-inspired */
+			--bg-primary: var(--crust);
+			--bg-secondary: var(--base);
+			--text-primary: var(--lavender);
+			--text-secondary: hsl(267, 40%, 65%);
+			--accent: var(--icon-purple);
+			--accent-hover: var(--mauve);
+		}
 
-        [data-theme="light"] {
-            /* Light theme with purple accents */
-            --bg-primary: hsl(267, 15%, 96%);
-            --bg-secondary: hsl(267, 20%, 92%);
-            --text-primary: hsl(235, 25%, 20%);
-            --text-secondary: hsl(235, 20%, 40%);
-            --accent: hsl(267, 55%, 55%);
-            --accent-hover: hsl(267, 70%, 65%);
-        }
+		[data-theme="light"] {
+			/* Light theme with purple accents */
+			--bg-primary: hsl(267, 15%, 96%);
+			--bg-secondary: hsl(267, 20%, 92%);
+			--text-primary: hsl(235, 25%, 20%);
+			--text-secondary: hsl(235, 20%, 40%);
+			--accent: hsl(267, 55%, 55%);
+			--accent-hover: hsl(267, 70%, 65%);
+		}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
 
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: all 0.3s ease;
-            min-height: 100vh;
-        }
+		body {
+			font-family: 'JetBrains Mono', monospace;
+			background: var(--bg-primary);
+			color: var(--text-primary);
+			line-height: 1.6;
+			transition: all 0.3s ease;
+			min-height: 100vh;
+		}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 2rem;
+		}
 
-        /* Header */
-        .header {
-            background: var(--bg-secondary);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
+		/* Header */
+		.header {
+			background: var(--bg-secondary);
+			padding: 1rem 0;
+			position: sticky;
+			top: 0;
+			z-index: 100;
+			backdrop-filter: blur(10px);
+			transition: all 0.3s ease;
+		}
 
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+		.nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
 
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+		.logo-section {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
 
-        .logo {
-            width: 40px;
-            height: 40px;
-            /*background: var(--accent);*/
-            /*border-radius: 50%;*/
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--bg-primary);
-            transition: all 0.3s ease;
-        }
+		.logo {
+			width: 40px;
+			height: 40px;
+			/*background: var(--accent);*/
+			/*border-radius: 50%;*/
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.5rem;
+			font-weight: 600;
+			color: var(--bg-primary);
+			transition: all 0.3s ease;
+		}
 
-        .logo:hover {
-            transform: rotate(15deg) scale(1.1);
-        }
+		.logo:hover {
+			transform: rotate(15deg) scale(1.1);
+		}
 
-        .brand-name {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
+		.brand-name {
+			font-size: 1.5rem;
+			font-weight: 600;
+			color: var(--text-primary);
+		}
 
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
+		.nav-controls {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
 
-        .github-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 0.5rem 0.8rem 0.1rem 0.8rem;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
+		.github-link {
+			color: var(--text-secondary);
+			text-decoration: none;
+			padding: 0.5rem 0.8rem 0.1rem 0.8rem;
+			border-radius: 0.5rem;
+			transition: all 0.3s ease;
+			border: 1px solid transparent;
+		}
 
-        .github-link:hover {
-            color: var(--accent);
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
+		.github-link:hover {
+			color: var(--accent);
+			border-color: var(--accent);
+			transform: translateY(-2px);
+		}
 
-        .github-icon {
-            width: 20px;
-            height: 20px;
-            filter: invert(81%) sepia(44%) saturate(4508%) hue-rotate(209deg) brightness(86%) contrast(79%);
-            transition: filter 0.3s ease;
-        }
+		.github-icon {
+			width: 20px;
+			height: 20px;
+			filter: invert(81%) sepia(44%) saturate(4508%) hue-rotate(209deg) brightness(86%) contrast(79%);
+			transition: filter 0.3s ease;
+		}
 
-        .theme-icon {
-            width: 20px;
-            height: 20px;
-            filter: invert(81%) sepia(44%) saturate(4508%) hue-rotate(209deg) brightness(86%) contrast(79%);
-            transition: filter 0.3s ease;
-        }
+		.theme-icon {
+			width: 20px;
+			height: 20px;
+			filter: invert(81%) sepia(44%) saturate(4508%) hue-rotate(209deg) brightness(86%) contrast(79%);
+			transition: filter 0.3s ease;
+		}
 
-        .theme-toggle {
-            background: transparent;
-            border: 1px solid transparent;
-            /*color: var(--text-primary);*/
-            padding: 0.5rem 0.8rem 0.3rem 0.8rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
+		.theme-toggle {
+			background: transparent;
+			border: 1px solid transparent;
+			/*color: var(--text-primary);*/
+			padding: 0.5rem 0.8rem 0.3rem 0.8rem;
+			border-radius: 0.5rem;
+			cursor: pointer;
+			font-family: inherit;
+			font-weight: 500;
+			transition: all 0.3s ease;
+		}
 
-        .theme-toggle:hover {
-            border: 1px solid var(--accent);
-            border-radius: 0.5rem;
-            /*background: color-mix(in srgb, var(--accent), transparent 25%);*/
-            /*color: var(--bg-primary);*/
-            transform: translateY(-2px);
-        }
+		.theme-toggle:hover {
+			border: 1px solid var(--accent);
+			border-radius: 0.5rem;
+			/*background: color-mix(in srgb, var(--accent), transparent 25%);*/
+			/*color: var(--bg-primary);*/
+			transform: translateY(-2px);
+		}
 
-        .hero {
-            padding: 4rem 0 0 0;
-            display: flex;
-            align-items: center;
-            min-height: 80vh;
-        }
+		.hero {
+			padding: 4rem 0 0 0;
+			display: flex;
+			align-items: center;
+			min-height: 80vh;
+		}
 
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            width: 100%;
-        }
+		.hero-content {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 4rem;
+			align-items: center;
+			width: 100%;
+		}
 
-        .hero-text h1 {
-            font-size: 4.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 0.8s ease;
-        }
+		.hero-text h1 {
+			font-size: 4.5rem;
+			font-weight: 700;
+			margin-bottom: 1rem;
+			background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			animation: fadeInUp 0.8s ease;
+		}
 
-        .hero-quote {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            font-style: italic;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
+		.hero-quote {
+			font-size: 1.2rem;
+			color: var(--text-secondary);
+			font-style: italic;
+			margin-bottom: 1.5rem;
+			animation: fadeInUp 0.8s ease 0.2s both;
+		}
 
-        .hero-description {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 500px;
-            animation: fadeInUp 0.8s ease 0.4s both;
-        }
+		.hero-description {
+			font-size: 1.1rem;
+			color: var(--text-secondary);
+			max-width: 500px;
+			animation: fadeInUp 0.8s ease 0.4s both;
+		}
 
-        .hero-logo {
-            width: 200px;
-            height: 200px;
-            /*background: linear-gradient(135deg, var(--accent), var(--accent-hover));*/
-            border-radius: 17.5438596%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            /*color: var(--bg-primary);*/
-            animation: fadeInRight 0.8s ease 0.6s both, float 3s ease-in-out infinite;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
+		.hero-logo {
+			width: 200px;
+			height: 200px;
+			/*background: linear-gradient(135deg, var(--accent), var(--accent-hover));*/
+			border-radius: 17.5438596%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 4rem;
+			/*color: var(--bg-primary);*/
+			animation: fadeInRight 0.8s ease 0.6s both, float 3s ease-in-out infinite;
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+		}
 
-        .hero-title {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
+		.hero-title {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			margin-bottom: 1rem;
+		}
 
-        .hero-title-icon {
-            width: 80px;
-            height: 80px;
-            /*animation: fadeInLeft 0.8s ease 0.2s both, float 3s ease-in-out infinite;*/
-            animation: fadeInUp 0.8s ease;
-            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
-            transition: filter 0.3s ease;
-        }
+		.hero-title-icon {
+			width: 80px;
+			height: 80px;
+			/*animation: fadeInLeft 0.8s ease 0.2s both, float 3s ease-in-out infinite;*/
+			animation: fadeInUp 0.8s ease;
+			filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+			transition: filter 0.3s ease;
+		}
 
-        .hero-title-icon:hover {
-            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
-        }
+		.hero-title-icon:hover {
+			filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
+		}
 
-        .hero-title h1 {
-            margin-bottom: 0;
-        }
+		.hero-title h1 {
+			margin-bottom: 0;
+		}
 
-        .showcase-section {
-            padding: 0 0 4rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 60vh;
-        }
+		.showcase-section {
+			padding: 0 0 4rem 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 60vh;
+		}
 
-        .showcase-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
+		.showcase-content {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+		}
 
-        .showcase-image {
-            width: 280px;
-            height: 361px;
-            border-radius: 1rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            animation: fadeInRight 0.8s ease 0.8s both;
-            border: 2px solid var(--accent);
-            justify-self: center;
-        }
+		.showcase-image {
+			width: 280px;
+			height: 361px;
+			border-radius: 1rem;
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+			transition: all 0.3s ease;
+			animation: fadeInRight 0.8s ease 0.8s both;
+			border: 2px solid var(--accent);
+			justify-self: center;
+		}
 
-        .showcase-image:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-            border-color: var(--accent-hover);
-        }
+		.showcase-image:hover {
+			transform: translateY(-10px) scale(1.02);
+			box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+			border-color: var(--accent-hover);
+		}
 
-        .download-section {
-            padding: 4rem 0;
-            background: var(--bg-secondary);
-            transition: all 0.3s ease;
-        }
+		.download-section {
+			padding: 4rem 0;
+			background: var(--bg-secondary);
+			transition: all 0.3s ease;
+		}
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 3rem;
-            color: var(--text-primary);
-        }
+		.section-title {
+			text-align: center;
+			font-size: 2.5rem;
+			font-weight: 600;
+			margin-bottom: 3rem;
+			color: var(--text-primary);
+		}
 
-        .download-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
+		.download-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 2rem;
+		}
 
-        .os-card {
-            background: var(--bg-primary);
-            padding: 2rem;
-            border-radius: 1rem;
-            border: 1px solid var(--accent);
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.8s ease;
-        }
+		.os-card {
+			background: var(--bg-primary);
+			padding: 2rem;
+			border-radius: 1rem;
+			border: 1px solid var(--accent);
+			transition: all 0.3s ease;
+			animation: fadeInUp 0.8s ease;
+		}
 
-        .os-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            border-color: var(--accent-hover);
-        }
+		.os-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+			border-color: var(--accent-hover);
+		}
 
-        .os-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+		.os-title {
+			font-size: 1.5rem;
+			font-weight: 600;
+			margin-bottom: 1rem;
+			color: var(--text-primary);
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
 
-        .os-icon {
-            font-size: 2rem;
-        }
+		.os-icon {
+			font-size: 2rem;
+		}
 
-        .download-links {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
+		.download-links {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+		}
 
-        .download-btn {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--bg-primary);
-            text-decoration: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-            text-align: center;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
+		.download-btn {
+			display: inline-block;
+			background: var(--accent);
+			color: var(--bg-primary);
+			text-decoration: none;
+			padding: 0.75rem 1.5rem;
+			border-radius: 0.5rem;
+			font-weight: 500;
+			text-align: center;
+			transition: all 0.3s ease;
+			font-family: inherit;
+		}
 
-        .download-btn:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
+		.download-btn:hover {
+			background: var(--accent-hover);
+			transform: translateY(-2px);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+		}
 
-        .download-btn.arm64 {
-            background: var(--icon-purple);
-        }
+		.download-btn.arm64 {
+			background: var(--mauve);
+		}
 
-        .download-btn.arm64:hover {
-            background: var(--lavender);
-        }
+		[data-theme="light"]
+		.download-btn.arm64 {
+			background: var(--icon-purple);
+		}
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+		.download-btn.arm64:hover {
+			background: var(--lavender);
+		}
 
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+		/* Animations */
+		@keyframes fadeInUp {
+			from {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
+		@keyframes fadeInRight {
+			from {
+				opacity: 0;
+				transform: translateX(30px);
+			}
+			to {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
 
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+		@keyframes float {
+			0%, 100% {
+				transform: translateY(0px);
+			}
+			50% {
+				transform: translateY(-10px);
+			}
+		}
 
-        * {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
+		@keyframes fadeInLeft {
+			from {
+				opacity: 0;
+				transform: translateX(-30px);
+			}
+			to {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
 
-        @media (max-width: 768px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
+		* {
+			transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+		}
 
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
+		@media (max-width: 768px) {
+			.hero-content {
+				grid-template-columns: 1fr;
+				text-align: center;
+				gap: 2rem;
+			}
 
-            .hero-title {
-                justify-content: center;
-            }
+			.hero-text h1 {
+				font-size: 2.5rem;
+			}
 
-            .hero-title-icon {
-                width: 50px;
-                height: 50px;
-            }
+			.hero-title {
+				justify-content: center;
+			}
 
-            .download-grid {
-                grid-template-columns: 1fr;
-            }
+			.hero-title-icon {
+				width: 50px;
+				height: 50px;
+			}
 
-            .showcase-image {
-                width: 250px;
-                height: 322px;
-                margin: 2rem auto 3rem auto;
-            }
-        }
+			.download-grid {
+				grid-template-columns: 1fr;
+			}
 
-        .footer {
-            padding: 2rem 0;
-            text-align: center;
-            color: var(--text-secondary);
-            border-top: 1px solid var(--accent);
-        }
-    </style>
+			.showcase-image {
+				width: 250px;
+				height: 322px;
+				margin: 2rem auto 3rem auto;
+			}
+		}
+
+		.footer {
+			padding: 2rem 0;
+			text-align: center;
+			color: var(--text-secondary);
+			border-top: 1px solid var(--accent);
+		}
+	</style>
 </head>
 <body>
 <header class="header">
-    <div class="container">
-        <nav class="nav">
-            <div class="logo-section">
-                <img alt="Pomolin Logo" class="logo"
-                     src="./static/Pomolin.svg"
-                >
-                <span class="brand-name">Pomolin</span>
-            </div>
-            <div class="nav-controls">
-                <a class="github-link" href="https://github.com/RedddFoxxyy/Pomolin"
-                   target="_blank">
-                    <img alt="dark mode" class="github-icon" id="githubIcon"
-                         src="static/github.svg"/>
-                </a>
-                <button class="theme-toggle" onclick="toggleTheme()">
-                    <img alt="dark mode" class="theme-icon" id="themeIcon" src="static/moon.svg"/>
-                </button>
+	<div class="container">
+		<nav class="nav">
+			<div class="logo-section">
+				<img alt="Pomolin Logo" class="logo"
+				     src="./static/Pomolin.svg"
+				>
+				<span class="brand-name">Pomolin</span>
+			</div>
+			<div class="nav-controls">
+				<a class="github-link" href="https://github.com/RedddFoxxyy/Pomolin"
+				   target="_blank">
+					<img alt="dark mode" class="github-icon" id="githubIcon"
+					     src="static/github.svg"/>
+				</a>
+				<button class="theme-toggle" onclick="toggleTheme()">
+					<img alt="dark mode" class="theme-icon" id="themeIcon" src="static/moon.svg"/>
+				</button>
 
-            </div>
-        </nav>
-    </div>
+			</div>
+		</nav>
+	</div>
 </header>
 
 <main>
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="hero-title">
-                        <img alt="Pomolin Logo" class="hero-title-icon" src="./static/Pomolin.svg">
-                        <h1>Pomolin</h1>
-                    </div>
-                    <p class="hero-quote">"Focus on what Matters!"</p>
-                    <p class="hero-description">
-                        A beautiful, minimalist pomodoro timer that helps you stay focused and
-                        productive.
-                        Built with simplicity in mind, Pomolin provides a distraction-free
-                        environment
-                        for your work sessions.
-                    </p>
-                </div>
-                <img alt="Pomolin App Preview" class="showcase-image" src="./static/pomolin.gif">
-            </div>
-        </div>
-    </section>
+	<section class="hero">
+		<div class="container">
+			<div class="hero-content">
+				<div class="hero-text">
+					<div class="hero-title">
+						<img alt="Pomolin Logo" class="hero-title-icon" src="./static/Pomolin.svg">
+						<h1>Pomolin</h1>
+					</div>
+					<p class="hero-quote">"Focus on what Matters!"</p>
+					<p class="hero-description">
+						A beautiful, minimalist pomodoro timer that helps you stay focused and
+						productive.
+						Built with simplicity in mind, Pomolin provides a distraction-free
+						environment
+						for your work sessions.
+					</p>
+				</div>
+				<img alt="Pomolin App Preview" class="showcase-image" src="./static/pomolin.gif">
+			</div>
+		</div>
+	</section>
 
-    <!--    <section class="showcase-section">-->
-    <!--        <div class="container">-->
-    <!--            <div class="showcase-content">-->
-    <!--                <img alt="Pomolin App Preview" class="showcase-image" src="./static/pomolin.gif">-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </section>-->
+	<!--    <section class="showcase-section">-->
+	<!--        <div class="container">-->
+	<!--            <div class="showcase-content">-->
+	<!--                <img alt="Pomolin App Preview" class="showcase-image" src="./static/pomolin.gif">-->
+	<!--            </div>-->
+	<!--        </div>-->
+	<!--    </section>-->
 
-    <section class="download-section">
-        <div class="container">
-            <h2 class="section-title">Download Pomolin</h2>
-            <div class="download-grid">
-                <div class="os-card">
-                    <h3 class="os-title">
-                        Windows
-                    </h3>
-                    <div class="download-links">
-                        <a class="download-btn"
-                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.1.0-x64.exe">
-                            Intel/AMD
-                        </a>
-                        <a class="download-btn arm64"
-                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.1.0-arm64.exe">
-                            ARM64
-                        </a>
-                    </div>
-                </div>
+	<section class="download-section">
+		<div class="container">
+			<h2 class="section-title">Download Pomolin</h2>
+			<div class="download-grid">
+				<div class="os-card">
+					<h3 class="os-title">
+						Windows
+					</h3>
+					<div class="download-links">
+						<a class="download-btn"
+						   href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.1.0-x64.exe">
+							Intel/AMD
+						</a>
+						<a class="download-btn arm64"
+						   href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.1.0-arm64.exe">
+							ARM64
+						</a>
+					</div>
+				</div>
 
-                <div class="os-card">
-                    <h3 class="os-title">
-                        macOS
-                    </h3>
-                    <div class="download-links">
-                        <a class="download-btn"
-                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.1.0-x64.dmg">
-                            Intel
-                        </a>
-                        <a class="download-btn arm64"
-                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.1.0-arm64.dmg">
-                            Apple Silicon
-                        </a>
-                    </div>
-                </div>
+				<div class="os-card">
+					<h3 class="os-title">
+						macOS
+					</h3>
+					<div class="download-links">
+						<a class="download-btn"
+						   href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.1.0-x64.dmg">
+							Intel
+						</a>
+						<a class="download-btn arm64"
+						   href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-1.1.0-arm64.dmg">
+							Apple Silicon
+						</a>
+					</div>
+				</div>
 
-                <div class="os-card">
-                    <h3 class="os-title">
-                        Linux
-                    </h3>
-                    <div class="download-links">
-                        <a class="download-btn"
-                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-x86_64.AppImage">
-                            AppImage
-                        </a>
-                        <a class="download-btn arm64"
-                           href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-aarch64.AppImage">
-                            AppImage(ARM64)
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+				<div class="os-card">
+					<h3 class="os-title">
+						Linux
+					</h3>
+					<div class="download-links">
+						<a class="download-btn"
+						   href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-x86_64.AppImage">
+							AppImage
+						</a>
+						<a class="download-btn arm64"
+						   href="https://github.com/RedddFoxxyy/Pomolin/releases/latest/download/pomolin-aarch64.AppImage">
+							AppImage(ARM64)
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </main>
 
 <footer class="footer">
-    <div class="container">
-        <p>&copy; 2025 RedddFoxxyy. Built with ❤️ for productivity enthusiasts.</p>
-    </div>
+	<div class="container">
+		<p>&copy; 2025 RedddFoxxyy. Built with ❤️ for productivity enthusiasts.</p>
+	</div>
 </footer>
 
 <script>
-    // Theme management
-    let currentTheme = localStorage.getItem('theme') || 'dark';
-    const themeToggle = document.querySelector('.theme-toggle');
+	// Theme management
+	let currentTheme = localStorage.getItem('theme') || 'dark';
+	const themeToggle = document.querySelector('.theme-toggle');
 
-    function applyTheme(theme) {
-        if (theme === 'light') {
-            document.documentElement.setAttribute('data-theme', 'light');
-            themeIcon.src = "./static/moon.svg";
-        } else {
-            document.documentElement.removeAttribute('data-theme');
-            themeIcon.src = "./static/sun.svg"
-        }
-    }
+	function applyTheme(theme) {
+		if (theme === 'light') {
+			document.documentElement.setAttribute('data-theme', 'light');
+			themeIcon.src = "./static/moon.svg";
+		} else {
+			document.documentElement.removeAttribute('data-theme');
+			themeIcon.src = "./static/sun.svg"
+		}
+	}
 
-    function toggleTheme() {
-        currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        localStorage.setItem('theme', currentTheme);
-        applyTheme(currentTheme);
+	function toggleTheme() {
+		currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+		localStorage.setItem('theme', currentTheme);
+		applyTheme(currentTheme);
 
-        document.body.style.transition = 'all 0.3s ease';
-        setTimeout(() => {
-            document.body.style.transition = '';
-        }, 300);
-    }
+		document.body.style.transition = 'all 0.3s ease';
+		setTimeout(() => {
+			document.body.style.transition = '';
+		}, 300);
+	}
 
-    // Initialize theme
-    applyTheme(currentTheme);
+	// Initialize theme
+	applyTheme(currentTheme);
 
-    window.addEventListener('scroll', () => {
-        const header = document.querySelector('.header');
-        if (window.scrollY > 100) {
-            header.style.background = 'var(--bg-secondary)';
-            header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-        } else {
-            header.style.background = 'var(--bg-secondary)';
-            header.style.boxShadow = 'none';
-        }
-    });
+	window.addEventListener('scroll', () => {
+		const header = document.querySelector('.header');
+		if (window.scrollY > 100) {
+			header.style.background = 'var(--bg-secondary)';
+			header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+		} else {
+			header.style.background = 'var(--bg-secondary)';
+			header.style.boxShadow = 'none';
+		}
+	});
 
-    window.addEventListener('scroll', () => {
-        const heroLogo = document.querySelector('.hero-logo');
-        const scrolled = window.pageYOffset;
-        heroLogo.style.transform = `translateY(${scrolled * 0.2}px)`;
-    });
+	window.addEventListener('scroll', () => {
+		const heroLogo = document.querySelector('.hero-logo');
+		const scrolled = window.pageYOffset;
+		heroLogo.style.transform = `translateY(${scrolled * 0.2}px)`;
+	});
 
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+	const observerOptions = {
+		threshold: 0.1,
+		rootMargin: '0px 0px -50px 0px'
+	};
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animationDelay = '0s';
-                entry.target.style.animationPlayState = 'running';
-            }
-        });
-    }, observerOptions);
+	const observer = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				entry.target.style.animationDelay = '0s';
+				entry.target.style.animationPlayState = 'running';
+			}
+		});
+	}, observerOptions);
 
-    document.querySelectorAll('.os-card').forEach(card => {
-        observer.observe(card);
-    });
+	document.querySelectorAll('.os-card').forEach(card => {
+		observer.observe(card);
+	});
 </script>
 </body>
 </html>
