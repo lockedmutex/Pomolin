@@ -65,6 +65,7 @@ internal class Timer(durationMinutes: Float, val audio: Audio, private val onFin
         remainingTimeMillis = initialTimeMillis
         lastUpdateTime = 0L
         formatedTime = formatTime(initialTimeMillis)
+        timerProgress = 1.0f
         completionAudioPlayed = false
         coroutineScope.cancel()
         coroutineScope = CoroutineScope(Dispatchers.Main)
