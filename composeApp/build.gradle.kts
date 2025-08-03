@@ -49,7 +49,7 @@ compose.desktop {
                 TargetFormat.Rpm
             )
             packageName = "pomolin"
-            packageVersion = "1.1.0"
+            packageVersion = "1.1.1"
             description = "A simple Pomodoro App written in Kotlin. Focus on what matters! "
             vendor = "RedddFoxxyy"
             licenseFile.set(project.file("../LICENSE"))
