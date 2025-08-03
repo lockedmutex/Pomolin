@@ -29,11 +29,11 @@ jobs:
           - os: ubuntu-latest
             arch: "x64"
             runner: "ubuntu-latest"
-            os_name: "linux-18"
+            os_name: "rocky-linux-8"
           - os: ubuntu-24.04-arm
             arch: "arm64"
             runner: "ubuntu-24.04-arm"
-            os_name: "linux-18"
+            os_name: "rocky-linux-8"
 
           - os: macos-13
             arch: "x64"
@@ -69,7 +69,7 @@ jobs:
           sudo apt-get update
 
       - name: Install Dependencies for Ubuntu-18
-        if: matrix.os_name == 'linux-18'
+        if: matrix.os_name == 'rocky-linux-8'
         run: |
           sudo apt-get install -y curl wget git gnupg ca-certificates libfuse2 curl unzip binutils file libglib2.0-0
 
@@ -82,7 +82,7 @@ jobs:
           architecture: ${{ matrix.arch }}
 
       - name: Set up JDK 24 for other architectures
-        if: ${{ matrix.os != 'windows-11-arm' && matrix.os_name != 'linux-18' }}
+        if: ${{ matrix.os != 'windows-11-arm' && matrix.os_name != 'rocky-linux-8' }}
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
@@ -106,36 +106,49 @@ jobs:
         if: matrix.os_name == 'linux'
         run: ./gradlew -PosArch=${{ matrix.arch }} ${{ matrix.gradle_task }} packageReleaseUberJarForCurrentOS
 
-      - name: Build AppImage on Ubuntu-18
-        if: matrix.os_name == 'linux-18'
+      - name: Build AppImage on Rocky Linux 8
+        if: matrix.os_name == 'rocky-linux-8'
         shell: bash
         run: |
           docker run --rm \
             -v ${{ github.workspace }}:${{ github.workspace }} \
             -w ${{ github.workspace }} \
             -e ARCH=${{ matrix.arch }} \
-            ubuntu:18.04 /bin/bash -c '
+            rockylinux:8 /bin/bash -c '
               # 0. Install dependencies inside the container
               echo "Updating container and installing dependencies..."
-              apt-get update && apt-get install -y curl wget git gnupg ca-certificates libfuse2 curl unzip binutils file libglib2.0-0
+              dnf update -y
+              dnf install -y curl wget git ca-certificates fuse-libs unzip binutils file glib2 findutils
               echo "Adding Azul Zulu repository..."
-              curl -s https://repos.azul.com/azul-repo.key | gpg --dearmor -o /usr/share/keyrings/azul.gpg
-              echo "deb [signed-by=/usr/share/keyrings/azul.gpg] https://repos.azul.com/zulu/deb stable main" > /etc/apt/sources.list.d/zulu.list
-              apt-get update
-              echo "Installing Azul Zulu JDK 24..."
-              apt-get install -y zulu24-ca-jdk
-              echo "Setting JAVA_HOME and PATH..."
-              ARCH=$(uname -m)
-              if [[ "$ARCH" == "x86_64" ]]; then
-                export JAVA_HOME=/usr/lib/jvm/zulu24-ca-amd64
-              elif [[ "$ARCH" == "aarch64" ]]; then
-                export JAVA_HOME=/usr/lib/jvm/zulu24-ca-arm64
+              rpm --import https://repos.azul.com/azul-repo.key
+              curl -s https://repos.azul.com/zulu/zulu-rhel.repo -o /etc/yum.repos.d/zulu.repo
+          
+              # Install Java 24 using manual download
+              echo "Installing Java 24..."
+              mkdir -p /usr/lib/jvm
+              cd /tmp
+              if [ "${{ matrix.arch }}" = "arm64" ]; then
+                wget https://cdn.azul.com/zulu/bin/zulu24.32.13-ca-jdk24.0.2-linux_aarch64.tar.gz
+                tar -xzf zulu24.32.13-ca-jdk24.0.2-linux_aarch64.tar.gz
+                mkdir -p /usr/lib/jvm/zulu24
+                mv zulu24.32.13-ca-jdk24.0.2-linux_aarch64/* /usr/lib/jvm/zulu24/
               else
-                echo "Unknown architecture: $ARCH"
-                exit 1
+                wget https://cdn.azul.com/zulu/bin/zulu24.32.13-ca-jdk24.0.2-linux_x64.tar.gz
+                tar -xzf zulu24.32.13-ca-jdk24.0.2-linux_x64.tar.gz
+                mkdir -p /usr/lib/jvm/zulu24
+                mv zulu24.32.13-ca-jdk24.0.2-linux_x64/* /usr/lib/jvm/zulu24/
               fi
+          
+              echo "Setting JAVA_HOME and PATH..."
+              export JAVA_HOME=/usr/lib/jvm/zulu24
               export PATH="$JAVA_HOME/bin:$PATH"
               java -version
+          
+              echo "Checking gradlew file..."
+              cd ${{ github.workspace }}
+              echo "Current directory: $(pwd)"
+              ls -la ./gradlew
+              chmod +x ./gradlew
           
               echo "Running Gradle createReleaseDistributable..."
               ./gradlew createReleaseDistributable
