@@ -1,0 +1,41 @@
+app-id: io.github.redddfoxxyy.pomolin
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+command: pomolin-launcher.sh
+finish-args:
+  - "--share=ipc"
+  - "--socket=x11"
+  - "--socket=pulseaudio"
+  - "--device=dri"
+
+modules:
+  - name: pomolin
+    buildsystem: simple
+    build-commands:
+      # --- 1. Extract application files ---
+      - "ar -x pomolin_1.1.0-1_amd64.deb"
+      - "tar -xf data.tar.xz"
+      - "mv opt/pomolin /app/pomolin"
+
+      # --- 3. Install the application files ---
+      - "install -Dm755 pomolin-launcher.sh /app/bin/pomolin-launcher.sh"
+      - "install -Dm644 /app/pomolin/lib/pomolin.png /app/share/icons/hicolor/512x512/apps/io.github.redddfoxxyy.pomolin.png"
+      - "install -Dm644 /app/pomolin/lib/pomolin-pomolin.desktop /app/share/applications/io.github.redddfoxxyy.pomolin.desktop"
+
+      # --- 4. Fix the application's config and metadata ---
+      # Remove the invalid JVM argument from the app's config file
+      - "sed -i '/--illegal-native-access=deny/d' /app/pomolin/lib/app/pomolin.cfg"
+
+      # Fix the .desktop file
+      - "sed -i 's|^Exec=.*|Exec=pomolin-launcher.sh|' /app/share/applications/io.github.redddfoxxyy.pomolin.desktop"
+      - "sed -i 's|^Icon=.*|Icon=io.github.redddfoxxyy.pomolin|' /app/share/applications/io.github.redddfoxxyy.pomolin.desktop"
+      - "sed -i 's|^Categories=.*|Categories=Utility;|' /app/share/applications/io.github.redddfoxxyy.pomolin.desktop"
+
+    sources:
+      # The application .deb file
+      - type: file
+        path: /mnt/SuyogSSD/Dev/Kotlin/Pomolin/composeApp/build/compose/binaries/main-release/deb/pomolin_1.1.0-1_amd64.deb
+      # The wrapper script
+      - type: file
+        path: pomolin-launcher.sh
