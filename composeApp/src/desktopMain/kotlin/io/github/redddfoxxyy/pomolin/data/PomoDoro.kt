@@ -16,6 +16,8 @@ internal class PomoDoroSettings {
     var shortBreakDuration by mutableFloatStateOf(5f)
     var longBreakDuration by mutableFloatStateOf(20f)
     var workSessionDuration by mutableStateOf(4)
+
+    // TODO: Move this to appSettings class
     var enableProgressIndicator by mutableStateOf(true)
 }
 

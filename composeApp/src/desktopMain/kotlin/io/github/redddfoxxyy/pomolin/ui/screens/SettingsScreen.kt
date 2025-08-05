@@ -1,35 +1,13 @@
 package io.github.redddfoxxyy.pomolin.ui.screens
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.ScrollbarStyle
-import androidx.compose.foundation.VerticalScrollbar
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.rememberScrollbarAdapter
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,61 +21,153 @@ import pomolin.composeapp.generated.resources.back
 @Preview
 internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Unit) {
     val scrollState = rememberScrollState()
+    var showDialog by remember { mutableStateOf(false) }
+
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text("Restart Required") },
+            text = { Text("Please restart the application for the changes to take effect.") },
+            confirmButton = {
+                Button(
+                    onClick = { showDialog = false },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = ThemeManager.colors.mauve,
+                        contentColor = ThemeManager.colors.crust
+                    )
+                ) {
+                    Text("OK")
+                }
+            },
+            containerColor = ThemeManager.colors.surface,
+            titleContentColor = ThemeManager.colors.lavender,
+            textContentColor = ThemeManager.colors.text
+        )
+    }
+
     Box(modifier = Modifier.fillMaxSize().background(ThemeManager.colors.base)) {
-        Box(Modifier.padding(top = 10.dp, bottom = 55.dp)) {
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .verticalScroll(scrollState)
-                    .padding(end = 4.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(Modifier.height(5.dp))
-                TimerOption(
-                    option = "Focus Time",
-                    timerValue = pomoDoroManager.appSettings.workingDuration,
-                    onValueChange = { pomoDoroManager.changeWorkingDuration(it) }
-                )
-                Spacer(Modifier.height(5.dp))
-                TimerOption(
-                    option = "Short Break Time",
-                    timerValue = pomoDoroManager.appSettings.shortBreakDuration,
-                    onValueChange = { pomoDoroManager.changeShortBreakDuration(it) }
-                )
-                Spacer(Modifier.height(5.dp))
-                TimerOption(
-                    option = "Long Break Time",
-                    timerValue = pomoDoroManager.appSettings.longBreakDuration,
-                    onValueChange = { pomoDoroManager.changeLongBreakDuration(it) }
-                )
-                Spacer(Modifier.height(5.dp))
-                workSessionOption(
-                    option = "Pomodoro Sessions",
-                    workSessionValue = pomoDoroManager.appSettings.workSessionDuration.toFloat(),
-                    onValueChange = { pomoDoroManager.changeWorkSessionDuration(it) }
-                )
-                Spacer(Modifier.height(5.dp))
-                toggleOption(
-                    option = "Enable Progress Indicator",
-                    optionValue = pomoDoroManager.appSettings.enableProgressIndicator,
-                    onCheckedChange = { pomoDoroManager.appSettings.enableProgressIndicator = it }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 55.dp)
+        ) {
+            Text(
+                text = "Settings",
+                color = ThemeManager.colors.lavender,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(start = 22.dp, top = 20.dp, bottom = 10.dp)
+            )
+
+            // Scrollable content
+            Box(modifier = Modifier.weight(1f)) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(scrollState)
+                        .padding(horizontal = 18.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    // Timer Settings
+                    SettingItemCard(title = "Timer Durations") {
+                        TimerOption(
+                            label = "Focus",
+                            value = pomoDoroManager.appSettings.workingDuration,
+                            onValueChange = { pomoDoroManager.changeWorkingDuration(it) },
+                            valueSuffix = "min",
+                            valueRange = 1f..120f,
+                            // icon = painterResource(Res.drawable.ic_brain)
+                        )
+                        HorizontalDivider(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            thickness = 1.dp,
+                            color = ThemeManager.colors.surface200.copy(alpha = 0.5f)
+                        )
+                        TimerOption(
+                            label = "Short Break",
+                            value = pomoDoroManager.appSettings.shortBreakDuration,
+                            onValueChange = { pomoDoroManager.changeShortBreakDuration(it) },
+                            valueSuffix = "min",
+                            valueRange = 1f..30f,
+                            // icon = painterResource(Res.drawable.ic_coffee)
+                        )
+                        HorizontalDivider(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            thickness = 1.dp,
+                            color = ThemeManager.colors.surface200.copy(alpha = 0.5f)
+                        )
+                        TimerOption(
+                            label = "Long Break",
+                            value = pomoDoroManager.appSettings.longBreakDuration,
+                            onValueChange = { pomoDoroManager.changeLongBreakDuration(it) },
+                            valueSuffix = "min",
+                            valueRange = 1f..60f,
+                            // icon = painterResource(Res.drawable.ic_long_coffee)
+                        )
+                    }
+
+                    // Session Settings
+                    SettingItemCard(title = "Session Goal") {
+                        TimerOption(
+                            label = "Sessions",
+                            value = pomoDoroManager.appSettings.workSessionDuration.toFloat(),
+                            onValueChange = { pomoDoroManager.changeWorkSessionDuration(it) },
+                            valueSuffix = "sessions",
+                            valueRange = 1f..10f,
+                            // icon = painterResource(Res.drawable.ic_target)
+                        )
+                    }
+
+                    // Appearance Settings
+                    SettingItemCard(title = "Appearance") {
+                        ToggleOption(
+                            label = "Progress Indicator",
+                            isChecked = pomoDoroManager.appSettings.enableProgressIndicator,
+                            onCheckedChange = {
+                                pomoDoroManager.appSettings.enableProgressIndicator = it
+                            },
+                            // icon = painterResource(Res.drawable.ic_progress) // Example icon
+                        )
+
+                        ToggleOption(
+                            label = "Enable Window Decorations",
+                            isChecked = ThemeManager.enableWindowDecorations,
+                            onCheckedChange = {
+                                // ThemeManager.enableWindowDecorations = it
+                                ThemeManager.toggleWindowDecorations()
+                                showDialog = true
+                            },
+                            // icon = painterResource(Res.drawable.ic_progress) // Example icon
+                        )
+
+                        ToggleOption(
+                            label = "Enable Window Borders",
+                            isChecked = ThemeManager.enableWindowBorders,
+                            onCheckedChange = {
+                                ThemeManager.enableWindowBorders = it
+                                ThemeManager.saveSettings()
+                            },
+                            enabled = !ThemeManager.enableWindowDecorations,
+                            // icon = painterResource(Res.drawable.ic_progress) // Example icon
+                        )
+                    }
+                    Spacer(Modifier.height(16.dp))
+                }
+
+                VerticalScrollbar(
+                    adapter = rememberScrollbarAdapter(scrollState),
+                    modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight()
+                        .padding(end = 6.dp),
+                    style = ScrollbarStyle(
+                        thickness = 6.dp,
+                        shape = RoundedCornerShape(3.dp),
+                        unhoverColor = ThemeManager.colors.mauve.copy(alpha = 0.3f),
+                        hoverColor = ThemeManager.colors.mauve,
+                        hoverDurationMillis = 300,
+                        minimalHeight = 100.dp,
+                    )
                 )
             }
-            VerticalScrollbar(
-                adapter = rememberScrollbarAdapter(scrollState),
-                modifier = Modifier
-                    .align(Alignment.CenterEnd)
-                    .fillMaxHeight()
-                    .padding(horizontal = 8.dp),
-                style = ScrollbarStyle(
-                    thickness = 6.dp,
-                    minimalHeight = 5.dp,
-                    shape = RoundedCornerShape(3.dp),
-                    hoverDurationMillis = 200,
-                    unhoverColor = ThemeManager.colors.mauve.copy(alpha = 0.3f),
-                    hoverColor = ThemeManager.colors.mauve
-                )
-            )
         }
 
         IconButton(
@@ -106,7 +176,7 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
         ) {
             Icon(
                 painter = painterResource(Res.drawable.back),
-                contentDescription = "Settings",
+                contentDescription = "Back to Timer",
                 tint = ThemeManager.colors.mauve,
             )
         }
@@ -114,108 +184,115 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
 }
 
 @Composable
-@Preview
-fun TimerOption(option: String, timerValue: Float, onValueChange: (Float) -> Unit) {
-
-    Column(
-        modifier = Modifier.height(IntrinsicSize.Min).padding(horizontal = 25.dp, vertical = 5.dp)
+fun SettingItemCard(
+    title: String,
+    content: @Composable ColumnScope.() -> Unit
+) {
+    Surface(
+        color = ThemeManager.colors.surface,
+        shape = RoundedCornerShape(16.dp),
+        modifier = Modifier.fillMaxWidth()
     ) {
-        Text(
-            text = option,
-            color = ThemeManager.colors.lavender,
-            fontWeight = FontWeight.Bold,
-            fontSize = 16.sp,
-        )
+        Column {
+            Text(
+                text = title,
+                color = ThemeManager.colors.lavender,
+                fontWeight = FontWeight.Bold,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = 16.dp, top = 12.dp, bottom = 4.dp)
+            )
+            content()
+        }
+    }
+}
 
-        Spacer(Modifier.height(5.dp))
 
+@Composable
+fun TimerOption(
+    label: String,
+    value: Float,
+    onValueChange: (Float) -> Unit,
+    valueSuffix: String,
+    valueRange: ClosedFloatingPointRange<Float>,
+    // icon: Painter,
+) {
+    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            // Icon(painter = icon, contentDescription = label, tint = ThemeManager.colors.mauve, modifier = Modifier.size(20.dp))
+            // Spacer(Modifier.width(12.dp))
+            Text(
+                text = label,
+                color = ThemeManager.colors.text,
+                fontWeight = FontWeight.Medium,
+                fontSize = 16.sp
+            )
+            Spacer(Modifier.weight(1f))
+            Text(
+                text = "${value.toInt()} $valueSuffix",
+                color = ThemeManager.colors.lavender,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 15.sp,
+            )
+        }
+        Spacer(Modifier.height(4.dp))
         Slider(
-            value = timerValue,
-            onValueChange,
-            valueRange = 1f..120f,
+            value = value,
+            onValueChange = onValueChange,
+            valueRange = valueRange,
             colors = SliderDefaults.colors(
                 thumbColor = ThemeManager.colors.mauve,
                 activeTrackColor = ThemeManager.colors.mauve,
                 inactiveTrackColor = ThemeManager.colors.mauve.copy(alpha = 0.3f),
             )
         )
-
-        Spacer(Modifier.height(3.dp))
-
-        Text(
-            text = (timerValue.toInt()).toString() + " Minutes",
-            color = ThemeManager.colors.lavender,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 14.sp,
-        )
     }
 }
 
 @Composable
-@Preview
-fun workSessionOption(option: String, workSessionValue: Float, onValueChange: (Float) -> Unit) {
-
-    Column(
-        modifier = Modifier.height(IntrinsicSize.Min).padding(horizontal = 25.dp, vertical = 5.dp)
-    ) {
-        Text(
-            text = option,
-            color = ThemeManager.colors.lavender,
-            fontWeight = FontWeight.Bold,
-            fontSize = 16.sp,
-        )
-
-        Spacer(Modifier.height(5.dp))
-
-        Slider(
-            value = workSessionValue,
-            onValueChange,
-            valueRange = 1f..10f,
-            colors = SliderDefaults.colors(
-                thumbColor = ThemeManager.colors.mauve,
-                activeTrackColor = ThemeManager.colors.mauve,
-                inactiveTrackColor = ThemeManager.colors.mauve.copy(alpha = 0.3f),
-            )
-        )
-
-        Spacer(Modifier.height(3.dp))
-
-        Text(
-            text = (workSessionValue.toInt()).toString() + " Sessions",
-            color = ThemeManager.colors.lavender,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 14.sp,
-        )
-    }
-}
-
-@Composable
-@Preview
-fun toggleOption(option: String, optionValue: Boolean, onCheckedChange: (Boolean) -> Unit) {
-
+fun ToggleOption(
+    label: String,
+    isChecked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    enabled: Boolean = true,
+    // icon: Painter,
+) {
     Row(
-        modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)
-            .padding(horizontal = 25.dp, vertical = 5.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(
-            text = "$option:",
-            color = ThemeManager.colors.lavender,
-            fontWeight = FontWeight.Medium,
-            fontSize = 15.sp,
-            modifier = Modifier.align(Alignment.CenterVertically),
-        )
-
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            // Icon(painter = icon, contentDescription = label, tint = ThemeManager.colors.mauve, modifier = Modifier.size(20.dp))
+            // Spacer(Modifier.width(12.dp))
+            Text(
+                text = label,
+                color = if (enabled) {
+                    ThemeManager.colors.text
+                } else {
+                    ThemeManager.colors.text.copy(alpha = 0.7f)
+                },
+                fontWeight = FontWeight.Medium,
+                fontSize = 16.sp,
+            )
+        }
         Switch(
-            checked = optionValue,
-            onCheckedChange,
+            checked = isChecked,
+            onCheckedChange = onCheckedChange,
+            enabled = enabled,
             colors = SwitchDefaults.colors(
                 checkedTrackColor = ThemeManager.colors.mauve,
-                checkedThumbColor = ThemeManager.colors.base.copy(alpha = 0.9f),
+                checkedThumbColor = ThemeManager.colors.base,
                 uncheckedTrackColor = ThemeManager.colors.surface200,
-                uncheckedThumbColor = Color.White,
-                uncheckedBorderColor = ThemeManager.colors.surface200,
-                checkedBorderColor = ThemeManager.colors.mauve,
+                uncheckedThumbColor = ThemeManager.colors.crust,
+                uncheckedBorderColor = ThemeManager.colors.surface200.copy(alpha = 0.0f),
+                disabledUncheckedTrackColor = ThemeManager.colors.surface200.copy(alpha = 0.7f),
+                disabledUncheckedThumbColor = ThemeManager.colors.crust.copy(alpha = 0.7f),
+                disabledUncheckedBorderColor = ThemeManager.colors.surface200.copy(alpha = 0.2f),
             )
         )
     }

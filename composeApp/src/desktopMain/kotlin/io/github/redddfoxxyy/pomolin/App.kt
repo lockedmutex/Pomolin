@@ -9,19 +9,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import io.github.redddfoxxyy.pomolin.data.PomoDoro
 import io.github.redddfoxxyy.pomolin.ui.screens.SettingsScreen
 import io.github.redddfoxxyy.pomolin.ui.screens.TimerScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 enum class Screen {
-    Timer, Settings
+    Timer,
+    Settings,
 }
 
 @Composable
@@ -31,7 +29,10 @@ fun App() {
     val pomoDoroManager = remember { PomoDoro() }
 
     MaterialTheme {
-        Scaffold(modifier = Modifier.safeContentPadding().fillMaxSize()) {
+        Scaffold(
+            modifier = Modifier.safeContentPadding().fillMaxSize(),
+            containerColor = Color.Transparent
+        ) {
             AnimatedContent(
                 targetState = currentScreen,
                 transitionSpec = {
@@ -55,7 +56,7 @@ fun App() {
                                 )
                     }
                 },
-                label = "Screen Transition"
+                label = "Screen Transition",
             ) { screen ->
                 when (screen) {
                     Screen.Timer -> TimerScreen(
