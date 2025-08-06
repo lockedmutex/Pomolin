@@ -318,7 +318,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: Pomolin v${{ steps.get_version.outputs.version }} Beta
-          draft: true
+          draft: false
+          prerelease: false
+          latest: true
           tag_name: v${{ steps.get_version.outputs.version }}
           body: |
             ### Description:
