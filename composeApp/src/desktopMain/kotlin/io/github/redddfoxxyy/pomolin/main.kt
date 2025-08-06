@@ -31,63 +31,63 @@ import java.awt.Dimension
 import javax.swing.SwingUtilities
 
 fun main() = application {
-    val icon = painterResource(Res.drawable.Pomolin)
-    val minWindowDimensions = Pair(390, 540)
-    val windowState = rememberWindowState(
-        width = minWindowDimensions.first.dp,
-        height = minWindowDimensions.second.dp
-    )
-    val jetbrainsMono = FontFamily(Font(Res.font.JetBrainsMonoNerdFont_ExtraBold))
+	val icon = painterResource(Res.drawable.Pomolin)
+	val minWindowDimensions = Pair(390, 540)
+	val windowState = rememberWindowState(
+		width = minWindowDimensions.first.dp,
+		height = minWindowDimensions.second.dp
+	)
+	val jetbrainsMono = FontFamily(Font(Res.font.JetBrainsMonoNerdFont_ExtraBold))
 
-    Window(
-        onCloseRequest = ::exitApplication,
-        title = "Pomolin",
+	Window(
+		onCloseRequest = ::exitApplication,
+		title = "Pomolin",
 //		resizable = false,
-        undecorated = !AppSettings.enableWindowDecorations,
-        transparent = !AppSettings.enableWindowDecorations,
-        state = windowState,
-        icon = icon,
-    ) {
-        SwingUtilities.getWindowAncestor(this.window.rootPane)?.apply {
-            minimumSize = Dimension(minWindowDimensions.first, minWindowDimensions.second)
-        }
+		undecorated = !AppSettings.enableWindowDecorations,
+		transparent = !AppSettings.enableWindowDecorations,
+		state = windowState,
+		icon = icon,
+	) {
+		SwingUtilities.getWindowAncestor(this.window.rootPane)?.apply {
+			minimumSize = Dimension(minWindowDimensions.first, minWindowDimensions.second)
+		}
 
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            color = ThemeManager.colors.base,
-            shape = if (!AppSettings.enableWindowDecorations) {
-                RoundedCornerShape(15.dp)
-            } else {
-                RoundedCornerShape(0.dp)
-            },
-            border = if (AppSettings.enableWindowBorders) {
-                BorderStroke(2.dp, ThemeManager.colors.mauve.copy(alpha = 0.8f))
-            } else null,
-        ) {
-            Column {
-                if (!AppSettings.enableWindowDecorations) {
-                    WindowDraggableArea {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(38.dp)
-                                .background(Color.Transparent)
-                                .padding(top = 8.dp)
-                        ) {
-                            Text(
-                                text = "Pomolin",
-                                modifier = Modifier.align(Alignment.Center),
-                                fontFamily = jetbrainsMono,
-                                fontSize = 18.sp,
-                                color = ThemeManager.colors.mauve
-                            )
-                        }
-                    }
-                }
-                App()
-            }
-        }
-    }
+		Surface(
+			modifier = Modifier.fillMaxWidth(),
+			color = ThemeManager.colors.base,
+			shape = if (!AppSettings.enableWindowDecorations) {
+				RoundedCornerShape(15.dp)
+			} else {
+				RoundedCornerShape(0.dp)
+			},
+			border = if (AppSettings.enableWindowBorders) {
+				BorderStroke(2.dp, ThemeManager.colors.mauve.copy(alpha = 0.8f))
+			} else null,
+		) {
+			Column {
+				if (!AppSettings.enableWindowDecorations) {
+					WindowDraggableArea {
+						Box(
+							modifier = Modifier
+								.fillMaxWidth()
+								.height(38.dp)
+								.background(Color.Transparent)
+								.padding(top = 8.dp)
+						) {
+							Text(
+								text = "Pomolin",
+								modifier = Modifier.align(Alignment.Center),
+								fontFamily = jetbrainsMono,
+								fontSize = 18.sp,
+								color = ThemeManager.colors.mauve
+							)
+						}
+					}
+				}
+				App()
+			}
+		}
+	}
 }
 
 

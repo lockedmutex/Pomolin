@@ -30,8 +30,8 @@ intervals.
 * **Animated Timer:** The timer digits animate smoothly, offering a dynamic and visually
   pleasing experience.
 * **Interactive Controls:**
-    * The Play/Pause button animates to clearly indicate the timer's state.
-    * A satisfying rotation animation plays on the reset button when clicked.
+	* The Play/Pause button animates to clearly indicate the timer's state.
+	* A satisfying rotation animation plays on the reset button when clicked.
 * **Routine Management:** Switch between **Pomodoro (25 min)**, **Short Break (5
   min)**, and **Long Break (20 min)** routines.
 * **Audio Notifications:** The app plays a sound when the timer completes.
@@ -97,18 +97,18 @@ To build Pomolin from the source code, you'll need to have **JDK** and **Git** i
 
 2. **Build the application using Gradle:**
 
-    * On **Linux**:
-        ```bash
-        ./gradlew packageReleaseDeb
-        ```
-    * On **macOS**:
-        ```bash
-        ./gradlew packageReleaseDmg
-        ```
-    * On **Windows**:
-        ```bash
-        .\gradlew.bat packageReleaseMsi
-        ```
+	* On **Linux**:
+	    ```bash
+		./gradlew packageReleaseDeb
+		```
+	* On **macOS**:
+	    ```bash
+		./gradlew packageReleaseDmg
+		```
+	* On **Windows**:
+	    ```bash
+		.\gradlew.bat packageReleaseMsi
+		```
 
 3. The compiled application will be available in the `composeApp/build/compose/binaries/` directory.
 

@@ -42,85 +42,85 @@ import pomolin.composeapp.generated.resources.Res
 @Composable
 @Preview
 internal fun TimerDisplay(
-    modifier: Modifier = Modifier,
-    time: String,
-    pomoDoroManager: PomoDoro
+	modifier: Modifier = Modifier,
+	time: String,
+	pomoDoroManager: PomoDoro
 ) {
-    val timerFontFamily = FontFamily(Font(Res.font.JetBrainsMonoNerdFont_ExtraBold))
-    val animatedProgress by animateFloatAsState(
-        targetValue = pomoDoroManager.timerInstance.getTimerProgress(),
-        animationSpec = tween(
-            durationMillis = 1000,
-            easing = LinearEasing
-        ),
-        label = "ProgressAnimation"
-    )
+	val timerFontFamily = FontFamily(Font(Res.font.JetBrainsMonoNerdFont_ExtraBold))
+	val animatedProgress by animateFloatAsState(
+		targetValue = pomoDoroManager.timerInstance.getTimerProgress(),
+		animationSpec = tween(
+			durationMillis = 1000,
+			easing = LinearEasing
+		),
+		label = "ProgressAnimation"
+	)
 
-    var size by remember { mutableStateOf(IntSize.Zero) }
-    val density = LocalDensity.current
+	var size by remember { mutableStateOf(IntSize.Zero) }
+	val density = LocalDensity.current
 
-    Box(
-        modifier = modifier.onSizeChanged { size = it },
-        contentAlignment = Alignment.Center
-    ) {
-        val squareSize = with(density) { min(size.width.toDp(), size.height.toDp()) }
-        val progressIndicatorColor by animateColorAsState(
-            targetValue = when (pomoDoroManager.currentRoutine) {
-                PomoDoroRoutines.Working -> ThemeManager.colors.mauve
-                PomoDoroRoutines.ShortBreak -> ThemeManager.colors.yellow
-                PomoDoroRoutines.LongBreak -> ThemeManager.colors.peach
-            },
-            animationSpec = tween(durationMillis = 400),
-            label = "ProgressColorAnimation"
-        )
+	Box(
+		modifier = modifier.onSizeChanged { size = it },
+		contentAlignment = Alignment.Center
+	) {
+		val squareSize = with(density) { min(size.width.toDp(), size.height.toDp()) }
+		val progressIndicatorColor by animateColorAsState(
+			targetValue = when (pomoDoroManager.currentRoutine) {
+				PomoDoroRoutines.Working -> ThemeManager.colors.mauve
+				PomoDoroRoutines.ShortBreak -> ThemeManager.colors.yellow
+				PomoDoroRoutines.LongBreak -> ThemeManager.colors.peach
+			},
+			animationSpec = tween(durationMillis = 400),
+			label = "ProgressColorAnimation"
+		)
 
-        if (squareSize > 0.dp) {
-            Box(
-                modifier = Modifier.size(squareSize),
-                contentAlignment = Alignment.Center
-            ) {
-                if (AppSettings.enableProgressIndicator) {
-                    val strokeWidth = squareSize / 25f
+		if (squareSize > 0.dp) {
+			Box(
+				modifier = Modifier.size(squareSize),
+				contentAlignment = Alignment.Center
+			) {
+				if (AppSettings.enableProgressIndicator) {
+					val strokeWidth = squareSize / 25f
 
-                    CircularProgressIndicator(
-                        modifier = Modifier.fillMaxSize(),
-                        color = progressIndicatorColor,
-                        trackColor = progressIndicatorColor.copy(alpha = 0.3f),
-                        strokeWidth = strokeWidth,
-                        progress = { animatedProgress }
-                    )
-                }
+					CircularProgressIndicator(
+						modifier = Modifier.fillMaxSize(),
+						color = progressIndicatorColor,
+						trackColor = progressIndicatorColor.copy(alpha = 0.3f),
+						strokeWidth = strokeWidth,
+						progress = { animatedProgress }
+					)
+				}
 
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
+				Row(
+					horizontalArrangement = Arrangement.Center,
+					verticalAlignment = Alignment.CenterVertically,
+				) {
 //                    val fontSize = if (pomoDoroManager.appSettings.enableProgressIndicator) {
 //                        (squareSize.value / 3.5f).sp
 //                    } else {
 //                        (squareSize.value / 2.5f).sp
 //                    }
-                    val fontSize = (squareSize.value / 3.5f).sp
+					val fontSize = (squareSize.value / 3.5f).sp
 
-                    time.forEach { char ->
-                        AnimatedContent(
-                            targetState = char,
-                            transitionSpec = {
-                                slideInVertically { height -> height } togetherWith
-                                        slideOutVertically { height -> -height }
-                            }
-                        ) { targetChar ->
-                            Text(
-                                text = targetChar.toString(),
-                                fontWeight = if (AppSettings.enableProgressIndicator) FontWeight.Normal else FontWeight.ExtraBold,
-                                fontSize = fontSize,
-                                color = ThemeManager.colors.lavender,
-                                fontFamily = timerFontFamily
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
+					time.forEach { char ->
+						AnimatedContent(
+							targetState = char,
+							transitionSpec = {
+								slideInVertically { height -> height } togetherWith
+										slideOutVertically { height -> -height }
+							}
+						) { targetChar ->
+							Text(
+								text = targetChar.toString(),
+								fontWeight = if (AppSettings.enableProgressIndicator) FontWeight.Normal else FontWeight.ExtraBold,
+								fontSize = fontSize,
+								color = ThemeManager.colors.lavender,
+								fontFamily = timerFontFamily
+							)
+						}
+					}
+				}
+			}
+		}
+	}
 }

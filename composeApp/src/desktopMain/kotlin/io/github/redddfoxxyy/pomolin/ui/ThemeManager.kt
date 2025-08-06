@@ -6,50 +6,50 @@ import io.github.redddfoxxyy.pomolin.ui.themes.CatppuccinMocha
 
 // TODO: Make this an extension of M3's theme manager.
 internal object ThemeManager {
-    val currentTheme = mutableStateOf(CatppuccinMocha())
-    val colors = currentTheme.value.colors
-    val mode = mutableStateOf(ThemeType.Dark)
+	val currentTheme = mutableStateOf(CatppuccinMocha())
+	val colors = currentTheme.value.colors
+	val mode = mutableStateOf(ThemeType.Dark)
 
-    internal fun toggleTheme() {
-        mode.value = when (mode.value) {
-            ThemeType.Dark -> ThemeType.Light
-            ThemeType.Light -> ThemeType.Dark
-        }
-    }
+	internal fun toggleTheme() {
+		mode.value = when (mode.value) {
+			ThemeType.Dark -> ThemeType.Light
+			ThemeType.Light -> ThemeType.Dark
+		}
+	}
 }
 
 enum class ThemeType {
-    Dark,
-    Light
+	Dark,
+	Light
 }
 
 interface Theme {
-    val themeType: ThemeType
-    val author: String
-    val name: String
-    val colors: ThemeColors
+	val themeType: ThemeType
+	val author: String
+	val name: String
+	val colors: ThemeColors
 }
 
 interface ThemeColors {
 
-    val crust: Color
-    val mantle: Color
-    val base: Color
-    val surface: Color
-    val surface100: Color
-    val surface200: Color
-    val text: Color
-    val text100: Color
-    val text200: Color
-    val green: Color
-    val red: Color
-    val blue: Color
-    val maroon: Color
-    val sapphire: Color
-    val mauve: Color
-    val yellow: Color
-    val peach: Color
-    val lavender: Color
+	val crust: Color
+	val mantle: Color
+	val base: Color
+	val surface: Color
+	val surface100: Color
+	val surface200: Color
+	val text: Color
+	val text100: Color
+	val text200: Color
+	val green: Color
+	val red: Color
+	val blue: Color
+	val maroon: Color
+	val sapphire: Color
+	val mauve: Color
+	val yellow: Color
+	val peach: Color
+	val lavender: Color
 }
 
 
