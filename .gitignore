@@ -16,3 +16,7 @@ captures
 !*.xcodeproj/project.xcworkspace/
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
+packaging/.flatpak-builder
+packaging/build-dir
+packaging/repo
+packaging/pomolin.flatpak
