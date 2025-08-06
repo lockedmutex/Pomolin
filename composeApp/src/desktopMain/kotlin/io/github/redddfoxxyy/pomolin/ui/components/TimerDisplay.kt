@@ -1,6 +1,7 @@
 package io.github.redddfoxxyy.pomolin.ui.components
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -8,10 +9,18 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
@@ -22,7 +31,9 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
+import io.github.redddfoxxyy.pomolin.data.AppSettings
 import io.github.redddfoxxyy.pomolin.data.PomoDoro
+import io.github.redddfoxxyy.pomolin.data.PomoDoroRoutines
 import io.github.redddfoxxyy.pomolin.ui.ThemeManager
 import org.jetbrains.compose.resources.Font
 import pomolin.composeapp.generated.resources.JetBrainsMonoNerdFont_ExtraBold
@@ -53,19 +64,28 @@ internal fun TimerDisplay(
         contentAlignment = Alignment.Center
     ) {
         val squareSize = with(density) { min(size.width.toDp(), size.height.toDp()) }
+        val progressIndicatorColor by animateColorAsState(
+            targetValue = when (pomoDoroManager.currentRoutine) {
+                PomoDoroRoutines.Working -> ThemeManager.colors.mauve
+                PomoDoroRoutines.ShortBreak -> ThemeManager.colors.yellow
+                PomoDoroRoutines.LongBreak -> ThemeManager.colors.peach
+            },
+            animationSpec = tween(durationMillis = 400),
+            label = "ProgressColorAnimation"
+        )
 
         if (squareSize > 0.dp) {
             Box(
                 modifier = Modifier.size(squareSize),
                 contentAlignment = Alignment.Center
             ) {
-                if (pomoDoroManager.appSettings.enableProgressIndicator) {
+                if (AppSettings.enableProgressIndicator) {
                     val strokeWidth = squareSize / 25f
 
                     CircularProgressIndicator(
                         modifier = Modifier.fillMaxSize(),
-                        color = ThemeManager.colors.mauve,
-                        trackColor = ThemeManager.colors.mauve.copy(alpha = 0.3f),
+                        color = progressIndicatorColor,
+                        trackColor = progressIndicatorColor.copy(alpha = 0.3f),
                         strokeWidth = strokeWidth,
                         progress = { animatedProgress }
                     )
@@ -92,7 +112,7 @@ internal fun TimerDisplay(
                         ) { targetChar ->
                             Text(
                                 text = targetChar.toString(),
-                                fontWeight = if (pomoDoroManager.appSettings.enableProgressIndicator) FontWeight.Normal else FontWeight.ExtraBold,
+                                fontWeight = if (AppSettings.enableProgressIndicator) FontWeight.Normal else FontWeight.ExtraBold,
                                 fontSize = fontSize,
                                 color = ThemeManager.colors.lavender,
                                 fontFamily = timerFontFamily

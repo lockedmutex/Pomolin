@@ -1,16 +1,48 @@
 package io.github.redddfoxxyy.pomolin.ui.screens
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.ScrollbarStyle
+import androidx.compose.foundation.VerticalScrollbar
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.redddfoxxyy.pomolin.data.AppSettings
 import io.github.redddfoxxyy.pomolin.data.PomoDoro
 import io.github.redddfoxxyy.pomolin.ui.ThemeManager
 import org.jetbrains.compose.resources.painterResource
@@ -56,7 +88,7 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
                 color = ThemeManager.colors.lavender,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(start = 22.dp, top = 20.dp, bottom = 10.dp)
+                modifier = Modifier.padding(start = 18.dp, top = 15.dp, bottom = 10.dp)
             )
 
             // Scrollable content
@@ -65,7 +97,7 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(scrollState)
-                        .padding(horizontal = 18.dp),
+                        .padding(start = 14.dp, end = 20.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     // Timer Settings
@@ -76,6 +108,7 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
                             onValueChange = { pomoDoroManager.changeWorkingDuration(it) },
                             valueSuffix = "min",
                             valueRange = 1f..120f,
+                            color = ThemeManager.colors.mauve,
                             // icon = painterResource(Res.drawable.ic_brain)
                         )
                         HorizontalDivider(
@@ -89,6 +122,7 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
                             onValueChange = { pomoDoroManager.changeShortBreakDuration(it) },
                             valueSuffix = "min",
                             valueRange = 1f..30f,
+                            color = ThemeManager.colors.yellow,
                             // icon = painterResource(Res.drawable.ic_coffee)
                         )
                         HorizontalDivider(
@@ -102,6 +136,7 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
                             onValueChange = { pomoDoroManager.changeLongBreakDuration(it) },
                             valueSuffix = "min",
                             valueRange = 1f..60f,
+                            color = ThemeManager.colors.peach,
                             // icon = painterResource(Res.drawable.ic_long_coffee)
                         )
                     }
@@ -114,6 +149,7 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
                             onValueChange = { pomoDoroManager.changeWorkSessionDuration(it) },
                             valueSuffix = "sessions",
                             valueRange = 1f..10f,
+                            color = ThemeManager.colors.blue,
                             // icon = painterResource(Res.drawable.ic_target)
                         )
                     }
@@ -122,19 +158,19 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
                     SettingItemCard(title = "Appearance") {
                         ToggleOption(
                             label = "Progress Indicator",
-                            isChecked = pomoDoroManager.appSettings.enableProgressIndicator,
+                            isChecked = AppSettings.enableProgressIndicator,
                             onCheckedChange = {
-                                pomoDoroManager.appSettings.enableProgressIndicator = it
+                                AppSettings.enableProgressIndicator = it
                             },
                             // icon = painterResource(Res.drawable.ic_progress) // Example icon
                         )
 
                         ToggleOption(
                             label = "Enable Window Decorations",
-                            isChecked = ThemeManager.enableWindowDecorations,
+                            isChecked = AppSettings.enableWindowDecorations,
                             onCheckedChange = {
                                 // ThemeManager.enableWindowDecorations = it
-                                ThemeManager.toggleWindowDecorations()
+                                AppSettings.toggleWindowDecorations()
                                 showDialog = true
                             },
                             // icon = painterResource(Res.drawable.ic_progress) // Example icon
@@ -142,12 +178,12 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
 
                         ToggleOption(
                             label = "Enable Window Borders",
-                            isChecked = ThemeManager.enableWindowBorders,
+                            isChecked = AppSettings.enableWindowBorders,
                             onCheckedChange = {
-                                ThemeManager.enableWindowBorders = it
-                                ThemeManager.saveSettings()
+                                AppSettings.enableWindowBorders = it
+                                AppSettings.saveSettings()
                             },
-                            enabled = !ThemeManager.enableWindowDecorations,
+                            enabled = !AppSettings.enableWindowDecorations,
                             // icon = painterResource(Res.drawable.ic_progress) // Example icon
                         )
                     }
@@ -157,7 +193,13 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
                 VerticalScrollbar(
                     adapter = rememberScrollbarAdapter(scrollState),
                     modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight()
-                        .padding(end = 6.dp),
+                        .padding(
+                            end = if (AppSettings.enableWindowDecorations) {
+                                7.dp
+                            } else {
+                                8.dp
+                            }
+                        ),
                     style = ScrollbarStyle(
                         thickness = 6.dp,
                         shape = RoundedCornerShape(3.dp),
@@ -214,6 +256,7 @@ fun TimerOption(
     onValueChange: (Float) -> Unit,
     valueSuffix: String,
     valueRange: ClosedFloatingPointRange<Float>,
+    color: Color,
     // icon: Painter,
 ) {
     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
@@ -243,9 +286,9 @@ fun TimerOption(
             onValueChange = onValueChange,
             valueRange = valueRange,
             colors = SliderDefaults.colors(
-                thumbColor = ThemeManager.colors.mauve,
-                activeTrackColor = ThemeManager.colors.mauve,
-                inactiveTrackColor = ThemeManager.colors.mauve.copy(alpha = 0.3f),
+                thumbColor = color,
+                activeTrackColor = color,
+                inactiveTrackColor = color.copy(alpha = 0.3f),
             )
         )
     }
@@ -293,6 +336,9 @@ fun ToggleOption(
                 disabledUncheckedTrackColor = ThemeManager.colors.surface200.copy(alpha = 0.7f),
                 disabledUncheckedThumbColor = ThemeManager.colors.crust.copy(alpha = 0.7f),
                 disabledUncheckedBorderColor = ThemeManager.colors.surface200.copy(alpha = 0.2f),
+                disabledCheckedTrackColor = ThemeManager.colors.mauve.copy(alpha = 0.7f),
+                disabledCheckedThumbColor = ThemeManager.colors.base.copy(alpha = 0.7f),
+                disabledCheckedBorderColor = ThemeManager.colors.surface200.copy(alpha = 0.2f),
             )
         )
     }

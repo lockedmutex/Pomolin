@@ -2,7 +2,11 @@ package io.github.redddfoxxyy.pomolin
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.window.WindowDraggableArea
 import androidx.compose.material3.Surface
@@ -16,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import io.github.redddfoxxyy.pomolin.data.AppSettings
 import io.github.redddfoxxyy.pomolin.ui.ThemeManager
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
@@ -38,8 +43,8 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         title = "Pomolin",
 //		resizable = false,
-        undecorated = !ThemeManager.enableWindowDecorations,
-        transparent = !ThemeManager.enableWindowDecorations,
+        undecorated = !AppSettings.enableWindowDecorations,
+        transparent = !AppSettings.enableWindowDecorations,
         state = windowState,
         icon = icon,
     ) {
@@ -50,17 +55,17 @@ fun main() = application {
         Surface(
             modifier = Modifier.fillMaxWidth(),
             color = ThemeManager.colors.base,
-            shape = if (!ThemeManager.enableWindowDecorations) {
+            shape = if (!AppSettings.enableWindowDecorations) {
                 RoundedCornerShape(15.dp)
             } else {
                 RoundedCornerShape(0.dp)
             },
-            border = if (ThemeManager.enableWindowBorders) {
+            border = if (AppSettings.enableWindowBorders) {
                 BorderStroke(2.dp, ThemeManager.colors.mauve.copy(alpha = 0.8f))
             } else null,
         ) {
             Column {
-                if (!ThemeManager.enableWindowDecorations) {
+                if (!AppSettings.enableWindowDecorations) {
                     WindowDraggableArea {
                         Box(
                             modifier = Modifier

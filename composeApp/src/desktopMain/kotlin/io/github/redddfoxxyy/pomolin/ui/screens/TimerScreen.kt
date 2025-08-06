@@ -1,13 +1,33 @@
 package io.github.redddfoxxyy.pomolin.ui.screens
 
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -19,12 +39,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.redddfoxxyy.pomolin.data.AppSettings
 import io.github.redddfoxxyy.pomolin.data.PomoDoro
 import io.github.redddfoxxyy.pomolin.data.PomoDoroRoutines
 import io.github.redddfoxxyy.pomolin.ui.ThemeManager
 import io.github.redddfoxxyy.pomolin.ui.components.TimerDisplay
 import org.jetbrains.compose.resources.painterResource
-import pomolin.composeapp.generated.resources.*
+import pomolin.composeapp.generated.resources.Res
+import pomolin.composeapp.generated.resources.pause
+import pomolin.composeapp.generated.resources.play_arrow
+import pomolin.composeapp.generated.resources.reset
+import pomolin.composeapp.generated.resources.settings
 
 @Composable
 @Preview
@@ -44,7 +69,7 @@ internal fun TimerScreen(pomoDoroManager: PomoDoro, onNavigateToSettings: () -> 
         ) {
             RoutineSelector(
                 modifier = Modifier.padding(
-                    top = if (ThemeManager.enableWindowDecorations) {
+                    top = if (AppSettings.enableWindowDecorations) {
                         15.dp
                     } else {
                         10.dp
@@ -81,7 +106,7 @@ internal fun TimerScreen(pomoDoroManager: PomoDoro, onNavigateToSettings: () -> 
         }
         IconButton(
             onClick = onNavigateToSettings,
-            modifier = Modifier.align(Alignment.BottomStart).padding(5.dp)
+            modifier = Modifier.align(Alignment.BottomStart).padding(5.dp),
         ) {
             Icon(
                 painter = painterResource(Res.drawable.settings),
