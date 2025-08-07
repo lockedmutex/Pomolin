@@ -5,12 +5,6 @@ plugins {
 	alias(libs.plugins.composeMultiplatform)
 	alias(libs.plugins.composeCompiler)
 	alias(libs.plugins.composeHotReload)
-	id("io.github.jwharm.flatpak-gradle-generator") version "1.5.0"
-}
-
-tasks.flatpakGradleGenerator {
-	outputFile = file("flatpak-sources.json")
-	downloadDirectory = "./offline-repository"
 }
 
 kotlin {

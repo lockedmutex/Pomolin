@@ -50,33 +50,33 @@ modules:
 
       # Create a Gradle init script that CLEARS all other repositories
       # and forces the use of the local offline repository.
-      #      - |
-      #        cat <<EOF > offline.gradle
-      #        settingsEvaluated { settings ->
-      #            settings.pluginManagement {
-      #                repositories {
-      #                    clear()
-      #                    maven {
-      #                        name = "FlatpakOfflineRepository"
-      #                        url = uri("file:///run/build/pomolin-build/offline-repository")
-      #                    }
-      #                }
-      #            }
-      #        }
-      #        allprojects {
-      #          repositories {
-      #            clear()
-      #            maven {
-      #              url 'file:///run/build/pomolin-build/offline-repository'
-      #            }
-      #          }
-      #        }
-      #        EOF
+      - |
+        cat <<EOF > offline.gradle
+        settingsEvaluated { settings ->
+            settings.pluginManagement {
+                repositories {
+                    clear()
+                    maven {
+                        name = "FlatpakOfflineRepository"
+                        url = uri("file:///run/build/pomolin-build/offline-repository")
+                    }
+                }
+            }
+        }
+        allprojects {
+          repositories {
+            clear()
+            maven {
+              url 'file:///run/build/pomolin-build/offline-repository'
+            }
+          }
+        }
+        EOF
 
       #      - chmod +x ./gradlew
       #      - ./gradlew createReleaseDistributable
-      - /app/gradle/bin/gradle --no-daemon createReleaseDistributable
-      #      - /app/gradle/bin/gradle --no-daemon --init-script offline.gradle createReleaseDistributable
+      #      - /app/gradle/bin/gradle --no-daemon createReleaseDistributable
+      - /app/gradle/bin/gradle --no-daemon --init-script offline.gradle createReleaseDistributable
 
       - cp -r composeApp/build/compose/binaries/main-release/app/* /app/
 

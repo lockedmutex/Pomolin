@@ -12,7 +12,6 @@ pluginManagement {
 		}
 		mavenCentral()
 		gradlePluginPortal()
-		maven { url = uri("./offline-repository") }
 	}
 }
 
@@ -26,7 +25,6 @@ dependencyResolutionManagement {
 			}
 		}
 		mavenCentral()
-		maven { url = uri("./offline-repository") }
 	}
 }
 
