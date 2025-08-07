@@ -2665,5 +2665,19 @@
     "sha512": "998a97ed6e1785fe0d273bd7e67803d386ca0a6c879c1899cff2590a7a9465a4bd92ceab879514c8cc8922422b608eeca81a0a118296c13da0c55e671b7decdc",
     "dest": "offline-repository/org/gradle/toolchains/foojay-resolver/1.0.0",
     "dest-filename": "foojay-resolver-1.0.0.pom"
+  },
+  {
+    "type": "file",
+    "url": "https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.8.6/gson-2.8.6.pom",
+    "sha512": "9c2d48d3159ef7fde19619def8653c5ef3bacfcd6e02537a5df7a15f199ce8a858e2424a3bb6e87ad3adb5901c87c1f2aecaf91d20eefa19837426c96982ea3a",
+    "dest": "./offline-repository/com/google/code/gson/gson/2.8.6",
+    "dest-filename": "gson-2.8.6.pom"
+  },
+  {
+    "type": "file",
+    "url": "https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.8.6/gson-2.8.6.jar",
+    "sha512": "902a1a5dce66303abff2ac4b8a2319035f718c42590c1ae593825cfb85a0003e52c3492fc7ae6b86eb3ed16656dc3fc6b918aa807b20b759d4753cb692031740",
+    "dest": "./offline-repository/com/google/code/gson/gson/2.8.6",
+    "dest-filename": "gson-2.8.6.jar"
   }
 ]

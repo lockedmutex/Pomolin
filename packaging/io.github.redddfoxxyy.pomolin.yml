@@ -21,7 +21,7 @@ modules:
     build-commands:
       - /usr/lib/sdk/openjdk/install.sh
 
-  - name: pomolin-build
+  - name: pomolin
     buildsystem: simple
     build-options:
       env:
@@ -31,7 +31,7 @@ modules:
     #        - --share=network
     sources:
       - flatpak-sources.json
-      
+
       - type: git
         url: https://github.com/RedddFoxxyy/Pomolin.git
         #        tag: v1.1.3
@@ -47,9 +47,36 @@ modules:
       - mkdir -p /app/gradle
       - unzip gradle/gradle-8.14.3-bin.zip -d /app/gradle
       - mv /app/gradle/gradle-8.14.3/* /app/gradle
+
+      # Create a Gradle init script that CLEARS all other repositories
+      # and forces the use of the local offline repository.
+      #      - |
+      #        cat <<EOF > offline.gradle
+      #        settingsEvaluated { settings ->
+      #            settings.pluginManagement {
+      #                repositories {
+      #                    clear()
+      #                    maven {
+      #                        name = "FlatpakOfflineRepository"
+      #                        url = uri("file:///run/build/pomolin-build/offline-repository")
+      #                    }
+      #                }
+      #            }
+      #        }
+      #        allprojects {
+      #          repositories {
+      #            clear()
+      #            maven {
+      #              url 'file:///run/build/pomolin-build/offline-repository'
+      #            }
+      #          }
+      #        }
+      #        EOF
+
       #      - chmod +x ./gradlew
       #      - ./gradlew createReleaseDistributable
       - /app/gradle/bin/gradle --no-daemon createReleaseDistributable
+      #      - /app/gradle/bin/gradle --no-daemon --init-script offline.gradle createReleaseDistributable
 
       - cp -r composeApp/build/compose/binaries/main-release/app/* /app/
 
