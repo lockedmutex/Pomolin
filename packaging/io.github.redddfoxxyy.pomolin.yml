@@ -2,8 +2,6 @@ app-id: io.github.redddfoxxyy.pomolin
 runtime: org.freedesktop.Platform
 runtime-version: "24.08"
 sdk: org.freedesktop.Sdk
-#sdk-extensions:
-#  - org.freedesktop.Sdk.Extension.openjdk
 
 command: pomolin
 finish-args:
@@ -16,38 +14,26 @@ finish-args:
   - --talk-name=org.kde.StatusNotifierWatcher
 
 modules:
-  #  - name: openjdk
-  #    buildsystem: simple
-  #    build-commands:
-  #      - /usr/lib/sdk/openjdk/install.sh
-
   - name: pomolin
     buildsystem: simple
     build-options:
       env:
         JAVA_HOME: /usr/lib/sdk/openjdk
         PATH: /usr/lib/sdk/openjdk/bin:/usr/bin:/bin
-    #      build-args:
-    #        - --share=network
     sources:
-      #      - flatpak-sources.json
-
       - type: git
         url: https://github.com/RedddFoxxyy/Pomolin.git
         tag: v1.1.4
-      #        branch: main
+
       - type: archive
         url: https://github.com/RedddFoxxyy/Pomolin/releases/download/v1.1.4/pomolin-x86_64_linux.tar.gz
         sha256: "18fc2fe5418773b53896de20563f062515e158c9162681d64633febde8e129d7"
         dest: "pomolin"
-    #        dest-filename: pomolin.tar.gz
+        only-arches:
+          - x86_64
 
     build-commands:
-      #      - cp -r composeApp/build/compose/binaries/main-release/app/* /app/
       - cp -r pomolin /app/
-
-      # Remove the invalid JVM argument from the app's config file
-      - "sed -i '/--illegal-native-access=deny/d' /app/pomolin/lib/app/pomolin.cfg"
 
       - install -Dm644 packaging/io.github.redddfoxxyy.pomolin.desktop /app/share/applications/io.github.redddfoxxyy.pomolin.desktop
       - install -Dm644 packaging/io.github.redddfoxxyy.pomolin.svg /app/share/icons/hicolor/scalable/apps/io.github.redddfoxxyy.pomolin.svg

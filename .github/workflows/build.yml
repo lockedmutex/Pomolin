@@ -158,6 +158,23 @@ jobs:
               APP_NAME="pomolin"
               APPDIR_NAME="$APP_NAME.AppDir"
               GRADLE_APP_DIR="$ARTIFACT_DIR/app"
+              SOURCE_POMOLIN_DIR="$GRADLE_APP_DIR/pomolin"
+          
+              # 1a. Create tar.gz archive for the Linux distributable
+              echo "Creating tar.gz archive for the Linux distributable..."
+              if [ -d "$SOURCE_POMOLIN_DIR" ]; then
+                TAR_OUTPUT_DIR="$ARTIFACT_DIR/tarball"
+                mkdir -p "$TAR_OUTPUT_DIR"
+                TAR_FILENAME="pomolin_${{ matrix.arch }}_linux.tar.gz"
+          
+                echo "Archiving '$SOURCE_POMOLIN_DIR' to '$TAR_OUTPUT_DIR/$TAR_FILENAME'"
+                # Use -C to change directory so the archive doesn''t contain the parent path
+                tar -czf "$TAR_OUTPUT_DIR/$TAR_FILENAME" -C "$GRADLE_APP_DIR" "pomolin"
+                echo "tar.gz archive created successfully."
+              else
+                echo "Error: The expected directory $SOURCE_POMOLIN_DIR was not found after gradle build."
+                exit 1
+              fi
           
               # 2. Dynamically select and download the correct appimagetool
               if [ "${{ matrix.arch }}" = "arm64" ]; then
@@ -290,6 +307,7 @@ jobs:
             composeApp/build/compose/binaries/main-release/msi/*.msi
             composeApp/build/compose/binaries/main-release/exe/*.exe
             composeApp/build/compose/jars/*.jar
+            composeApp/build/compose/binaries/main-release/tarball/*.tar.gz
           retention-days: 1
 
   release:
