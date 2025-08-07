@@ -52,13 +52,13 @@ compose.desktop {
 			packageName = "pomolin"
 			packageVersion = "1.1.3"
 			description = "A simple Pomodoro App written in Kotlin. Focus on what matters! "
-			vendor = "RedddFoxxyy"
+			vendor = "Suyog Tandel"
 			licenseFile.set(project.file("../LICENSE"))
 
 			linux {
 				iconFile.set(project.file("src/desktopMain/composeResources/drawable/Pomolin.png"))
 				packageName = "pomolin"
-				debMaintainer = "RedddFoxxyy"
+				debMaintainer = "Suyog Tandel"
 				appCategory = "Utility"
 			}
 			macOS {
