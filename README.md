@@ -16,7 +16,7 @@
 <p align="center">
   <img src="gitAssets/pomolin.avif" width="45%" />
   &nbsp;&nbsp;
-  <img src="gitAssets/pomolin.gif" width="45%" />
+  <img src="gitAssets/pomolin.webp" width="45%" />
 </p>
 
 A simple, beautiful, and minimalist Pomodoro timer for your desktop. Designed to help you stay

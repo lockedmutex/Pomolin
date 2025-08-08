@@ -335,11 +335,11 @@ jobs:
       - name: Create Draft Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Pomolin v${{ steps.get_version.outputs.version }} Beta
+          name: Pomolin v${{ steps.get_version.outputs.version }} Beta Test
           draft: true
           #          prerelease: false
           #          latest: false
-          tag_name: v${{ steps.get_version.outputs.version }}
+          tag_name: v${{ steps.get_version.outputs.version }}-test
           body: |
             ### Description:
 
