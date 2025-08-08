@@ -3,7 +3,7 @@
 	<id>io.github.redddfoxxyy.pomolin</id>
 
 	<name>Pomolin</name>
-	<summary>A simple Pomodoro App written in Kotlin. Focus on what matters!</summary>
+	<summary>Focus on what matters!</summary>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>AGPL-3.0-only</project_license>
 	<developer_name>Suyog Tandel</developer_name>
@@ -18,6 +18,23 @@
 	</description>
 
 	<launchable type="desktop-id">io.github.redddfoxxyy.pomolin.desktop</launchable>
+
+	<requires>
+		<control>keyboard</control>
+		<control>pointing</control>
+		<display_length compare="ge">768</display_length>
+	</requires>
+
+	<keywords>
+		<keyword>Productivity</keyword>
+		<keyword>Pomodoro</keyword>
+		<keyword>Timer</keyword>
+	</keywords>
+
+	<branding>
+		<color scheme_preference="light" type="primary">#303446</color>
+		<color scheme_preference="dark" type="primary">#1e1e2e</color>
+	</branding>
 
 	<screenshots>
 		<screenshot type="default">
@@ -62,6 +79,7 @@
 
 	<content_rating type="oars-1.1" />
 
-	<url type="homepage">https://github.com/RedddFoxxyy/Pomolin</url>
+	<url type="homepage">https://redddfoxxyy.github.io/Pomolin/</url>
 	<url type="bugtracker">https://github.com/RedddFoxxyy/Pomolin/issues</url>
+	<url type="vcs-browser">https://github.com/RedddFoxxyy/Pomolin</url>
 </component>

@@ -5,8 +5,8 @@
 name: Build and Release Testing
 
 on:
-  push:
-    branches: [ "test-workflow" ]
+  #  push:
+  #    branches: [ "test-workflow" ]
 
   workflow_dispatch:
 
