@@ -74,6 +74,12 @@
 	</screenshots>
 
 	<releases>
+		<release date="2025-08-09" version="1.1.6">
+			<description>
+				<p>Fix minor bugs and improvements.</p>
+				<p>Update flatpak support.</p>
+			</description>
+		</release>
 		<release date="2025-08-08" version="1.1.5" />
 	</releases>
 
