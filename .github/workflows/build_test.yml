@@ -358,6 +358,8 @@ jobs:
     name: Build Flatpak
     needs: release # This job will start only after the 'release' job is successful
     runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: write
     strategy:
       fail-fast: false
       matrix:
