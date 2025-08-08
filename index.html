@@ -635,3 +635,32 @@
         } else {
             header.style.background = 'var(--bg-secondary)';
             header.style.boxShadow = 'none';
+        }
+    });
+
+    window.addEventListener('scroll', () => {
+        const heroLogo = document.querySelector('.hero-logo');
+        const scrolled = window.pageYOffset;
+        heroLogo.style.transform = `translateY(${scrolled * 0.2}px)`;
+    });
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationDelay = '0s';
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.os-card').forEach(card => {
+        observer.observe(card);
+    });
+</script>
+</body>
+</html>
