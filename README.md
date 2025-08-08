@@ -16,7 +16,7 @@
 <p align="center">
   <img src="gitAssets/pomolin.avif" width="45%" />
   &nbsp;&nbsp;
-  <img src="gitAssets/pomolin.webp" width="45%" />
+  <img src="gitAssets/pomolin.gif" width="45%" />
 </p>
 
 A simple, beautiful, and minimalist Pomodoro timer for your desktop. Designed to help you stay
@@ -49,37 +49,42 @@ You can download the latest version of Pomolin from the
 
 1. Download the `.msi` or `.exe` file.
 2. Run the installer and follow the on-screen instructions.
+   > NOTE: Browsers may say that the files can be harmful, you can bypass that message and continue download. Windows
+   > Defender will also try to stop you from running the installer, just click on more options and then run anyway.
 
 ### macOS
 
 1. Download the `.dmg` or `.pkg` file.
 2. Open the file and drag the `Pomolin.app` to your `Applications` folder.
 
-> NOTE: For macOS, it will not allow you to run the .pkg or the app installed using .dmg, to do so
-> you will have to go
-> to privacy and security in settings, and then allow the execution of the app.
+   > NOTE: For macOS, it will not allow you to run the .pkg or the app installed using .dmg, to do so
+   > you will have to go to `privacy and security` in system settings,
+   > and then allow the execution of the app.
 
 ### Linux
 
-1. Download the `.deb` or `.AppImage` file.
-2. Install `deb` using your package manager, for example:
-   ```bash
-   sudo apt install ./pomolin_1.0.2_amd64.deb
-   ```
-   or Install `AppImage` using `AppImageLauncher` or equivalent. You can run the AppImage just by
-   double-clicking on it
-   too, no need to install it.
+* Get the app from FlatHub:
 
-   > NOTE: AppImage is the preferred way to run the app on Linux-based distributions.
+  <a href='https://flathub.org/apps/io.github.redddfoxxyy.pomolin'>
+  <img width='200' alt='Get it on Flathub' src='https://flathub.org/api/badge?locale=en'/>
+  </a>
+
+* Get the `.deb` files for Debian and Ubuntu from **[Releases](https://github.com/RedddFoxxyy/pomolin/releases)**.
+* Get `AppImage` files for respective hardware from **[Releases](https://github.com/RedddFoxxyy/pomolin/releases)**.
+
+  > NOTE: Install `AppImage` using `AppImageLauncher`/`Gear Lever` or equivalent. You can run the AppImage just by
+  > double-clicking on it too, no need to install it.
+
+  > NOTE: Flatpaks and AppImages are the preferred way to run the app on Linux-based distributions.
 
 ### JVM
 
 1. Download the `.jar` file for your OS and CPU.
-2. Run it using JRE24 or JDK24:
+2. Run it using JRE24/JDK24:
    ```bash
    java -jar pomolin-macos-arm64-1.0.2-release.jar 
    ```
-   > NOTE: Make sure you use java24 only to run the jars. (Java21 on Windows Arm64).
+   > NOTE: Make sure you use java24 to run the jars. (Java21 on Windows Arm64).
    >
    > Preferably use Temurin or ZULU JRE/JDK.
 
