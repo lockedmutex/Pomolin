@@ -19,6 +19,7 @@ object AppSettings {
 
 	private fun getConfigurationFile(): File {
 		val userHome = System.getProperty("user.home")
+		val xdgConfig = System.getenv("XDG_CONFIG_HOME")?.let { File(it) }
 		val configDir: File
 
 		when {
@@ -35,9 +36,8 @@ object AppSettings {
 			}
 
 			else -> {
-				// Linux and other Unix-like systems: ~/.config/Pomolin
-				// This 'else' block will catch Linux, Solaris, FreeBSD, etc.
-				configDir = File(userHome, ".config/Pomolin")
+				// Linux, flatpak sandbox and other Unix-like systems: ~/.config/Pomolin
+				configDir = (xdgConfig ?: File(userHome, ".config")).resolve("Pomolin")
 			}
 		}
 
