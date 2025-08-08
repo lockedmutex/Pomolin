@@ -102,8 +102,6 @@
         .logo {
             width: 40px;
             height: 40px;
-            /*background: var(--accent);*/
-            /*border-radius: 50%;*/
             display: flex;
             align-items: center;
             justify-content: center;
@@ -161,7 +159,6 @@
         .theme-toggle {
             background: transparent;
             border: 1px solid transparent;
-            /*color: var(--text-primary);*/
             padding: 0.5rem 0.8rem 0.3rem 0.8rem;
             border-radius: 0.5rem;
             cursor: pointer;
@@ -173,8 +170,6 @@
         .theme-toggle:hover {
             border: 1px solid var(--accent);
             border-radius: 0.5rem;
-            /*background: color-mix(in srgb, var(--accent), transparent 25%);*/
-            /*color: var(--bg-primary);*/
             transform: translateY(-2px);
         }
 
@@ -222,13 +217,11 @@
         .hero-logo {
             width: 200px;
             height: 200px;
-            /*background: linear-gradient(135deg, var(--accent), var(--accent-hover));*/
             border-radius: 17.5438596%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 4rem;
-            /*color: var(--bg-primary);*/
             animation: fadeInRight 0.8s ease 0.6s both, float 3s ease-in-out infinite;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
@@ -243,7 +236,6 @@
         .hero-title-icon {
             width: 80px;
             height: 80px;
-            /*animation: fadeInLeft 0.8s ease 0.2s both, float 3s ease-in-out infinite;*/
             animation: fadeInUp 0.8s ease;
             filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
             transition: filter 0.3s ease;
@@ -255,21 +247,6 @@
 
         .hero-title h1 {
             margin-bottom: 0;
-        }
-
-        .showcase-section {
-            padding: 0 0 4rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 60vh;
-        }
-
-        .showcase-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
         }
 
         .showcase-image {
@@ -374,6 +351,43 @@
 
         .download-btn.arm64:hover {
             background: var(--lavender);
+        }
+
+        /* Flathub Subsection */
+        .flathub-subsection {
+            padding-top: 4rem;
+            animation: fadeInUp 0.8s ease 1s both;
+        }
+
+        .flathub-content-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+        }
+
+        .flathub-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .flathub-link {
+            display: inline-block;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .flathub-link img {
+            display: block;
+            border-radius: 6px;
+        }
+
+        .flathub-link:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
         }
 
         /* Animations */
@@ -505,18 +519,10 @@
                         for your work sessions.
                     </p>
                 </div>
-                <img alt="Pomolin App Preview" class="showcase-image" src="./static/pomolin.webp">
+                <img alt="Pomolin App Preview" class="showcase-image" src="./static/pomolin.gif">
             </div>
         </div>
     </section>
-
-    <!--    <section class="showcase-section">-->
-    <!--        <div class="container">-->
-    <!--            <div class="showcase-content">-->
-    <!--                <img alt="Pomolin App Preview" class="showcase-image" src="./static/pomolin.gif">-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </section>-->
 
     <section class="download-section">
         <div class="container">
@@ -570,6 +576,18 @@
                     </div>
                 </div>
             </div>
+
+            <div class="flathub-subsection">
+                <div class="flathub-content-wrapper">
+                    <h3 class="flathub-title">Also available on Flathub</h3>
+                    <a class="flathub-link"
+                       href='https://flathub.org/apps/io.github.redddfoxxyy.pomolin'
+                       rel="noopener noreferrer" target="_blank">
+                        <img alt='Download on Flathub' src='https://flathub.org/api/badge?locale=en'
+                             width='240'/>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 </main>
@@ -617,32 +635,3 @@
         } else {
             header.style.background = 'var(--bg-secondary)';
             header.style.boxShadow = 'none';
-        }
-    });
-
-    window.addEventListener('scroll', () => {
-        const heroLogo = document.querySelector('.hero-logo');
-        const scrolled = window.pageYOffset;
-        heroLogo.style.transform = `translateY(${scrolled * 0.2}px)`;
-    });
-
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animationDelay = '0s';
-                entry.target.style.animationPlayState = 'running';
-            }
-        });
-    }, observerOptions);
-
-    document.querySelectorAll('.os-card').forEach(card => {
-        observer.observe(card);
-    });
-</script>
-</body>
-</html>
