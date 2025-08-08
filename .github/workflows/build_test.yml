@@ -357,15 +357,17 @@ jobs:
   build-flatpak:
     name: Build Flatpak
     needs: release # This job will start only after the 'release' job is successful
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     strategy:
       fail-fast: false
       matrix:
         include:
           - arch: "x64"
             flatpak_arch: "x86_64"
+            runner: "ubuntu-latest"
           - arch: "arm64"
             flatpak_arch: "aarch64"
+            runner: "ubuntu-24.04-arm"
 
     steps:
       - name: Checkout code
@@ -389,8 +391,7 @@ jobs:
         run: |
           echo "Building Flatpak for ${{ matrix.flatpak_arch }}"
           # 1. Build the Flatpak from the manifest file
-          # The flatpak-builder will read the manifest and download the source tar.gz from the release
-          flatpak-builder --arch=${{ matrix.flatpak_arch }} --force-clean --repo=repo build-dir packaging/io.github.redddfoxxyy.pomolin.yml
+          flatpak-builder --force-clean --repo=repo build-dir packaging/io.github.redddfoxxyy.pomolin.yml
 
           # 2. Create a single-file bundle from the repository
           flatpak build-bundle repo pomolin-${{ matrix.flatpak_arch }}.flatpak io.github.redddfoxxyy.pomolin
