@@ -390,7 +390,7 @@ jobs:
           echo "Building Flatpak for ${{ matrix.flatpak_arch }}"
           # 1. Build the Flatpak from the manifest file
           # The flatpak-builder will read the manifest and download the source tar.gz from the release
-          flatpak-builder --force-clean --repo=repo build-dir packaging/io.github.redddfoxxyy.pomolin.yml
+          flatpak-builder --arch=${{ matrix.flatpak_arch }} --force-clean --repo=repo build-dir packaging/io.github.redddfoxxyy.pomolin.yml
 
           # 2. Create a single-file bundle from the repository
           flatpak build-bundle repo pomolin-${{ matrix.flatpak_arch }}.flatpak io.github.redddfoxxyy.pomolin
