@@ -7,8 +7,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.window.WindowDraggableArea
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
@@ -18,6 +23,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import io.github.redddfoxxyy.pomolin.data.AppSettings
@@ -27,6 +33,9 @@ import org.jetbrains.compose.resources.painterResource
 import pomolin.composeapp.generated.resources.JetBrainsMonoNerdFont_ExtraBold
 import pomolin.composeapp.generated.resources.Pomolin
 import pomolin.composeapp.generated.resources.Res
+import pomolin.composeapp.generated.resources.close
+import pomolin.composeapp.generated.resources.maximize
+import pomolin.composeapp.generated.resources.restore
 import java.awt.Dimension
 import javax.swing.SwingUtilities
 
@@ -81,6 +90,89 @@ fun main() = application {
 								fontSize = 18.sp,
 								color = ThemeManager.colors.mauve
 							)
+							Box(
+								modifier = Modifier
+									.padding(end = 8.dp, top = 2.dp)
+									.align(Alignment.TopEnd)
+									.size(22.dp) // This now correctly controls the background circle size
+									.background(
+										color = ThemeManager.colors.surface.copy(alpha = 0.8f),
+										shape = CircleShape
+									),
+								contentAlignment = Alignment.Center
+							) {
+								IconButton(
+									onClick = { exitApplication() },
+									modifier = Modifier
+//										.padding(end = 10.dp, top = 1.dp)
+										.size(22.dp) // Smaller size for just the button
+										.align(Alignment.TopEnd),
+//									.background(
+//										color = ThemeManager.colors.surface,
+//										shape = CircleShape // Explicit circle shape
+//									),
+									colors = IconButtonDefaults.iconButtonColors(
+										containerColor = Color.Transparent, // Button itself has mauve background
+										contentColor = ThemeManager.colors.mauve.copy(alpha = 0.8f), // Icon color
+									),
+								) {
+									Icon(
+										painterResource(Res.drawable.close),
+										contentDescription = "Close App",
+										modifier = Modifier.size(16.dp) // Control icon size
+									)
+								}
+							}
+							Box(
+								modifier = Modifier
+									.padding(end = 36.dp, top = 2.dp)
+									.align(Alignment.TopEnd)
+									.size(22.dp) // This now correctly controls the background circle size
+									.background(
+										color = ThemeManager.colors.surface.copy(alpha = 0.8f),
+										shape = CircleShape
+									),
+								contentAlignment = Alignment.Center
+							) {
+								IconButton(
+									onClick = {
+										windowState.placement =
+											if (windowState.placement == WindowPlacement.Maximized) {
+												WindowPlacement.Floating
+											} else {
+												WindowPlacement.Maximized
+											}
+									},
+									modifier = Modifier
+//										.padding(end = 10.dp, top = 1.dp)
+										.size(22.dp) // Smaller size for just the button
+										.align(Alignment.TopEnd),
+//									.background(
+//										color = ThemeManager.colors.surface,
+//										shape = CircleShape // Explicit circle shape
+//									),
+									colors = IconButtonDefaults.iconButtonColors(
+										containerColor = Color.Transparent, // Button itself has mauve background
+										contentColor = ThemeManager.colors.mauve.copy(alpha = 0.8f), // Icon color
+									),
+								) {
+									Icon(
+										painterResource(
+											if (windowState.placement == WindowPlacement.Maximized) {
+												Res.drawable.restore // Icon when maximized (shows restore icon)
+											} else {
+												Res.drawable.maximize // Icon when not maximized (shows maximize icon)
+											}
+										),
+										contentDescription = if (windowState.placement == WindowPlacement.Maximized) {
+											"Restore Window"
+										} else {
+											"Maximize Window"
+										},
+										modifier = Modifier.size(16.dp) // Control icon size
+									)
+								}
+							}
 						}
 					}
 				}
