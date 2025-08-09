@@ -33,10 +33,8 @@ modules:
           - aarch64
 
     build-commands:
-      - cp -r pomolin /app/
+      - cp -r pomolin/* /app/
 
       - install -Dm644 packaging/io.github.redddfoxxyy.pomolin.desktop /app/share/applications/io.github.redddfoxxyy.pomolin.desktop
       - install -Dm644 packaging/io.github.redddfoxxyy.pomolin.svg /app/share/icons/hicolor/scalable/apps/io.github.redddfoxxyy.pomolin.svg
       - install -Dm644 packaging/io.github.redddfoxxyy.pomolin.metainfo.xml /app/share/metainfo/io.github.redddfoxxyy.pomolin.metainfo.xml
-
-      - install -Dm755 packaging/pomolin-launcher.sh /app/bin/pomolin

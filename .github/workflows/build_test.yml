@@ -13,7 +13,7 @@ on:
 jobs:
   build:
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         include:
           - os: ubuntu-22.04
@@ -353,3 +353,54 @@ jobs:
             > Note: If using a jar to run the application, make sure that you are using Java 24. ( For windows 11 arm use Java21)
 
           files: artifacts/**/*
+
+  build-flatpak:
+    name: Build Flatpak
+    needs: release # This job will start only after the 'release' job is successful
+    runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - arch: "x64"
+            flatpak_arch: "x86_64"
+            runner: "ubuntu-latest"
+          - arch: "arm64"
+            flatpak_arch: "aarch64"
+            runner: "ubuntu-24.04-arm"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get Project Version
+        id: get_version
+        run: |
+          VERSION=$(grep 'packageVersion = ' composeApp/build.gradle.kts | head -n 1 | sed -e 's/.*packageVersion = "\(.*\)"/\1/')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Install Flatpak dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak-builder
+          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          sudo flatpak install --noninteractive flathub org.freedesktop.Sdk/${{ matrix.flatpak_arch }}/24.08
+          sudo flatpak install --noninteractive flathub org.freedesktop.Platform/${{ matrix.flatpak_arch }}/24.08
+
+      - name: Build Flatpak Bundle
+        run: |
+          echo "Building Flatpak for ${{ matrix.flatpak_arch }}"
+          # 1. Build the Flatpak from the manifest file
+          flatpak-builder --force-clean --repo=repo build-dir packaging/io.github.redddfoxxyy.pomolin.yml
+
+          # 2. Create a single-file bundle from the repository
+          flatpak build-bundle repo pomolin-${{ matrix.flatpak_arch }}.flatpak io.github.redddfoxxyy.pomolin
+          echo "Flatpak bundle created: pomolin-${{ matrix.flatpak_arch }}.flatpak"
+
+      - name: Upload Flatpak to Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload v${{ steps.get_version.outputs.version }}-test pomolin-${{ matrix.flatpak_arch }}.flatpak --clobber
