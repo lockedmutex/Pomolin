@@ -627,6 +627,49 @@
     // Initialize theme
     applyTheme(currentTheme);
 
+    // Function to fetch latest release and update download links
+    async function updateDownloadLinks() {
+        try {
+            // Fetch latest release info from GitHub API
+            const response = await fetch('https://api.github.com/repos/RedddFoxxyy/Pomolin/releases/latest');
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const release = await response.json();
+            const latestVersion = release.tag_name; // e.g., "v1.1.5" or "1.1.5"
+
+            // Remove 'v' prefix if it exists for consistent URL formatting
+            const versionNumber = latestVersion.startsWith('v') ? latestVersion.slice(1) : latestVersion;
+
+            // Update all download links with the latest version
+            const downloadLinks = document.querySelectorAll('.download-btn');
+
+            downloadLinks.forEach(link => {
+                const href = link.getAttribute('href');
+
+                // Replace version number in the URL using regex
+                // This matches patterns like "pomolin-1.1.5-x64.exe" and replaces with new version
+                const updatedHref = href.replace(
+                    /pomolin-[\d.]+(-[a-zA-Z0-9]+)/g,
+                    `pomolin-${versionNumber}$1`
+                );
+
+                link.setAttribute('href', updatedHref);
+            });
+
+            console.log(`Updated download links to version: ${latestVersion}`);
+
+        } catch (error) {
+            console.error('Failed to fetch latest release:', error);
+            // Fallback: keep existing hardcoded version if API fails
+        }
+    }
+
+    // Call the function when the page loads
+    document.addEventListener('DOMContentLoaded', updateDownloadLinks);
+
     window.addEventListener('scroll', () => {
         const header = document.querySelector('.header');
         if (window.scrollY > 100) {
