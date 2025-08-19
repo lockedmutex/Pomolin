@@ -1,41 +1,11 @@
 package io.github.redddfoxxyy.pomolin.ui.screens
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.ScrollbarStyle
-import androidx.compose.foundation.VerticalScrollbar
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.rememberScrollbarAdapter
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -52,7 +22,7 @@ import pomolin.composeapp.generated.resources.back
 
 @Composable
 @Preview
-internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Unit) {
+internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Unit, onRestartRequired: () -> Unit = {}) {
 	val scrollState = rememberScrollState()
 	var showDialog by remember { mutableStateOf(false) }
 
@@ -60,10 +30,13 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
 		AlertDialog(
 			onDismissRequest = { showDialog = false },
 			title = { Text("Restart Required") },
-			text = { Text("Please restart the application for the changes to take effect.") },
+			text = { Text("The Application will restart to apply the changes.") },
 			confirmButton = {
 				Button(
-					onClick = { showDialog = false },
+					onClick = {
+						showDialog = false
+						onRestartRequired()
+					},
 					colors = ButtonDefaults.buttonColors(
 						containerColor = ThemeManager.colors.mauve,
 						contentColor = ThemeManager.colors.crust
@@ -163,30 +136,26 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
 							onCheckedChange = {
 								AppSettings.enableProgressIndicator = it
 							},
-							// icon = painterResource(Res.drawable.ic_progress) // Example icon
 						)
 
 						ToggleOption(
 							label = "Enable Window Decorations",
 							isChecked = AppSettings.enableWindowDecorations,
 							onCheckedChange = {
-								// ThemeManager.enableWindowDecorations = it
 								AppSettings.toggleWindowDecorations()
 								showDialog = true
 							},
 							enabled = !SystemUtils.IS_OS_WINDOWS,
-							// icon = painterResource(Res.drawable.ic_progress) // Example icon
 						)
 
 						ToggleOption(
 							label = "Enable Window Borders",
 							isChecked = AppSettings.enableWindowBorders,
 							onCheckedChange = {
-								AppSettings.enableWindowBorders = it
-								AppSettings.saveSettings()
+								AppSettings.toggleWindowBorders(it)
+								showDialog = true
 							},
 							enabled = !AppSettings.enableWindowDecorations,
-							// icon = painterResource(Res.drawable.ic_progress) // Example icon
 						)
 					}
 					Spacer(Modifier.height(16.dp))

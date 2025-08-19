@@ -186,8 +186,8 @@ jobs:
         with:
           name: Pomolin v${{ steps.get_version.outputs.version }} Beta Test
           draft: false
-          prerelease: false
-          #          latest: false
+          prerelease: true
+          latest: false
           tag_name: v${{ steps.get_version.outputs.version }}-test
           body: |
             ### Description:
