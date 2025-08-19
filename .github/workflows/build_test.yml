@@ -20,12 +20,12 @@ jobs:
             arch: "x64"
             runner: "ubuntu-22.04"
             gradle_task: "packageReleaseDeb"
-            os_name: "linux"
+            os_name: "ubuntu"
           - os: ubuntu-22.04-arm
             arch: "arm64"
             runner: "ubuntu-22.04-arm"
             gradle_task: "packageReleaseDeb"
-            os_name: "linux"
+            os_name: "ubuntu"
           - os: ubuntu-latest
             arch: "x64"
             runner: "ubuntu-latest"
@@ -68,7 +68,7 @@ jobs:
         run: |
           sudo apt-get update
 
-      - name: Install Dependencies for Ubuntu
+      - name: Install Dependencies for Rocky Linux
         if: matrix.os_name == 'rocky-linux-8'
         run: |
           sudo apt-get install -y curl wget git gnupg ca-certificates libfuse2 curl unzip binutils file libglib2.0-0
@@ -103,7 +103,7 @@ jobs:
         run: ./gradlew -PosArch=${{ matrix.arch }} ${{ matrix.gradle_task }} packageReleaseUberJarForCurrentOS
 
       - name: Build Jar with Gradle on Ubuntu
-        if: matrix.os_name == 'linux'
+        if: matrix.os_name == 'ubuntu'
         run: ./gradlew -PosArch=${{ matrix.arch }} ${{ matrix.gradle_task }} packageReleaseUberJarForCurrentOS
 
       - name: Build AppImage on Rocky Linux 8
@@ -242,7 +242,7 @@ jobs:
         run: |
           echo "Building Flatpak for ${{ matrix.flatpak_arch }}"
           # 1. Build the Flatpak from the manifest file
-          flatpak-builder --force-clean --repo=repo build-dir packaging/io.github.redddfoxxyy.pomolin.yml
+          flatpak-builder --force-clean --repo=repo build-dir packaging/flatpak/io.github.redddfoxxyy.pomolin.yml
 
           # 2. Create a single-file bundle from the repository
           flatpak build-bundle repo pomolin-${{ matrix.flatpak_arch }}.flatpak io.github.redddfoxxyy.pomolin

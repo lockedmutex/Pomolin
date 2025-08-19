@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=pomolin
+Comment=A simple Pomodoro App written in Kotlin. Focus on what matters!
+Exec=pomolin
+Icon=pomolin
+Terminal=false
+Type=Application
+Categories=Utility;

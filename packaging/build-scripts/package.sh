@@ -97,18 +97,8 @@ fi
 echo "Checking final structure:"
 ls -la "$APPDIR_NAME/usr/lib/$APP_NAME/"
 
-# 4. Create the .desktop file
-echo "Creating .desktop file..."
-{
-  echo "[Desktop Entry]"
-echo "Name=pomolin"
-  echo "Comment=A simple Pomodoro App written in Kotlin. Focus on what matters!"
-  echo "Exec=pomolin"
-  echo "Icon=pomolin"
-  echo "Terminal=false"
-  echo "Type=Application"
-  echo "Categories=Utility"
-} > "$APPDIR_NAME/$APP_NAME.desktop"
+# 4. Add .desktop file
+cp packaging/appimage/pomolin.desktop $APPDIR_NAME
 
 # 5. Copy the icon
 echo "Copying icon..."
@@ -126,12 +116,10 @@ if [ -f "$ICON_PATH" ]; then
   exit 1
 fi
 
-# 6. Create the AppRun script
-echo "Creating AppRun script..."
-{
-  echo "#!/bin/sh"
-  echo "exec \"\$APPDIR/usr/lib/pomolin/bin/pomolin\" \"\$@\""
-} > "$APPDIR_NAME/AppRun"
+# 6. Add the AppRun script
+echo "Copying AppRun script..."
+
+cp packaging/appimage/AppRun $APPDIR_NAME
 chmod +x "$APPDIR_NAME/AppRun"
 
 if [ ! -f "$APPDIR_NAME/AppRun" ]; then
