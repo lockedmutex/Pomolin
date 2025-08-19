@@ -29,57 +29,78 @@
 		<keyword>Productivity</keyword>
 		<keyword>Pomodoro</keyword>
 		<keyword>Timer</keyword>
+		<keyword>Time</keyword>
+		<keyword>Tracker</keyword>
 	</keywords>
 
 	<branding>
-		<color scheme_preference="light" type="primary">#303446</color>
-		<color scheme_preference="dark" type="primary">#1e1e2e</color>
+		<color scheme_preference="light" type="primary">#1e1e2e</color>
+		<color scheme_preference="dark" type="primary">#303446</color>
 	</branding>
 
 	<screenshots>
 		<screenshot type="default">
 			<caption>Pomolin in Focus Mode.</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.6/gitAssets/app_screenshots/screenshot1.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.7/gitAssets/app_screenshots/screenshot1.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Pomolin in Short Break Mode.</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.6/gitAssets/app_screenshots/screenshot2.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.7/gitAssets/app_screenshots/screenshot2.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Pomolin in Long Break Mode.</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.6/gitAssets/app_screenshots/screenshot3.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.7/gitAssets/app_screenshots/screenshot3.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Timer Settings</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.6/gitAssets/app_screenshots/screenshot4.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.7/gitAssets/app_screenshots/screenshot4.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Appearance Settings</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.6/gitAssets/app_screenshots/screenshot5.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.7/gitAssets/app_screenshots/screenshot5.png
+			</image>
+		</screenshot>
+
+		<screenshot type="default">
+			<caption>Application Wide-View</caption>
+			<image>
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.7/gitAssets/app_screenshots/screenshot6.png
 			</image>
 		</screenshot>
 	</screenshots>
 
 	<releases>
+		<release date="2025-08-10" version="1.1.7">
+			<description>
+				<p>In this update:</p>
+				<ul>
+					<li>Improve window navigation by adding navigation buttons in 'no window decoration' mode.</li>
+					<li>Added new application assets.</li>
+					<li>Updated flatpak screenshots.</li>
+				</ul>
+			</description>
+		</release>
+
 		<release date="2025-08-09" version="1.1.6">
 			<description>
 				<p>Fix minor bugs and improvements.</p>
 				<p>Update flatpak support.</p>
 			</description>
 		</release>
+
 		<release date="2025-08-08" version="1.1.5" />
 	</releases>
 
