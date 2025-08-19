@@ -1,4 +1,4 @@
-# .github/workflows/build.yml
+# .github/workflows/build_test.yml
 # This workflow builds, packages, and creates a draft release for the application on Windows (x64),
 # macOS (x64, arm64), and Linux (x64, arm64), including AppImage for Linux.
 
@@ -242,7 +242,7 @@ jobs:
         run: |
           echo "Building Flatpak for ${{ matrix.flatpak_arch }}"
           # 1. Build the Flatpak from the manifest file
-          flatpak-builder --force-clean --repo=repo build-dir packaging/flatpak/io.github.redddfoxxyy.pomolin.yml
+          flatpak-builder --force-clean --repo=repo build-dir packaging/flatpak/pomolin.yml
 
           # 2. Create a single-file bundle from the repository
           flatpak build-bundle repo pomolin-${{ matrix.flatpak_arch }}.flatpak io.github.redddfoxxyy.pomolin

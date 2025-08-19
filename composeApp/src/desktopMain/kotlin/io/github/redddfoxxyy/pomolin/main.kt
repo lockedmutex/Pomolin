@@ -34,7 +34,7 @@ fun main() = application {
 	val minWindowDimensions = Pair(390, 540)
 	val jetbrainsMono = FontFamily(Font(Res.font.JetBrainsMonoNerdFont_ExtraBold))
 
-	// Function to restart the window when settings change
+	// Restart the window when settings change
 	fun restartWindow() {
 		if (windowDecorations != AppSettings.enableWindowDecorations) {
 			windowDecorations = AppSettings.enableWindowDecorations
