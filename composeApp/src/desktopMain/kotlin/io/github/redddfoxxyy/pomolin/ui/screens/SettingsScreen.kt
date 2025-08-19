@@ -5,7 +5,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,34 +22,8 @@ import pomolin.composeapp.generated.resources.back
 
 @Composable
 @Preview
-internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Unit, onRestartRequired: () -> Unit = {}) {
+internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Unit = {}) {
 	val scrollState = rememberScrollState()
-	var showDialog by remember { mutableStateOf(false) }
-
-	if (showDialog) {
-		AlertDialog(
-			onDismissRequest = { showDialog = false },
-			title = { Text("Restart Required") },
-			text = { Text("The Application will restart to apply the changes.") },
-			confirmButton = {
-				Button(
-					onClick = {
-						showDialog = false
-						onRestartRequired()
-					},
-					colors = ButtonDefaults.buttonColors(
-						containerColor = ThemeManager.colors.mauve,
-						contentColor = ThemeManager.colors.crust
-					)
-				) {
-					Text("OK")
-				}
-			},
-			containerColor = ThemeManager.colors.surface,
-			titleContentColor = ThemeManager.colors.lavender,
-			textContentColor = ThemeManager.colors.text
-		)
-	}
 
 	Box(modifier = Modifier.fillMaxSize().background(ThemeManager.colors.base)) {
 		Column(
@@ -78,8 +52,8 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
 					SettingItemCard(title = "Timer Durations") {
 						TimerOption(
 							label = "Focus",
-							value = pomoDoroManager.appSettings.workingDuration,
-							onValueChange = { pomoDoroManager.changeWorkingDuration(it) },
+							value = PomoDoro.pomoDoroSettings.workingDuration,
+							onValueChange = { PomoDoro.changeWorkingDuration(it) },
 							valueSuffix = "min",
 							valueRange = 1f..120f,
 							color = ThemeManager.colors.mauve,
@@ -92,8 +66,8 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
 						)
 						TimerOption(
 							label = "Short Break",
-							value = pomoDoroManager.appSettings.shortBreakDuration,
-							onValueChange = { pomoDoroManager.changeShortBreakDuration(it) },
+							value = PomoDoro.pomoDoroSettings.shortBreakDuration,
+							onValueChange = { PomoDoro.changeShortBreakDuration(it) },
 							valueSuffix = "min",
 							valueRange = 1f..30f,
 							color = ThemeManager.colors.yellow,
@@ -106,8 +80,8 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
 						)
 						TimerOption(
 							label = "Long Break",
-							value = pomoDoroManager.appSettings.longBreakDuration,
-							onValueChange = { pomoDoroManager.changeLongBreakDuration(it) },
+							value = PomoDoro.pomoDoroSettings.longBreakDuration,
+							onValueChange = { PomoDoro.changeLongBreakDuration(it) },
 							valueSuffix = "min",
 							valueRange = 1f..60f,
 							color = ThemeManager.colors.peach,
@@ -119,8 +93,8 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
 					SettingItemCard(title = "Session Goal") {
 						TimerOption(
 							label = "Sessions",
-							value = pomoDoroManager.appSettings.workSessionDuration.toFloat(),
-							onValueChange = { pomoDoroManager.changeWorkSessionDuration(it) },
+							value = PomoDoro.pomoDoroSettings.workSessionDuration.toFloat(),
+							onValueChange = { PomoDoro.changeWorkSessionDuration(it) },
 							valueSuffix = "sessions",
 							valueRange = 1f..10f,
 							color = ThemeManager.colors.blue,
@@ -143,7 +117,7 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
 							isChecked = AppSettings.enableWindowDecorations,
 							onCheckedChange = {
 								AppSettings.toggleWindowDecorations()
-								showDialog = true
+								restartWindow()
 							},
 							enabled = !SystemUtils.IS_OS_WINDOWS,
 						)
@@ -153,7 +127,6 @@ internal fun SettingsScreen(pomoDoroManager: PomoDoro, onNavigateBack: () -> Uni
 							isChecked = AppSettings.enableWindowBorders,
 							onCheckedChange = {
 								AppSettings.toggleWindowBorders(it)
-								showDialog = true
 							},
 							enabled = !AppSettings.enableWindowDecorations,
 						)

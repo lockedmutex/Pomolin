@@ -8,8 +8,7 @@ sdk-extensions:
 command: pomolin
 finish-args:
   - --share=ipc
-  - --socket=wayland
-  - --socket=fallback-x11
+  - --socket=x11
   - --socket=pulseaudio
   - --device=dri
 

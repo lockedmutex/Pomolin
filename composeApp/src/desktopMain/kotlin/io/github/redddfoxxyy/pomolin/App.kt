@@ -12,7 +12,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import io.github.redddfoxxyy.pomolin.data.PomoDoro
 import io.github.redddfoxxyy.pomolin.ui.screens.SettingsScreen
 import io.github.redddfoxxyy.pomolin.ui.screens.TimerScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -24,9 +23,8 @@ enum class Screen {
 
 @Composable
 @Preview
-fun App(onRestartWindow: () -> Unit) {
+fun App(restartWindow: () -> Unit) {
 	var currentScreen by remember { mutableStateOf(Screen.Timer) }
-	val pomoDoroManager = remember { PomoDoro() }
 
 	MaterialTheme {
 		Scaffold(
@@ -60,14 +58,12 @@ fun App(onRestartWindow: () -> Unit) {
 			) { screen ->
 				when (screen) {
 					Screen.Timer -> TimerScreen(
-						pomoDoroManager = pomoDoroManager,
 						onNavigateToSettings = { currentScreen = Screen.Settings }
 					)
 
 					Screen.Settings -> SettingsScreen(
-						pomoDoroManager = pomoDoroManager,
 						onNavigateBack = { currentScreen = Screen.Timer },
-						onRestartRequired = onRestartWindow
+						restartWindow = restartWindow
 					)
 				}
 			}

@@ -27,10 +27,8 @@ import java.awt.Dimension
 import javax.swing.SwingUtilities
 
 fun main() = application {
-	// Window restart mechanism
-	var restartKey by remember { mutableStateOf(false) }
+	var windowRestartTrigger by remember { mutableStateOf(false) }
 	var windowDecorations by remember { mutableStateOf(AppSettings.enableWindowDecorations) }
-	var windowBorders by remember { mutableStateOf(AppSettings.enableWindowBorders) }
 
 	val icon = painterResource(Res.drawable.Pomolin)
 	val minWindowDimensions = Pair(390, 540)
@@ -38,16 +36,13 @@ fun main() = application {
 
 	// Function to restart the window when settings change
 	fun restartWindow() {
-		if (windowDecorations != AppSettings.enableWindowDecorations ||
-			windowBorders != AppSettings.enableWindowBorders
-		) {
+		if (windowDecorations != AppSettings.enableWindowDecorations) {
 			windowDecorations = AppSettings.enableWindowDecorations
-			windowBorders = AppSettings.enableWindowBorders
-			restartKey = !restartKey
+			windowRestartTrigger = !windowRestartTrigger
 		}
 	}
 
-	key(restartKey) {
+	key(windowRestartTrigger) {
 		val windowState = rememberWindowState(
 			width = minWindowDimensions.first.dp,
 			height = minWindowDimensions.second.dp
@@ -61,9 +56,6 @@ fun main() = application {
 			state = windowState,
 			icon = icon,
 		) {
-			// Monitor for settings changes and restart the window if needed
-			LaunchedEffect(Unit) {}
-
 			SwingUtilities.getWindowAncestor(this.window.rootPane)?.apply {
 				minimumSize = Dimension(minWindowDimensions.first, minWindowDimensions.second)
 			}
@@ -76,7 +68,7 @@ fun main() = application {
 				} else {
 					RoundedCornerShape(0.dp)
 				},
-				border = if (windowBorders) {
+				border = if (AppSettings.enableWindowBorders) {
 					BorderStroke(2.dp, ThemeManager.colors.mauve.copy(alpha = 0.8f))
 				} else null,
 			) {
