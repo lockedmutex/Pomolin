@@ -30,7 +30,7 @@ modules:
       - type: git
         url: https://github.com/RedddFoxxyy/Pomolin.git
         #        tag: v1.1.3
-        branch: test-workflow
+        branch: release
 
     #      - type: file
     #        url: https://services.gradle.org/distributions/gradle-8.14.3-bin.zip
