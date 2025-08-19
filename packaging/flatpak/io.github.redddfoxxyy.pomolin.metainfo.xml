@@ -3,7 +3,7 @@
 	<id>io.github.redddfoxxyy.pomolin</id>
 
 	<name>Pomolin</name>
-	<summary>Focus on what matters!</summary>
+	<summary>Focus on what matters</summary>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>AGPL-3.0-only</project_license>
 	<developer_name>Suyog Tandel</developer_name>
@@ -11,8 +11,7 @@
 	<description>
 		<p>
 			A simple, beautiful, and minimalist Pomodoro timer for your desktop. Designed to help
-			you stay focused and
-			productive, it provides an elegant and straightforward way to manage your work and break
+			you stay focused and productive, it provides an elegant and straightforward way to manage your work and break
 			intervals.
 		</p>
 	</description>
@@ -34,55 +33,64 @@
 	</keywords>
 
 	<branding>
-		<color scheme_preference="light" type="primary">#1e1e2e</color>
-		<color scheme_preference="dark" type="primary">#303446</color>
+		<color scheme_preference="light" type="primary">#89b4fa</color>
+		<color scheme_preference="dark" type="primary">#282245</color>
 	</branding>
 
 	<screenshots>
 		<screenshot type="default">
 			<caption>Pomolin in Focus Mode.</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.7/gitAssets/app_screenshots/screenshot1.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.8/gitAssets/app_screenshots/screenshot1.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Pomolin in Short Break Mode.</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.7/gitAssets/app_screenshots/screenshot2.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.8/gitAssets/app_screenshots/screenshot2.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Pomolin in Long Break Mode.</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.7/gitAssets/app_screenshots/screenshot3.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.8/gitAssets/app_screenshots/screenshot3.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Timer Settings</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.7/gitAssets/app_screenshots/screenshot4.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.8/gitAssets/app_screenshots/screenshot4.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
-			<caption>Appearance Settings</caption>
+			<caption>Appearance Settings Dark Mode</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.7/gitAssets/app_screenshots/screenshot5.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.8/gitAssets/app_screenshots/screenshot5.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
-			<caption>Application Wide-View</caption>
+			<caption>Timer Running Dark Mode</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.7/gitAssets/app_screenshots/screenshot6.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.8/gitAssets/app_screenshots/screenshot6.png
 			</image>
 		</screenshot>
 	</screenshots>
 
 	<releases>
+		<release date="2025-08-19" version="1.1.8">
+			<description>
+				<p>In this update:</p>
+				<ul>
+					<li>Auto Restart the app window when window config changes.</li>
+					<li>Update Application Assets.</li>
+				</ul>
+			</description>
+		</release>
 		<release date="2025-08-10" version="1.1.7">
 			<description>
 				<p>In this update:</p>
@@ -101,10 +109,10 @@
 			</description>
 		</release>
 
-		<release date="2025-08-08" version="1.1.5" />
+		<release date="2025-08-08" version="1.1.5"/>
 	</releases>
 
-	<content_rating type="oars-1.1" />
+	<content_rating type="oars-1.1"/>
 
 	<url type="homepage">https://redddfoxxyy.github.io/Pomolin/</url>
 	<url type="bugtracker">https://github.com/RedddFoxxyy/Pomolin/issues</url>

@@ -7,7 +7,7 @@ import org.apache.commons.lang3.SystemUtils
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.util.Properties
+import java.util.*
 
 object AppSettings {
 	var enableProgressIndicator by mutableStateOf(true)
@@ -69,21 +69,27 @@ object AppSettings {
 
 	fun toggleWindowDecorations() {
 		try {
+			enableWindowDecorations = !enableWindowDecorations
+			enableWindowBorders = !enableWindowDecorations
 			FileOutputStream(configFile).use { output ->
 				settingsProperties.setProperty(
 					"enableWindowDecorations",
-					(!enableWindowDecorations).toString()
+					(enableWindowDecorations).toString()
 				)
 				settingsProperties.setProperty(
 					"enableWindowBorders",
-					(!enableWindowBorders).toString()
+					(enableWindowBorders).toString()
 				)
 				settingsProperties.store(output, "Pomolin App Settings")
 			}
 		} catch (e: Exception) {
-			// Handle error
 			e.printStackTrace()
 		}
+	}
+
+	fun toggleWindowBorders(toggle: Boolean) {
+		enableWindowBorders = toggle
+		saveSettings()
 	}
 
 	fun saveSettings() {

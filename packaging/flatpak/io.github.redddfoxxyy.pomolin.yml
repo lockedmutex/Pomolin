@@ -16,17 +16,17 @@ modules:
     sources:
       - type: git
         url: https://github.com/RedddFoxxyy/Pomolin.git
-        tag: v1.1.7
+        tag: v1.1.8
 
       - type: archive
-        url: https://github.com/RedddFoxxyy/Pomolin/releases/download/v1.1.7/pomolin_x64_linux.tar.gz
+        url: https://github.com/RedddFoxxyy/Pomolin/releases/download/v1.1.8/pomolin_x64_linux.tar.gz
         sha256: "8b6de1d809962aa342abaf32695e9c1133f5b528c12805809092f3259e45011c"
         dest: "pomolin"
         only-arches:
           - x86_64
 
       - type: archive
-        url: https://github.com/RedddFoxxyy/Pomolin/releases/download/v1.1.7/pomolin_arm64_linux.tar.gz
+        url: https://github.com/RedddFoxxyy/Pomolin/releases/download/v1.1.8/pomolin_arm64_linux.tar.gz
         sha256: "acf919078d4fd9d855b67764a342f4c4f23f22a60a7a6d3ac5fc418978dc6487"
         dest: "pomolin"
         only-arches:
@@ -35,6 +35,6 @@ modules:
     build-commands:
       - cp -r pomolin/* /app/
 
-      - install -Dm644 packaging/io.github.redddfoxxyy.pomolin.desktop /app/share/applications/io.github.redddfoxxyy.pomolin.desktop
-      - install -Dm644 packaging/io.github.redddfoxxyy.pomolin.svg /app/share/icons/hicolor/scalable/apps/io.github.redddfoxxyy.pomolin.svg
-      - install -Dm644 packaging/io.github.redddfoxxyy.pomolin.metainfo.xml /app/share/metainfo/io.github.redddfoxxyy.pomolin.metainfo.xml
+      - install -Dm644 packaging/flatpak/io.github.redddfoxxyy.pomolin.desktop /app/share/applications/io.github.redddfoxxyy.pomolin.desktop
+      - install -Dm644 packaging/flatpak/io.github.redddfoxxyy.pomolin.svg /app/share/icons/hicolor/scalable/apps/io.github.redddfoxxyy.pomolin.svg
+      - install -Dm644 packaging/flatpak/io.github.redddfoxxyy.pomolin.metainfo.xml /app/share/metainfo/io.github.redddfoxxyy.pomolin.metainfo.xml

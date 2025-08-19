@@ -1,26 +1,14 @@
 package io.github.redddfoxxyy.pomolin.ui.components
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.*
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.togetherWith
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
@@ -43,12 +31,11 @@ import pomolin.composeapp.generated.resources.Res
 @Preview
 internal fun TimerDisplay(
 	modifier: Modifier = Modifier,
-	time: String,
-	pomoDoroManager: PomoDoro
+	time: String
 ) {
 	val timerFontFamily = FontFamily(Font(Res.font.JetBrainsMonoNerdFont_ExtraBold))
 	val animatedProgress by animateFloatAsState(
-		targetValue = pomoDoroManager.timerInstance.getTimerProgress(),
+		targetValue = PomoDoro.timerInstance.getTimerProgress(),
 		animationSpec = tween(
 			durationMillis = 1000,
 			easing = LinearEasing
@@ -65,7 +52,7 @@ internal fun TimerDisplay(
 	) {
 		val squareSize = with(density) { min(size.width.toDp(), size.height.toDp()) }
 		val progressIndicatorColor by animateColorAsState(
-			targetValue = when (pomoDoroManager.currentRoutine) {
+			targetValue = when (PomoDoro.currentRoutine) {
 				PomoDoroRoutines.Working -> ThemeManager.colors.mauve
 				PomoDoroRoutines.ShortBreak -> ThemeManager.colors.yellow
 				PomoDoroRoutines.LongBreak -> ThemeManager.colors.peach

@@ -9,14 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import io.github.redddfoxxyy.pomolin.data.PomoDoro
 import io.github.redddfoxxyy.pomolin.ui.screens.SettingsScreen
 import io.github.redddfoxxyy.pomolin.ui.screens.TimerScreen
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -28,9 +23,8 @@ enum class Screen {
 
 @Composable
 @Preview
-fun App() {
+fun App(restartWindow: () -> Unit) {
 	var currentScreen by remember { mutableStateOf(Screen.Timer) }
-	val pomoDoroManager = remember { PomoDoro() }
 
 	MaterialTheme {
 		Scaffold(
@@ -64,13 +58,12 @@ fun App() {
 			) { screen ->
 				when (screen) {
 					Screen.Timer -> TimerScreen(
-						pomoDoroManager = pomoDoroManager,
 						onNavigateToSettings = { currentScreen = Screen.Settings }
 					)
 
 					Screen.Settings -> SettingsScreen(
-						pomoDoroManager = pomoDoroManager,
-						onNavigateBack = { currentScreen = Screen.Timer }
+						onNavigateBack = { currentScreen = Screen.Timer },
+						restartWindow = restartWindow
 					)
 				}
 			}

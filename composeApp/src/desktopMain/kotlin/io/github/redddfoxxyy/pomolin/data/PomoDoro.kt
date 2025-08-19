@@ -19,12 +19,12 @@ internal class PomoDoroSettings {
 }
 
 
-internal class PomoDoro {
+internal object PomoDoro {
 	internal val appAudioManager = Audio()
 	internal val timerInstance = Timer(25f, appAudioManager, ::progressToNextRoutine)
 
 	internal val routineList = PomoDoroRoutines.entries.toList()
-	internal var appSettings = PomoDoroSettings()
+	internal var pomoDoroSettings = PomoDoroSettings()
 	internal var currentRoutine by mutableStateOf(PomoDoroRoutines.Working)
 	internal var workSessionsCompleted by mutableStateOf(0)
 
@@ -34,9 +34,9 @@ internal class PomoDoro {
 
 
 	private fun getDurationFor(routine: PomoDoroRoutines): Float = when (routine) {
-		PomoDoroRoutines.Working -> appSettings.workingDuration
-		PomoDoroRoutines.ShortBreak -> appSettings.shortBreakDuration
-		PomoDoroRoutines.LongBreak -> appSettings.longBreakDuration
+		PomoDoroRoutines.Working -> pomoDoroSettings.workingDuration
+		PomoDoroRoutines.ShortBreak -> pomoDoroSettings.shortBreakDuration
+		PomoDoroRoutines.LongBreak -> pomoDoroSettings.longBreakDuration
 	}
 
 	internal fun setRoutine(routine: PomoDoroRoutines) {
@@ -46,7 +46,7 @@ internal class PomoDoro {
 
 	internal fun changeWorkingDuration(duration: Float) {
 		val durationStepped = duration.toInt().toFloat()
-		appSettings.workingDuration = durationStepped
+		pomoDoroSettings.workingDuration = durationStepped
 		if (currentRoutine == PomoDoroRoutines.Working) {
 			timerInstance.updateDuration(durationStepped)
 		}
@@ -54,7 +54,7 @@ internal class PomoDoro {
 
 	internal fun changeShortBreakDuration(duration: Float) {
 		val durationStepped = duration.toInt().toFloat()
-		appSettings.shortBreakDuration = durationStepped
+		pomoDoroSettings.shortBreakDuration = durationStepped
 		if (currentRoutine == PomoDoroRoutines.ShortBreak) {
 			timerInstance.updateDuration(durationStepped)
 		}
@@ -62,7 +62,7 @@ internal class PomoDoro {
 
 	internal fun changeLongBreakDuration(duration: Float) {
 		val durationStepped = duration.toInt().toFloat()
-		appSettings.longBreakDuration = durationStepped
+		pomoDoroSettings.longBreakDuration = durationStepped
 		if (currentRoutine == PomoDoroRoutines.LongBreak) {
 			timerInstance.updateDuration(durationStepped)
 		}
@@ -70,14 +70,14 @@ internal class PomoDoro {
 
 	internal fun changeWorkSessionDuration(duration: Float) {
 		val durationStepped = duration.toInt()
-		appSettings.workSessionDuration = durationStepped
+		pomoDoroSettings.workSessionDuration = durationStepped
 	}
 
 	private fun progressToNextRoutine() {
 		when (currentRoutine) {
 			PomoDoroRoutines.Working -> {
 				workSessionsCompleted++
-				if (workSessionsCompleted >= appSettings.workSessionDuration) {
+				if (workSessionsCompleted >= pomoDoroSettings.workSessionDuration) {
 					setRoutine(PomoDoroRoutines.LongBreak)
 					workSessionsCompleted = 0
 				} else {

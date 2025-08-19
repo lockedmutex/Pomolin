@@ -1,0 +1,2 @@
+#!/bin/sh
+exec "$APPDIR/usr/lib/pomolin/bin/pomolin" "$@"
