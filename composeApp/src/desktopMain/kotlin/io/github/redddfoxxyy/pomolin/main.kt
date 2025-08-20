@@ -62,14 +62,14 @@ fun main() = application {
 
 			Surface(
 				modifier = Modifier.fillMaxWidth(),
-				color = ThemeManager.colors.base,
+				color = ThemeManager.colors.background,
 				shape = if (!windowDecorations) {
 					RoundedCornerShape(15.dp)
 				} else {
 					RoundedCornerShape(0.dp)
 				},
 				border = if (AppSettings.enableWindowBorders) {
-					BorderStroke(2.dp, ThemeManager.colors.mauve.copy(alpha = 0.8f))
+					BorderStroke(2.dp, ThemeManager.colors.primaryAccent.copy(alpha = 0.8f))
 				} else null,
 			) {
 				Column {
@@ -87,15 +87,15 @@ fun main() = application {
 									modifier = Modifier.align(Alignment.Center),
 									fontFamily = jetbrainsMono,
 									fontSize = 18.sp,
-									color = ThemeManager.colors.mauve
+									color = ThemeManager.colors.primaryAccent
 								)
 								Box(
 									modifier = Modifier
 										.padding(end = 8.dp, top = 2.dp)
 										.align(Alignment.TopEnd)
-										.size(22.dp)
+										.size(24.dp)
 										.background(
-											color = ThemeManager.colors.surface.copy(alpha = 0.8f),
+											color = ThemeManager.colors.red.copy(alpha = 0.8f),
 											shape = CircleShape
 										),
 									contentAlignment = Alignment.Center
@@ -103,17 +103,17 @@ fun main() = application {
 									IconButton(
 										onClick = { exitApplication() },
 										modifier = Modifier
-											.size(22.dp)
+											.size(24.dp)
 											.align(Alignment.TopEnd),
 										colors = IconButtonDefaults.iconButtonColors(
 											containerColor = Color.Transparent,
-											contentColor = ThemeManager.colors.mauve.copy(alpha = 0.8f),
+											contentColor = ThemeManager.colors.buttonIcon.copy(alpha = 0.8f),
 										),
 									) {
 										Icon(
 											painterResource(Res.drawable.close),
 											contentDescription = "Close App",
-											modifier = Modifier.size(16.dp)
+											modifier = Modifier.size(18.dp)
 										)
 									}
 								}
@@ -121,9 +121,9 @@ fun main() = application {
 									modifier = Modifier
 										.padding(end = 36.dp, top = 2.dp)
 										.align(Alignment.TopEnd)
-										.size(22.dp)
+										.size(24.dp)
 										.background(
-											color = ThemeManager.colors.surface.copy(alpha = 0.8f),
+											color = ThemeManager.colors.green.copy(alpha = 0.8f),
 											shape = CircleShape
 										),
 									contentAlignment = Alignment.Center
@@ -138,11 +138,11 @@ fun main() = application {
 												}
 										},
 										modifier = Modifier
-											.size(22.dp)
+											.size(24.dp)
 											.align(Alignment.TopEnd),
 										colors = IconButtonDefaults.iconButtonColors(
 											containerColor = Color.Transparent,
-											contentColor = ThemeManager.colors.mauve.copy(alpha = 0.8f),
+											contentColor = ThemeManager.colors.buttonIcon.copy(alpha = 0.8f),
 										),
 									) {
 										Icon(
@@ -158,7 +158,7 @@ fun main() = application {
 											} else {
 												"Maximize Window"
 											},
-											modifier = Modifier.size(16.dp)
+											modifier = Modifier.size(20.dp)
 										)
 									}
 								}

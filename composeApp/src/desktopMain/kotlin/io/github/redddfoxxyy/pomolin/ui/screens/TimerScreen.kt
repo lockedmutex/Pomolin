@@ -39,7 +39,7 @@ internal fun TimerScreen(onNavigateToSettings: () -> Unit) {
 
 	Box(modifier = Modifier.fillMaxSize()) {
 		Column(
-			modifier = Modifier.fillMaxSize().background(ThemeManager.colors.base),
+			modifier = Modifier.fillMaxSize().background(ThemeManager.colors.background),
 			horizontalAlignment = Alignment.CenterHorizontally,
 			verticalArrangement = Arrangement.SpaceBetween
 		) {
@@ -86,13 +86,13 @@ internal fun TimerScreen(onNavigateToSettings: () -> Unit) {
 			Icon(
 				painter = painterResource(Res.drawable.settings),
 				contentDescription = "Settings",
-				tint = ThemeManager.colors.mauve,
+				tint = ThemeManager.colors.primaryAccent,
 			)
 		}
 		Text(
 			modifier = Modifier.align(Alignment.BottomEnd).padding(bottom = 18.dp, end = 15.dp),
 			text = "$workSessionsCompleted/$workSessionDuration",
-			color = ThemeManager.colors.mauve,
+			color = ThemeManager.colors.primaryAccent,
 			fontWeight = FontWeight.SemiBold,
 			fontSize = 22.sp,
 		)
@@ -117,12 +117,12 @@ fun RoutineSelector(
 				selected = routine == selectedRoutine,
 				label = { Text(routine.displayName) },
 				colors = SegmentedButtonDefaults.colors(
-					activeContainerColor = ThemeManager.colors.mauve,
+					activeContainerColor = ThemeManager.colors.primaryAccent,
 					inactiveContainerColor = Color.Transparent,
-					activeContentColor = ThemeManager.colors.crust,
+					activeContentColor = ThemeManager.colors.buttonIcon,
 					inactiveContentColor = ThemeManager.colors.text
 				),
-				border = BorderStroke(1.dp, ThemeManager.colors.mauve)
+				border = BorderStroke(1.dp, ThemeManager.colors.primaryAccent)
 			)
 		}
 	}
@@ -142,7 +142,7 @@ fun ControlButtons(
 		label = "ResetIconRotation"
 	)
 	val actionButtonColor by animateColorAsState(
-		targetValue = if (isRunning) ThemeManager.colors.peach else ThemeManager.colors.green,
+		targetValue = if (isRunning) ThemeManager.colors.primaryLBreak else ThemeManager.colors.green,
 		label = "ButtonColor"
 	)
 
@@ -168,7 +168,7 @@ fun ControlButtons(
 					painter = if (running) painterResource(Res.drawable.pause)
 					else painterResource(Res.drawable.play_arrow),
 					contentDescription = if (running) "Pause" else "Play",
-					tint = ThemeManager.colors.crust
+					tint = ThemeManager.colors.buttonIcon
 				)
 			}
 		}
@@ -189,7 +189,7 @@ fun ControlButtons(
 			Icon(
 				painter = painterResource(Res.drawable.reset),
 				contentDescription = "Reset",
-				tint = ThemeManager.colors.crust,
+				tint = ThemeManager.colors.buttonIcon,
 				modifier = Modifier.rotate(animatedResetIconRotation)
 			)
 		}

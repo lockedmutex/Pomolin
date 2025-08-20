@@ -25,7 +25,7 @@ import pomolin.composeapp.generated.resources.back
 internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Unit = {}) {
 	val scrollState = rememberScrollState()
 
-	Box(modifier = Modifier.fillMaxSize().background(ThemeManager.colors.base)) {
+	Box(modifier = Modifier.fillMaxSize().background(ThemeManager.colors.background)) {
 		Column(
 			modifier = Modifier
 				.fillMaxSize()
@@ -33,13 +33,12 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 		) {
 			Text(
 				text = "Settings",
-				color = ThemeManager.colors.lavender,
+				color = ThemeManager.colors.boldText,
 				fontSize = 24.sp,
 				fontWeight = FontWeight.Bold,
 				modifier = Modifier.padding(start = 18.dp, top = 15.dp, bottom = 10.dp)
 			)
 
-			// Scrollable content
 			Box(modifier = Modifier.weight(1f)) {
 				Column(
 					modifier = Modifier
@@ -56,7 +55,7 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 							onValueChange = { PomoDoro.changeWorkingDuration(it) },
 							valueSuffix = "min",
 							valueRange = 1f..120f,
-							color = ThemeManager.colors.mauve,
+							color = ThemeManager.colors.primaryAccent,
 							// icon = painterResource(Res.drawable.ic_brain)
 						)
 						HorizontalDivider(
@@ -69,8 +68,8 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 							value = PomoDoro.pomoDoroSettings.shortBreakDuration,
 							onValueChange = { PomoDoro.changeShortBreakDuration(it) },
 							valueSuffix = "min",
-							valueRange = 1f..30f,
-							color = ThemeManager.colors.yellow,
+							valueRange = 1f..60f,
+							color = ThemeManager.colors.primaryBreak,
 							// icon = painterResource(Res.drawable.ic_coffee)
 						)
 						HorizontalDivider(
@@ -83,8 +82,8 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 							value = PomoDoro.pomoDoroSettings.longBreakDuration,
 							onValueChange = { PomoDoro.changeLongBreakDuration(it) },
 							valueSuffix = "min",
-							valueRange = 1f..60f,
-							color = ThemeManager.colors.peach,
+							valueRange = 1f..120f,
+							color = ThemeManager.colors.primaryLBreak,
 							// icon = painterResource(Res.drawable.ic_long_coffee)
 						)
 					}
@@ -105,10 +104,17 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 					// Appearance Settings
 					SettingItemCard(title = "Appearance") {
 						ToggleOption(
+							label = "Dark Mode",
+							isChecked = AppSettings.enableDarkMode,
+							onCheckedChange = {
+								AppSettings.toggleDarkMode(it)
+							},
+						)
+						ToggleOption(
 							label = "Progress Indicator",
 							isChecked = AppSettings.enableProgressIndicator,
 							onCheckedChange = {
-								AppSettings.enableProgressIndicator = it
+								AppSettings.toggleProgressIndicator(it)
 							},
 						)
 
@@ -116,7 +122,7 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 							label = "Enable Window Decorations",
 							isChecked = AppSettings.enableWindowDecorations,
 							onCheckedChange = {
-								AppSettings.toggleWindowDecorations()
+								AppSettings.toggleWindowDecorations(it)
 								restartWindow()
 							},
 							enabled = !SystemUtils.IS_OS_WINDOWS,
@@ -147,8 +153,8 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 					style = ScrollbarStyle(
 						thickness = 6.dp,
 						shape = RoundedCornerShape(3.dp),
-						unhoverColor = ThemeManager.colors.mauve.copy(alpha = 0.3f),
-						hoverColor = ThemeManager.colors.mauve,
+						unhoverColor = ThemeManager.colors.primaryAccent.copy(alpha = 0.3f),
+						hoverColor = ThemeManager.colors.primaryAccent,
 						hoverDurationMillis = 300,
 						minimalHeight = 100.dp,
 					)
@@ -163,7 +169,7 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 			Icon(
 				painter = painterResource(Res.drawable.back),
 				contentDescription = "Back to Timer",
-				tint = ThemeManager.colors.mauve,
+				tint = ThemeManager.colors.primaryAccent,
 			)
 		}
 	}
@@ -182,7 +188,7 @@ fun SettingItemCard(
 		Column {
 			Text(
 				text = title,
-				color = ThemeManager.colors.lavender,
+				color = ThemeManager.colors.boldText,
 				fontWeight = FontWeight.Bold,
 				fontSize = 12.sp,
 				modifier = Modifier.padding(start = 16.dp, top = 12.dp, bottom = 4.dp)
@@ -219,7 +225,7 @@ fun TimerOption(
 			Spacer(Modifier.weight(1f))
 			Text(
 				text = "${value.toInt()} $valueSuffix",
-				color = ThemeManager.colors.lavender,
+				color = ThemeManager.colors.boldText,
 				fontWeight = FontWeight.SemiBold,
 				fontSize = 15.sp,
 			)
@@ -272,16 +278,16 @@ fun ToggleOption(
 			onCheckedChange = onCheckedChange,
 			enabled = enabled,
 			colors = SwitchDefaults.colors(
-				checkedTrackColor = ThemeManager.colors.mauve,
-				checkedThumbColor = ThemeManager.colors.base,
+				checkedTrackColor = ThemeManager.colors.primaryAccent,
+				checkedThumbColor = ThemeManager.colors.background,
 				uncheckedTrackColor = ThemeManager.colors.surface200,
-				uncheckedThumbColor = ThemeManager.colors.crust,
+				uncheckedThumbColor = ThemeManager.colors.buttonIcon,
 				uncheckedBorderColor = ThemeManager.colors.surface200.copy(alpha = 0.0f),
 				disabledUncheckedTrackColor = ThemeManager.colors.surface200.copy(alpha = 0.7f),
-				disabledUncheckedThumbColor = ThemeManager.colors.crust.copy(alpha = 0.7f),
+				disabledUncheckedThumbColor = ThemeManager.colors.buttonIcon.copy(alpha = 0.7f),
 				disabledUncheckedBorderColor = ThemeManager.colors.surface200.copy(alpha = 0.2f),
-				disabledCheckedTrackColor = ThemeManager.colors.mauve.copy(alpha = 0.7f),
-				disabledCheckedThumbColor = ThemeManager.colors.base.copy(alpha = 0.7f),
+				disabledCheckedTrackColor = ThemeManager.colors.primaryAccent.copy(alpha = 0.7f),
+				disabledCheckedThumbColor = ThemeManager.colors.background.copy(alpha = 0.7f),
 				disabledCheckedBorderColor = ThemeManager.colors.surface200.copy(alpha = 0.2f),
 			)
 		)

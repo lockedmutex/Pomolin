@@ -3,6 +3,7 @@ package io.github.redddfoxxyy.pomolin.data
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import io.github.redddfoxxyy.pomolin.ui.ThemeManager
 import org.apache.commons.lang3.SystemUtils
 import java.io.File
 import java.io.FileInputStream
@@ -10,6 +11,7 @@ import java.io.FileOutputStream
 import java.util.*
 
 object AppSettings {
+	var enableDarkMode by mutableStateOf(true)
 	var enableProgressIndicator by mutableStateOf(true)
 	var enableWindowDecorations by mutableStateOf(true)
 	var enableWindowBorders by mutableStateOf(false)
@@ -54,6 +56,12 @@ object AppSettings {
 			try {
 				FileInputStream(configFile).use { input ->
 					settingsProperties.load(input)
+					enableDarkMode =
+						settingsProperties.getProperty("enableDarkMode", "true")
+							.toBoolean()
+					enableProgressIndicator =
+						settingsProperties.getProperty("enableProgressIndicator", "true")
+							.toBoolean()
 					enableWindowDecorations =
 						settingsProperties.getProperty("enableWindowDecorations", "true")
 							.toBoolean()
@@ -61,40 +69,44 @@ object AppSettings {
 						settingsProperties.getProperty("enableWindowBorders", "false").toBoolean()
 				}
 			} catch (e: Exception) {
-				// Handle error
 				e.printStackTrace()
 			}
 		}
 	}
 
-	fun toggleWindowDecorations() {
-		try {
-			enableWindowDecorations = !enableWindowDecorations
-			enableWindowBorders = !enableWindowDecorations
-			FileOutputStream(configFile).use { output ->
-				settingsProperties.setProperty(
-					"enableWindowDecorations",
-					(enableWindowDecorations).toString()
-				)
-				settingsProperties.setProperty(
-					"enableWindowBorders",
-					(enableWindowBorders).toString()
-				)
-				settingsProperties.store(output, "Pomolin App Settings")
-			}
-		} catch (e: Exception) {
-			e.printStackTrace()
-		}
+	fun toggleDarkMode(state: Boolean) {
+		ThemeManager.enableDarkMode(state)
+		enableDarkMode = state
+		saveSettings()
 	}
 
-	fun toggleWindowBorders(toggle: Boolean) {
-		enableWindowBorders = toggle
+	fun toggleProgressIndicator(state: Boolean) {
+		enableProgressIndicator = state
+		saveSettings()
+	}
+
+	fun toggleWindowDecorations(state: Boolean) {
+		enableWindowDecorations = state
+		enableWindowBorders = !enableWindowDecorations
+		saveSettings()
+	}
+
+	fun toggleWindowBorders(state: Boolean) {
+		enableWindowBorders = state
 		saveSettings()
 	}
 
 	fun saveSettings() {
 		try {
 			FileOutputStream(configFile).use { output ->
+				settingsProperties.setProperty(
+					"enableDarkMode",
+					(enableDarkMode).toString()
+				)
+				settingsProperties.setProperty(
+					"enableProgressIndicator",
+					(enableProgressIndicator).toString()
+				)
 				settingsProperties.setProperty(
 					"enableWindowDecorations",
 					enableWindowDecorations.toString()
@@ -106,7 +118,6 @@ object AppSettings {
 				settingsProperties.store(output, "Pomolin App Settings")
 			}
 		} catch (e: Exception) {
-			// Handle error
 			e.printStackTrace()
 		}
 	}
