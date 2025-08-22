@@ -21,7 +21,6 @@
 
 #### A simple, beautiful, and minimalist Pomodoro timer for your desktop. Designed to help you stay focused and productive, it provides an elegant and straightforward way to manage your work and break intervals.
 
-
 ## Features
 
 * **Smooth Animations:** The timer digits animate smoothly, offering a dynamic and visually
@@ -32,7 +31,6 @@
 * **Cross-Platform:** Native installers are provided for Windows, macOS, and Linux on
   both `x64` and `arm64` architectures.
 * **Pastel Color Palette:** UI uses Catppuccin Mocha Color Palette as the default theme.
-
 
 ## Download & Run
 
@@ -45,16 +43,17 @@ You can download the latest version of Pomolin from the
 2. Run the installer and follow the on-screen instructions.
 
    > **NOTE**:
-   > 
+   >
    > Browsers may say that the files can be harmful, you can bypass that message and continue download. Windows
-   > Defender will also try to stop you from running the installer, just click on `more options` and then click `run anyway`.
+   > Defender will also try to stop you from running the installer, just click on `more options` and then click
+   `run anyway`.
 
 ### macOS
 
 1. Download the `.dmg` or `.pkg` file from **[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
 2. Open the `.dmg` file and drag the `Pomolin.app` to your `Applications` folder.
 
-   > **NOTE**: 
+   > **NOTE**:
    >
    > For macOS, it will not allow you to run the .pkg or the app installed using .dmg, to do so
    > you will have to go to `privacy and security` in system settings,
@@ -68,13 +67,16 @@ You can download the latest version of Pomolin from the
   <img width='200' alt='Get it on Flathub' src='https://flathub.org/api/badge?locale=en'/>
   </a>
 
-* Get the `.deb` files for Debian and Ubuntu from **[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
-* Get `AppImage` files for respective hardware from **[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
-* Get `Flatpak` files for respective hardware from **[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
+* Get the `.deb` files for Debian and Ubuntu from *
+  *[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
+* Get `AppImage` files for respective hardware from *
+  *[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
+* Get `Flatpak` files for respective hardware from *
+  *[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
 
-  > **NOTE**: 
+  > **NOTE**:
   > - Install `AppImage` using `AppImageLauncher`/`Gear Lever` or equivalent. You can run the AppImage just by
-  > double-clicking on it too, no need to install it.
+	  > double-clicking on it too, no need to install it.
   > - Flatpaks and AppImages are the preferred way to run the app on Linux-based distributions.
 
 ### JVM
@@ -89,7 +91,6 @@ You can download the latest version of Pomolin from the
    > **NOTE**:
    > Make sure that, you use java24 to run the jars. (Java21 on Windows Arm64).
    > Preferably use Temurin or ZULU JRE/JDK.
-
 
 ## Building from Source
 
@@ -118,11 +119,12 @@ To build Pomolin from the source code, you'll need to have **JDK 21** or later i
 
 3. The compiled application will be available in the `composeApp/build/compose/binaries/` directory.
 
-
 ## License
 
 This project is licensed under the **GNU Affero General Public License v3.0**. See
 the [LICENSE](LICENSE) file for details.
+
+Contributions made by all contributors are licensed strictly under **GNU AGPL v3.0 only**.
 
 ```
     Copyright (C) 2025  RedddFoxxyy(Suyog Tandel)
@@ -141,6 +143,16 @@ the [LICENSE](LICENSE) file for details.
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
 
+### Licensed Assets (CC BY-NC-ND 4.0)
+
+The following directories contain artwork (app icons, logos, images, etc.) that are licensed under the [Creative Commons
+Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+For full details, refer
+to the `LICENSE.md` file located in each such directory:
+
+- `gitAssets/`
+- `composeApp/src/desktopMain/composeResources/drawable/`
+- `packaging/flatpak/`
 
 ## Maintainers
 
