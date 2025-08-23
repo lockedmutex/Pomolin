@@ -29,12 +29,15 @@ import javax.swing.SwingUtilities
 fun main() = application {
 	var windowRestartTrigger by remember { mutableStateOf(false) }
 	var windowDecorations by remember { mutableStateOf(AppSettings.enableWindowDecorations) }
+	val minWindowDimensions = Pair(390, 540)
+
+	// TODO: Fix dark mode detection not overriding app settings.
+//	val isDark = isSystemInDarkMode()
+//	ThemeManager.enableDarkMode(isDark)
 
 	val icon = painterResource(Res.drawable.Pomolin)
-	val minWindowDimensions = Pair(390, 540)
 	val jetbrainsMono = FontFamily(Font(Res.font.JetBrainsMonoNerdFont_ExtraBold))
 
-	// Restart the window when settings change
 	fun restartWindow() {
 		if (windowDecorations != AppSettings.enableWindowDecorations) {
 			windowDecorations = AppSettings.enableWindowDecorations

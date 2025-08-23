@@ -14,15 +14,17 @@ internal object ThemeManager {
 		get() = currentTheme.colors
 	var mode by mutableStateOf(ThemeType.Dark)
 
-	internal fun enableDarkMode(prop: Boolean) {
-		mode = when (prop) {
-			false -> ThemeType.Light;
-			true -> ThemeType.Dark
-		}
-		currentTheme = if (mode == ThemeType.Dark) {
-			CatppuccinMocha()
-		} else {
-			CatppuccinLatte()
+	internal fun enableDarkMode(isDark: Boolean) {
+		when (isDark) {
+			false -> {
+				mode = ThemeType.Light
+				currentTheme = CatppuccinLatte()
+			}
+
+			true -> {
+				mode = ThemeType.Dark
+				currentTheme = CatppuccinMocha()
+			}
 		}
 	}
 }

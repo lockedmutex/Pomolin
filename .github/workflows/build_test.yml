@@ -89,6 +89,17 @@ jobs:
           java-version: '24'
           architecture: ${{ matrix.arch }}
 
+      - name: Remove JVM args for Windows ARM
+        if: matrix.os == 'windows-11-arm'
+        shell: powershell
+        run: |
+          $content = Get-Content composeApp/build.gradle.kts
+          $content = $content | Where-Object { 
+            $_ -notmatch '"--enable-native-access=ALL-UNNAMED",' -and 
+            $_ -notmatch '"--illegal-native-access=deny"' 
+          }
+          $content | Set-Content composeApp/build.gradle.kts
+
       - name: Grant execute permission for gradlew
         if: runner.os != 'Windows'
         run: chmod +x ./gradlew

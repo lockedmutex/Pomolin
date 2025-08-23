@@ -7,7 +7,7 @@ import io.github.redddfoxxyy.pomolin.ui.ThemeType
 
 data class CatppuccinMocha(
 	override val themeType: ThemeType = ThemeType.Dark,
-	override val author: String = "Catppuccin",
+	override val author: String = "RedddFoxxyy",
 	override val name: String = "Catppuccin Mocha",
 	override val colors: ThemeColors = CatppuccinMochaColors(),
 ) : Theme

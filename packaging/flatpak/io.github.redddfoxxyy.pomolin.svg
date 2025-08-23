@@ -1,15 +1,24 @@
-<svg width="4096" height="4096" viewBox="0 0 4096 4096" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="451.505" y="451.505" width="3193.29" height="3193.29" rx="526.794" fill="url(#paint0_radial_34_8)" stroke="#CBA6F7" stroke-width="103.009"/>
-<g clip-path="url(#clip0_34_8)">
-<path d="M2493.15 1009.82H1603.15C1521.57 1009.82 1454.82 1076.57 1454.82 1158.15V1542.33C1454.82 1582.38 1471.13 1619.47 1497.83 1647.65L1899.82 2048.15L1497.83 2450.13C1471.13 2476.83 1454.82 2515.4 1454.82 2553.97V2938.15C1454.82 3019.74 1521.57 3086.49 1603.15 3086.49H2493.15C2574.73 3086.49 2641.48 3019.74 2641.48 2938.15V2553.97C2641.48 2513.92 2625.17 2476.83 2598.47 2448.65L2196.48 2048.15L2598.47 1646.17C2625.17 1619.47 2641.48 1580.9 2641.48 1542.33V1158.15C2641.48 1076.57 2574.73 1009.82 2493.15 1009.82ZM2493.15 2553.97V2863.99C2493.15 2905.52 2460.52 2938.15 2418.98 2938.15H1677.32C1635.78 2938.15 1603.15 2905.52 1603.15 2863.99V2553.97L2048.15 2108.97L2493.15 2553.97Z" fill="#CBA6F7"/>
-</g>
-<defs>
-<radialGradient id="paint0_radial_34_8" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(2048.15 2048.15) rotate(90) scale(1648.15)">
-<stop offset="0.475962" stop-color="#1E1E2E"/>
-<stop offset="0.985577" stop-color="#11111B"/>
-</radialGradient>
-<clipPath id="clip0_34_8">
-<rect width="2966.67" height="2966.67" fill="white" transform="translate(564.814 564.816)"/>
-</clipPath>
-</defs>
+<!--
+  © 2025 RedddFoxxyy (Suyog Tandel)
+  Licensed under CC BY-NC-ND 4.0 – https://creativecommons.org/licenses/by-nc-nd/4.0/
+  You may share unmodified copies with attribution; commercial use and derivatives prohibited.
+-->
+<svg fill="none" height="4096" viewBox="0 0 4096 4096" width="4096" xmlns="http://www.w3.org/2000/svg">
+	<rect fill="url(#paint0_radial_34_8)" height="3193.29" rx="526.794" stroke="#CBA6F7" stroke-width="103.009" width="3193.29" x="451.505"
+	      y="451.505"/>
+	<g clip-path="url(#clip0_34_8)">
+		<path
+			d="M2493.15 1009.82H1603.15C1521.57 1009.82 1454.82 1076.57 1454.82 1158.15V1542.33C1454.82 1582.38 1471.13 1619.47 1497.83 1647.65L1899.82 2048.15L1497.83 2450.13C1471.13 2476.83 1454.82 2515.4 1454.82 2553.97V2938.15C1454.82 3019.74 1521.57 3086.49 1603.15 3086.49H2493.15C2574.73 3086.49 2641.48 3019.74 2641.48 2938.15V2553.97C2641.48 2513.92 2625.17 2476.83 2598.47 2448.65L2196.48 2048.15L2598.47 1646.17C2625.17 1619.47 2641.48 1580.9 2641.48 1542.33V1158.15C2641.48 1076.57 2574.73 1009.82 2493.15 1009.82ZM2493.15 2553.97V2863.99C2493.15 2905.52 2460.52 2938.15 2418.98 2938.15H1677.32C1635.78 2938.15 1603.15 2905.52 1603.15 2863.99V2553.97L2048.15 2108.97L2493.15 2553.97Z"
+			fill="#CBA6F7"/>
+	</g>
+	<defs>
+		<radialGradient cx="0" cy="0" gradientTransform="translate(2048.15 2048.15) rotate(90) scale(1648.15)" gradientUnits="userSpaceOnUse" id="paint0_radial_34_8"
+		                r="1">
+			<stop offset="0.475962" stop-color="#1E1E2E"/>
+			<stop offset="0.985577" stop-color="#11111B"/>
+		</radialGradient>
+		<clipPath id="clip0_34_8">
+			<rect fill="white" height="2966.67" transform="translate(564.814 564.816)" width="2966.67"/>
+		</clipPath>
+	</defs>
 </svg>
