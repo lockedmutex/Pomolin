@@ -14,8 +14,8 @@ internal object ThemeManager {
 		get() = currentTheme.colors
 	var mode by mutableStateOf(ThemeType.Dark)
 
-	internal fun enableDarkMode(prop: Boolean) {
-		when (prop) {
+	internal fun enableDarkMode(isDark: Boolean) {
+		when (isDark) {
 			false -> {
 				mode = ThemeType.Light
 				currentTheme = CatppuccinLatte()

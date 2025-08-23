@@ -33,6 +33,7 @@ kotlin {
 			implementation("com.googlecode.soundlibs:basicplayer:3.0.0.0")
 			implementation("ch.qos.logback:logback-classic:1.5.18")
 			implementation("org.apache.commons:commons-lang3:3.18.0")
+			implementation("io.github.kdroidfilter:platformtools.darkmodedetector:0.5.0")
 		}
 	}
 }
@@ -50,7 +51,7 @@ compose.desktop {
 				TargetFormat.Rpm
 			)
 			packageName = "pomolin"
-			packageVersion = "1.1.8"
+			packageVersion = "1.1.9"
 			description = "A simple Pomodoro App written in Kotlin. Focus on what matters! "
 			vendor = "Suyog Tandel"
 			licenseFile.set(project.file("../LICENSE"))

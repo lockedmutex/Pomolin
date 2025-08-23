@@ -17,6 +17,8 @@ modules:
     buildsystem: simple
     build-commands:
       - /usr/lib/sdk/openjdk/install.sh
+    cleanup:
+      - "*"
 
   - name: pomolin
     buildsystem: simple
@@ -26,25 +28,23 @@ modules:
         PATH: /usr/lib/sdk/openjdk/bin:/usr/bin:/bin
       build-args:
         - --share=network
+
     sources:
       - type: git
         url: https://github.com/RedddFoxxyy/Pomolin.git
-        #        tag: v1.1.3
         branch: release
 
-    #      - type: file
-    #        url: https://services.gradle.org/distributions/gradle-8.14.3-bin.zip
-    #        sha256: bd71102213493060956ec229d946beee57158dbd89d0e62b91bca0fa2c5f3531
-    #        dest: "gradle"
+    cleanup:
+      - /usr/lib/sdk/openjdk
+      - "*.a"
+      - "*.la"
+      - /include
+      - /lib/pkgconfig
+      - /share/man
 
     build-commands:
-      #      - mkdir -p /app/gradle
-      #      - unzip gradle/gradle-8.14.3-bin.zip -d /app/gradle
-      #      - mv /app/gradle/gradle-8.14.3/* /app/gradle
       - chmod +x ./gradlew
       - ./gradlew createReleaseDistributable
-      #      - /app/gradle/bin/gradle --no-daemon createReleaseDistributable
-
       - cp -r composeApp/build/compose/binaries/main-release/app/pomolin/* /app/
 
       # Remove the invalid JVM argument from the app's config file
@@ -53,5 +53,3 @@ modules:
       - install -Dm644 packaging/flatpak/io.github.redddfoxxyy.pomolin.desktop /app/share/applications/io.github.redddfoxxyy.pomolin.desktop
       - install -Dm644 packaging/flatpak/io.github.redddfoxxyy.pomolin.svg /app/share/icons/hicolor/scalable/apps/io.github.redddfoxxyy.pomolin.svg
       - install -Dm644 packaging/flatpak/io.github.redddfoxxyy.pomolin.metainfo.xml /app/share/metainfo/io.github.redddfoxxyy.pomolin.metainfo.xml
-
-#      - install -Dm755 packaging/pomolin-launcher.sh /app/bin/pomolin
