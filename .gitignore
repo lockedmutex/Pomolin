@@ -20,3 +20,4 @@ packaging/flatpak/.flatpak-builder
 packaging/flatpak/build-dir
 packaging/flatpak/repo
 packaging/flatpak/pomolin.flatpak
+*.db
