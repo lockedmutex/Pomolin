@@ -61,7 +61,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Update and Install Dependencies for Ubuntu
         if: runner.os == 'Linux'
@@ -88,6 +88,17 @@ jobs:
           distribution: 'zulu'
           java-version: '24'
           architecture: ${{ matrix.arch }}
+
+      - name: Remove JVM args for Windows ARM
+        if: matrix.os == 'windows-11-arm'
+        shell: powershell
+        run: |
+          $content = Get-Content composeApp/build.gradle.kts
+          $content = $content | Where-Object { 
+            $_ -notmatch '"--enable-native-access=ALL-UNNAMED",' -and 
+            $_ -notmatch '"--illegal-native-access=deny"' 
+          }
+          $content | Set-Content composeApp/build.gradle.kts
 
       - name: Grant execute permission for gradlew
         if: runner.os != 'Windows'
@@ -167,7 +178,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Get Project Version
         id: get_version
@@ -190,16 +201,55 @@ jobs:
           latest: true
           tag_name: v${{ steps.get_version.outputs.version }}
           body: |
-            ### Description:
-
-            Pomolin is a simple, beautiful, and minimalist Pomodoro timer for your desktop. Designed to help you stay focused and productive, it provides an elegant and straightforward way to manage your work and break intervals. With a clean interface and essential features, Pomolin helps you get into a rhythm of focused work sessions followed by refreshing breaks, all from a native desktop application.
-
-            > Note: AppImages are the preferred way to run the app for linux, if you encounter any issues with AppImage, feel free to report them using github issues.
-
-            ### 📦 Assets & Downloads:
-
-            Download the appropriate package for your operating system and architecture below. All builds are created automatically via GitHub Actions. You can download an operating system specific package or an operating system specific jar.
-            > Note: If using a jar to run the application, make sure that you are using Java 24. ( For windows 11 arm use Java21)
+            ## Description
+            
+              Pomolin is a simple, beautiful, and minimalist Pomodoro timer for your desktop. Designed to help you stay focused and productive, it provides an elegant and straightforward way to manage your work and break intervals. With a clean interface and essential features, Pomolin helps you get into a rhythm of focused work sessions followed by refreshing breaks, all from a native desktop application.
+            
+            ## Installation
+            
+            ### Windows
+            - **Installer**: Download the `.exe` or `.msi` installer for easy setup with automatic shortcuts and uninstaller
+            
+            ### macOS
+            - **Installer**: Download the `.dmg` or `.pkg` installer for standard macOS installation
+            
+            ### Linux
+            - **AppImage** (Recommended): Download the `.AppImage` file for universal compatibility across distributions
+            - **Flatpak**: Available for sandboxed installation. Note: Flatpak from releases does not auto-update. For auto-updates, install from Flathub or GNOME Software
+            - **Package**: Download `.deb` for Debian/Ubuntu-based systems or `.tar.gz` for manual extraction
+            
+            ### Java
+            - **JAR File**: Requires Java 24 installed (Java 21 for Windows 11 ARM64)
+            - **Run Command**: `java -jar pomolin-windows-x64-1.1.8-release.jar`
+            
+            #### Linux Installation Tools
+            For AppImage files, consider using:
+              - **AppImageLauncher**: Provides desktop integration and automatic updates for AppImage applications
+              - **Gear Lever**: A modern AppImage manager with GUI for organizing and running AppImage files
+            
+            ## System Requirements
+            
+              - **Java Runtime**: Java 24 required for JAR files (Java 21 for Windows 11 ARM64)
+              - **Operating Systems**: Windows 10+, macOS 10.14+, Linux (distributions released after 2019)
+              - **Architecture Support**: x64, ARM64
+            
+            ## Download Instructions
+            
+              1. Choose the appropriate package for your operating system and architecture from the assets below
+              2. All builds are automatically generated and tested via GitHub Actions
+              3. For JAR files, ensure you have the correct Java version installed
+              4. Follow your platform's standard installation procedures
+            
+            ## Package Types Available
+            
+            - **Windows**: `.exe` installer, `.msi` installer, `.jar` portable
+            - **macOS**: `.dmg` installer, `.pkg` installer, `.jar` portable
+            - **Linux**: `.AppImage` portable, `.flatpak` package, `.tar.gz` archive, `.deb` package, `.jar` portable
+            - **Cross-platform**: Universal `.jar` files for any Java-compatible system
+            
+            ## Support
+            
+              If you encounter any issues with AppImage, Flatpak, or any other installation method, please report them using GitHub Issues. Include your operating system, architecture, and installation method when reporting problems.
 
           files: artifacts/**/*
 
@@ -222,7 +272,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Get Project Version
         id: get_version
