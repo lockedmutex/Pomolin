@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Script to build AppImage and pack a tar.gz from application distributable on rocky linux for maximum glibc compatibility.
+# CAUTION! Only run this on rocky linux 8.
+
 arch=$(uname -m)
 
 # 0. Install dependencies
@@ -104,32 +107,24 @@ cp packaging/appimage/pomolin.desktop $APPDIR_NAME
 echo "Copying icon..."
 ICON_STD_PATH="$APPDIR_NAME/usr/share/icons/hicolor/512x512/apps"
 mkdir -p "$ICON_STD_PATH"
-ICON_PATH="$APPDIR_NAME/usr/lib/$APP_NAME/lib/pomolin.png"
+ICON_PATH="composeApp/src/desktopMain/composeResources/drawable/Pomolin.png"
 if [ -f "$ICON_PATH" ]; then
   echo "Found icon at: $ICON_PATH"
   cp "$ICON_PATH" "$ICON_STD_PATH/$APP_NAME.png"
   cp "$ICON_PATH" "$APPDIR_NAME/$APP_NAME.png"
-  else
+else
   echo "Icon not found at expected location: $ICON_PATH"
-  echo "Available files in lib directory:"
-  ls -la "$APPDIR_NAME/usr/lib/$APP_NAME/lib/"
   exit 1
 fi
 
 # 6. Add the AppRun script
 echo "Copying AppRun script..."
-
 cp packaging/appimage/AppRun $APPDIR_NAME
 chmod +x "$APPDIR_NAME/AppRun"
-
 if [ ! -f "$APPDIR_NAME/AppRun" ]; then
   echo "ERROR: AppRun script was not created!"
   exit 1
 fi
-
-echo "Contents of $APPDIR_NAME:"
-ls -la "$APPDIR_NAME/"
-echo "About to run appimagetool..."
 
 # 7. Run the correct appimagetool
 echo "Building AppImage with appimagetool..."

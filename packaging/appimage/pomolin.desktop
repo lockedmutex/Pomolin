@@ -1,8 +1,9 @@
 [Desktop Entry]
-Name=pomolin
+Name=Pomolin
 Comment=A simple Pomodoro App written in Kotlin. Focus on what matters!
 Exec=pomolin
 Icon=pomolin
 Terminal=false
 Type=Application
 Categories=Utility;
+StartupWMClass=io-github-redddfoxxyy-pomolin-MainKt
