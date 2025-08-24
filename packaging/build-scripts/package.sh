@@ -136,5 +136,5 @@ ls -la /usr/local/bin/appimagetool/
 
 # 8. Move the final AppImage to the artifacts directory for upload
 mkdir -p "$ARTIFACT_DIR/appimage"
-mv pomolin-*.AppImage "$ARTIFACT_DIR/appimage/"
+mv Pomolin-*.AppImage "$ARTIFACT_DIR/appimage/"
 echo "AppImage created successfully!"

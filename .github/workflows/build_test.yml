@@ -198,7 +198,7 @@ jobs:
           name: Pomolin v${{ steps.get_version.outputs.version }} Beta Test
           draft: false
           prerelease: true
-          latest: false
+          make_latest: false
           tag_name: v${{ steps.get_version.outputs.version }}-test
           body: |
             ## Description
