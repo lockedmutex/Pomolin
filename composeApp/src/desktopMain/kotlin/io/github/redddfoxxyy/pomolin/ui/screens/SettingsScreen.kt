@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.sp
 import io.github.redddfoxxyy.pomolin.data.AppSettings
 import io.github.redddfoxxyy.pomolin.data.PomoDoro
 import io.github.redddfoxxyy.pomolin.ui.ThemeManager
-import org.apache.commons.lang3.SystemUtils
 import org.jetbrains.compose.resources.painterResource
 import pomolin.composeapp.generated.resources.Res
 import pomolin.composeapp.generated.resources.back
@@ -125,7 +124,6 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 								AppSettings.toggleWindowDecorations(it)
 								restartWindow()
 							},
-							enabled = !SystemUtils.IS_OS_WINDOWS,
 						)
 
 						ToggleOption(

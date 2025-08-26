@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Script to build AppImage and pack a tar.gz from application distributable on rocky linux for maximum glibc compatibility.
-# CAUTION! Only run this on rocky linux 8.
+# CAUTION! Only run this on rocky linux.
 
 arch=$(uname -m)
 
-# 0. Install dependencies
+# Install dependencies
 echo "Updating container and installing dependencies..."
 
 dnf update -y
@@ -58,9 +58,7 @@ if [ -d "$SOURCE_POMOLIN_DIR" ]; then
   TAR_OUTPUT_DIR="$ARTIFACT_DIR/tarball"
   mkdir -p "$TAR_OUTPUT_DIR"
   TAR_FILENAME="pomolin_${arch}_linux.tar.gz"
-
   echo "Archiving '$SOURCE_POMOLIN_DIR' to '$TAR_OUTPUT_DIR/$TAR_FILENAME'"
-  # Use -C to change directory so the archive doesn''t contain the parent path
   tar -czf "$TAR_OUTPUT_DIR/$TAR_FILENAME" -C "$GRADLE_APP_DIR" "pomolin"
   echo "tar.gz archive created successfully."
 else
@@ -100,10 +98,10 @@ fi
 echo "Checking final structure:"
 ls -la "$APPDIR_NAME/usr/lib/$APP_NAME/"
 
-# 4. Add .desktop file
+# Add .desktop file
 cp packaging/appimage/pomolin.desktop $APPDIR_NAME
 
-# 5. Copy the icon
+# Copy the icon
 echo "Copying icon..."
 ICON_STD_PATH="$APPDIR_NAME/usr/share/icons/hicolor/512x512/apps"
 mkdir -p "$ICON_STD_PATH"
@@ -117,7 +115,7 @@ else
   exit 1
 fi
 
-# 6. Add the AppRun script
+# Add the AppRun script
 echo "Copying AppRun script..."
 cp packaging/appimage/AppRun $APPDIR_NAME
 chmod +x "$APPDIR_NAME/AppRun"
@@ -126,15 +124,24 @@ if [ ! -f "$APPDIR_NAME/AppRun" ]; then
   exit 1
 fi
 
-# 7. Run the correct appimagetool
+# Add update information
+echo "Adding update information..."
+UPDATE_INFO_X64="gh-releases-zsync|RedddFoxxyy|Pomolin|latest|pomolin-x86_64.AppImage.zsync"
+UPDATE_INFO_ARM64="gh-releases-zsync|RedddFoxxyy|Pomolin|latest|pomolin-aarch64.AppImage.zsync"
+
+if [[ "$arch" == x86_64 ]]; then
+	echo "$UPDATE_INFO_X64" > "$APPDIR_NAME/.upd_info"
+else
+	echo "$UPDATE_INFO_ARM64" > "$APPDIR_NAME/.upd_info"
+fi
+
+# Run the AppImageTool
 echo "Building AppImage with appimagetool..."
-echo "Checking appimagetool installation:"
-ls -la /usr/local/bin/appimagetool/
-
-# Use the correct appimagetool path
-/usr/local/bin/appimagetool/AppRun "$APPDIR_NAME"
-
-# 8. Move the final AppImage to the artifacts directory for upload
 mkdir -p "$ARTIFACT_DIR/appimage"
+/usr/local/bin/appimagetool/AppRun "$APPDIR_NAME" --sign --comp gzip
+
+# Move the final AppImage to the artifacts directory for upload
 mv Pomolin-*.AppImage "$ARTIFACT_DIR/appimage/"
+mv Pomolin-*.AppImage.zsync "$ARTIFACT_DIR/appimage/" 2>/dev/null || true
+
 echo "AppImage created successfully!"
