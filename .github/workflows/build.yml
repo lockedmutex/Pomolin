@@ -162,6 +162,7 @@ jobs:
           path: |
             composeApp/build/compose/binaries/main-release/deb/*.deb
             composeApp/build/compose/binaries/main-release/appimage/*.AppImage
+            composeApp/build/compose/binaries/main-release/appimage/*.zsync
             composeApp/build/compose/binaries/main-release/dmg/*.dmg
             composeApp/build/compose/binaries/main-release/pkg/*.pkg
             composeApp/build/compose/binaries/main-release/msi/*.msi

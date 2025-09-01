@@ -14,9 +14,9 @@
 <h1 align="center">Pomolin</h1>
 
 <p align="center">
-  <img src="gitAssets/pomolin.avif" width="45%" />
+  <img src="gitAssets/pomolin.avif" width="40%"  alt="Pomolin Screenshot"/>
   &nbsp;&nbsp;
-  <img src="gitAssets/pomolin.gif" width="45%" />
+  <img src="gitAssets/pomolin.gif" width="40%"  alt="Pomolin Animation"/>
 </p>
 
 #### A simple, beautiful, and minimalist Pomodoro timer for your desktop. Designed to help you stay focused and productive, it provides an elegant and straightforward way to manage your work and break intervals.
@@ -67,17 +67,17 @@ You can download the latest version of Pomolin from the
   <img width='200' alt='Get it on Flathub' src='https://flathub.org/api/badge?locale=en'/>
   </a>
 
-* Get the `.deb` files for Debian and Ubuntu from *
-  *[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
-* Get `AppImage` files for respective hardware from *
-  *[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
-* Get `Flatpak` files for respective hardware from *
-  *[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
+* Get the `.deb` files for Debian and Ubuntu from
+  **[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
+* Get `AppImage` files for respective hardware from
+  **[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
+* Get `Flatpak` files for respective hardware from
+  **[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
 
   > **NOTE**:
   > - Install `AppImage` using `AppImageLauncher`/`Gear Lever` or equivalent. You can run the AppImage just by
-	  > double-clicking on it too, no need to install it.
-  > - Flatpaks and AppImages are the preferred way to run the app on Linux-based distributions.
+	  double-clicking on it too, no need to install it.
+  > - Flatpaks and AppImages are the preferred ways to run the app on Linux-based distributions.
 
 ### JVM
 
@@ -89,7 +89,7 @@ You can download the latest version of Pomolin from the
    ```
 
    > **NOTE**:
-   > Make sure that, you use java24 to run the jars. (Java21 on Windows Arm64).
+   > Make sure that you use java24 to run the jars. (Java21 on Windows Arm64).
    > Preferably use Temurin or ZULU JRE/JDK.
 
 ## Building from Source
