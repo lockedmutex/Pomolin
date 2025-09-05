@@ -33,7 +33,7 @@
 	</keywords>
 
 	<branding>
-		<color scheme_preference="light" type="primary">#89b4fa</color>
+		<color scheme_preference="light" type="primary">#b8bee3</color>
 		<color scheme_preference="dark" type="primary">#282245</color>
 	</branding>
 
@@ -41,47 +41,57 @@
 		<screenshot type="default">
 			<caption>Pomolin in Focus Mode.</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.8/gitAssets/app_screenshots/screenshot1.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot1.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Pomolin in Short Break Mode.</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.8/gitAssets/app_screenshots/screenshot2.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot2.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Pomolin in Long Break Mode.</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.8/gitAssets/app_screenshots/screenshot3.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot3.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Timer Settings</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.8/gitAssets/app_screenshots/screenshot4.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot4.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Appearance Settings Dark Mode</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.8/gitAssets/app_screenshots/screenshot5.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot5.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
-			<caption>Timer Running Dark Mode</caption>
+			<caption>Timer Running</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.8/gitAssets/app_screenshots/screenshot6.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot6.png
 			</image>
 		</screenshot>
 	</screenshots>
 
 	<releases>
+		<release date="2025-09-06" version="1.1.9">
+			<description>
+				<ul>
+					<li>Added Light Mode.</li>
+					<li>Improved Decoration less window appearance.</li>
+					<li>Fixed Timer Settings being persistence across app launches.</li>
+					<li>Increased duration limits for work and long break work modes to 120 Minutes.</li>
+				</ul>
+			</description>
+		</release>
 		<release date="2025-08-19" version="1.1.8">
 			<description>
 				<p>In this update:</p>
