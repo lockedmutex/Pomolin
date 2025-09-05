@@ -20,6 +20,7 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import io.github.kdroidfilter.platformtools.darkmodedetector.isSystemInDarkMode
 import io.github.redddfoxxyy.pomolin.data.AppSettings
+import io.github.redddfoxxyy.pomolin.data.ThemeMode
 import io.github.redddfoxxyy.pomolin.ui.ThemeManager
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
@@ -31,8 +32,12 @@ fun main() = application {
 	var windowRestartTrigger by remember { mutableStateOf(false) }
 	var windowDecorations by remember { mutableStateOf(AppSettings.enableWindowDecorations) }
 	val minWindowDimensions = Pair(390, 540)
-	
-	val isDark = isSystemInDarkMode()
+
+	val isDark = when (AppSettings.themeMode) {
+		ThemeMode.Light -> false
+		ThemeMode.Dark -> true
+		ThemeMode.Automatic -> isSystemInDarkMode()
+	}
 	ThemeManager.enableDarkMode(isDark)
 
 	val icon = painterResource(Res.drawable.Pomolin)
@@ -66,12 +71,12 @@ fun main() = application {
 			Surface(
 				modifier = Modifier.fillMaxWidth(),
 				color = ThemeManager.colors.background,
-				shape = if (!windowDecorations) {
+				shape = if (!windowDecorations && windowState.placement != WindowPlacement.Maximized) {
 					RoundedCornerShape(15.dp)
 				} else {
 					RoundedCornerShape(0.dp)
 				},
-				border = if (AppSettings.enableWindowBorders) {
+				border = if (AppSettings.enableWindowBorders && windowState.placement != WindowPlacement.Maximized) {
 					BorderStroke(2.dp, ThemeManager.colors.primaryAccent.copy(alpha = 0.8f))
 				} else null,
 			) {
@@ -96,7 +101,7 @@ fun main() = application {
 									modifier = Modifier
 										.padding(end = 8.dp, top = 2.dp)
 										.align(Alignment.TopEnd)
-										.size(24.dp)
+										.size(22.dp)
 										.background(
 											color = ThemeManager.colors.red.copy(alpha = 0.8f),
 											shape = CircleShape
@@ -106,7 +111,7 @@ fun main() = application {
 									IconButton(
 										onClick = { exitApplication() },
 										modifier = Modifier
-											.size(24.dp)
+											.size(22.dp)
 											.align(Alignment.TopEnd),
 										colors = IconButtonDefaults.iconButtonColors(
 											containerColor = Color.Transparent,
@@ -124,7 +129,7 @@ fun main() = application {
 									modifier = Modifier
 										.padding(end = 36.dp, top = 2.dp)
 										.align(Alignment.TopEnd)
-										.size(24.dp)
+										.size(22.dp)
 										.background(
 											color = ThemeManager.colors.green.copy(alpha = 0.8f),
 											shape = CircleShape
@@ -141,7 +146,7 @@ fun main() = application {
 												}
 										},
 										modifier = Modifier
-											.size(24.dp)
+											.size(22.dp)
 											.align(Alignment.TopEnd),
 										colors = IconButtonDefaults.iconButtonColors(
 											containerColor = Color.Transparent,

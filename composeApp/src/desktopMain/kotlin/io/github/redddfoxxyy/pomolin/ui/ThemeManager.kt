@@ -4,7 +4,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
-import io.github.redddfoxxyy.pomolin.data.AppSettings
 import io.github.redddfoxxyy.pomolin.ui.themes.CatppuccinLatteSoft
 import io.github.redddfoxxyy.pomolin.ui.themes.CatppuccinMocha
 
@@ -13,20 +12,15 @@ internal object ThemeManager {
 	var currentTheme by mutableStateOf<Theme>(CatppuccinMocha())
 	val colors: ThemeColors
 		get() = currentTheme.colors
-	var mode by mutableStateOf(ThemeType.Dark)
 
 	internal fun enableDarkMode(isDark: Boolean) {
-		when (isDark) {
+		currentTheme = when (isDark) {
 			false -> {
-				mode = ThemeType.Light
-				AppSettings.enableDarkMode = false
-				currentTheme = CatppuccinLatteSoft()
+				CatppuccinLatteSoft()
 			}
 
 			true -> {
-				mode = ThemeType.Dark
-				AppSettings.enableDarkMode = true
-				currentTheme = CatppuccinMocha()
+				CatppuccinMocha()
 			}
 		}
 	}

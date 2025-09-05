@@ -5,7 +5,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -14,9 +14,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.redddfoxxyy.pomolin.data.AppSettings
 import io.github.redddfoxxyy.pomolin.data.PomoDoro
+import io.github.redddfoxxyy.pomolin.data.ThemeMode
 import io.github.redddfoxxyy.pomolin.ui.ThemeManager
 import org.jetbrains.compose.resources.painterResource
 import pomolin.composeapp.generated.resources.Res
+import pomolin.composeapp.generated.resources.arrow_drop_down
 import pomolin.composeapp.generated.resources.back
 
 @Composable
@@ -102,13 +104,74 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 
 					// Appearance Settings
 					SettingItemCard(title = "Appearance") {
-						ToggleOption(
-							label = "Dark Mode",
-							isChecked = AppSettings.enableDarkMode,
-							onCheckedChange = {
-								AppSettings.toggleDarkMode(it)
-							},
-						)
+						var themeExpanded by remember { mutableStateOf(false) }
+						Row(
+							modifier = Modifier
+								.fillMaxWidth()
+								.padding(horizontal = 16.dp, vertical = 12.dp),
+							verticalAlignment = Alignment.CenterVertically,
+							horizontalArrangement = Arrangement.SpaceBetween
+						) {
+							Text(
+								text = "Theme",
+								color = ThemeManager.colors.text,
+								fontWeight = FontWeight.Medium,
+								fontSize = 16.sp
+							)
+							Box {
+								Surface(
+									shape = RoundedCornerShape(8.dp),
+									border = BorderStroke(1.dp, ThemeManager.colors.primaryAccent),
+									color = Color.Transparent,
+									modifier = Modifier.clickable { themeExpanded = true }
+								) {
+									Row(
+										verticalAlignment = Alignment.CenterVertically,
+										modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp)
+									) {
+										Text(
+											text = AppSettings.themeMode.name,
+											color = ThemeManager.colors.boldText,
+											fontWeight = FontWeight.SemiBold,
+											fontSize = 14.sp,
+										)
+										Spacer(Modifier.width(8.dp))
+										Icon(
+											painter = painterResource(Res.drawable.arrow_drop_down),
+											contentDescription = "Select Theme",
+											tint = ThemeManager.colors.primaryAccent
+										)
+									}
+								}
+								DropdownMenu(
+									expanded = themeExpanded,
+									onDismissRequest = { themeExpanded = false },
+									modifier = Modifier.background(ThemeManager.colors.surface)
+								) {
+									DropdownMenuItem(
+										text = { Text("Light", color = ThemeManager.colors.text) },
+										onClick = {
+											AppSettings.setTheme(ThemeMode.Light)
+											themeExpanded = false
+										}
+									)
+									DropdownMenuItem(
+										text = { Text("Dark", color = ThemeManager.colors.text) },
+										onClick = {
+											AppSettings.setTheme(ThemeMode.Dark)
+											themeExpanded = false
+										}
+									)
+									DropdownMenuItem(
+										text = { Text("Automatic", color = ThemeManager.colors.text) },
+										onClick = {
+											AppSettings.setTheme(ThemeMode.Automatic)
+											themeExpanded = false
+										}
+									)
+								}
+							}
+						}
 						ToggleOption(
 							label = "Progress Indicator",
 							isChecked = AppSettings.enableProgressIndicator,
