@@ -277,9 +277,9 @@ fun ToggleOption(
 			enabled = enabled,
 			colors = SwitchDefaults.colors(
 				checkedTrackColor = ThemeManager.colors.primaryAccent,
-				checkedThumbColor = ThemeManager.colors.background,
+				checkedThumbColor = ThemeManager.colors.background.copy(alpha = 0.9f),
 				uncheckedTrackColor = ThemeManager.colors.surface200,
-				uncheckedThumbColor = ThemeManager.colors.buttonIcon,
+				uncheckedThumbColor = ThemeManager.colors.buttonIcon.copy(alpha = 0.85f),
 				uncheckedBorderColor = ThemeManager.colors.surface200.copy(alpha = 0.0f),
 				disabledUncheckedTrackColor = ThemeManager.colors.surface200.copy(alpha = 0.7f),
 				disabledUncheckedThumbColor = ThemeManager.colors.buttonIcon.copy(alpha = 0.7f),

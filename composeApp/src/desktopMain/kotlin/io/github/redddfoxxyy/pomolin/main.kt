@@ -18,6 +18,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPlacement
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import io.github.kdroidfilter.platformtools.darkmodedetector.isSystemInDarkMode
 import io.github.redddfoxxyy.pomolin.data.AppSettings
 import io.github.redddfoxxyy.pomolin.ui.ThemeManager
 import org.jetbrains.compose.resources.Font
@@ -30,10 +31,9 @@ fun main() = application {
 	var windowRestartTrigger by remember { mutableStateOf(false) }
 	var windowDecorations by remember { mutableStateOf(AppSettings.enableWindowDecorations) }
 	val minWindowDimensions = Pair(390, 540)
-
-	// TODO: Fix dark mode detection not overriding app settings.
-//	val isDark = isSystemInDarkMode()
-//	ThemeManager.enableDarkMode(isDark)
+	
+	val isDark = isSystemInDarkMode()
+	ThemeManager.enableDarkMode(isDark)
 
 	val icon = painterResource(Res.drawable.Pomolin)
 	val jetbrainsMono = FontFamily(Font(Res.font.JetBrainsMonoNerdFont_ExtraBold))

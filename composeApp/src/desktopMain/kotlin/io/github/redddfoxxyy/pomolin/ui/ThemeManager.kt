@@ -4,7 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
-import io.github.redddfoxxyy.pomolin.ui.themes.CatppuccinLatte
+import io.github.redddfoxxyy.pomolin.data.AppSettings
+import io.github.redddfoxxyy.pomolin.ui.themes.CatppuccinLatteSoft
 import io.github.redddfoxxyy.pomolin.ui.themes.CatppuccinMocha
 
 // TODO: Make this an extension of M3's theme manager.
@@ -18,11 +19,13 @@ internal object ThemeManager {
 		when (isDark) {
 			false -> {
 				mode = ThemeType.Light
-				currentTheme = CatppuccinLatte()
+				AppSettings.enableDarkMode = false
+				currentTheme = CatppuccinLatteSoft()
 			}
 
 			true -> {
 				mode = ThemeType.Dark
+				AppSettings.enableDarkMode = true
 				currentTheme = CatppuccinMocha()
 			}
 		}
