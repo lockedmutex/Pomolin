@@ -21,41 +21,49 @@ jobs:
             runner: "ubuntu-22.04"
             gradle_task: "packageReleaseDeb"
             os_name: "ubuntu"
+            name: "Build Deb x86-64"
           - os: ubuntu-22.04-arm
             arch: "arm64"
             runner: "ubuntu-22.04-arm"
             gradle_task: "packageReleaseDeb"
             os_name: "ubuntu"
+            name: "Build Deb arm64 and package tar.gz"
           - os: ubuntu-latest
             arch: "x64"
             runner: "ubuntu-latest"
             os_name: "rocky-linux-8"
+            name: "Build AppImage x86-64"
           - os: ubuntu-24.04-arm
             arch: "arm64"
             runner: "ubuntu-24.04-arm"
             os_name: "rocky-linux-8"
+            name: "Build AppImage arm64 and package tar.gz"
 
           - os: macos-13
             arch: "x64"
             runner: "macos-13"
             gradle_task: "packageReleaseDmg packageReleasePkg"
             os_name: "macos"
+            name: "Build Dmg and Pkg x86-64"
           - os: macos-latest
             arch: "arm64"
             runner: "macos-15"
             gradle_task: "packageReleaseDmg packageReleasePkg"
             os_name: "macos"
+            name: "Build Dmg and Pkg arm64"
 
           - os: windows-latest
             arch: "x64"
             runner: "windows-latest"
             gradle_task: "packageReleaseMsi packageReleaseExe"
             os_name: "windows"
+            name: "Build Msi and Exe x86-64"
           - os: windows-11-arm
             arch: "arm64"
             runner: "windows-11-arm"
             gradle_task: "packageReleaseMsi packageReleaseExe"
             os_name: "windows"
+            name: "Build Msi and Exe arm64"
 
     runs-on: ${{ matrix.runner }}
 
@@ -321,7 +329,7 @@ jobs:
         run: |
           echo "Building Flatpak for ${{ matrix.flatpak_arch }}"
           # 1. Build the Flatpak from the manifest file
-          flatpak-builder --force-clean --repo=repo build-dir packaging/flatpak/pomolin.yml
+          flatpak-builder --force-clean --repo=repo build-dir packaging/flatpak/pomolin-rc.yml
 
           # 2. Create a single-file bundle from the repository
           flatpak build-bundle repo pomolin-${{ matrix.flatpak_arch }}.flatpak io.github.redddfoxxyy.pomolin
