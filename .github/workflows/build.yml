@@ -196,7 +196,7 @@ jobs:
       - name: Create Draft Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Pomolin v${{ steps.get_version.outputs.version }} Beta
+          name: Pomolin v${{ steps.get_version.outputs.version }}
           draft: false
           prerelease: false
           make_latest: true
@@ -286,9 +286,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y flatpak-builder
           sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          sudo flatpak install --noninteractive flathub org.freedesktop.Sdk/${{ matrix.flatpak_arch }}/24.08
-          sudo flatpak install --noninteractive flathub org.freedesktop.Platform/${{ matrix.flatpak_arch }}/24.08
-          sudo flatpak install --noninteractive flathub org.freedesktop.Sdk.Extension.openjdk/${{ matrix.flatpak_arch }}/24.08
+          sudo flatpak install --noninteractive flathub org.freedesktop.Sdk/${{ matrix.flatpak_arch }}/25.08
+          sudo flatpak install --noninteractive flathub org.freedesktop.Platform/${{ matrix.flatpak_arch }}/25.08
+          sudo flatpak install --noninteractive flathub org.freedesktop.Sdk.Extension.openjdk/${{ matrix.flatpak_arch }}/25.08
 
       - name: Build Flatpak Bundle
         run: |

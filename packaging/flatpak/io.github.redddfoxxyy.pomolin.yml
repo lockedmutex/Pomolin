@@ -20,14 +20,14 @@ modules:
 
       - type: archive
         url: https://github.com/RedddFoxxyy/Pomolin/releases/download/v1.1.9/pomolin_x86_64_linux.tar.gz
-        sha256: "2b09bbeb3d3a15e01632ffe277153e63e8f618ef4ad48dd536407abbb1dd5fe4"
+        sha256: "95fd484ffae3eaca13eccef21a10ce476bb376ff83e1ce91b9487fbe7e2b5718"
         dest: "pomolin"
         only-arches:
           - x86_64
 
       - type: archive
         url: https://github.com/RedddFoxxyy/Pomolin/releases/download/v1.1.9/pomolin_aarch64_linux.tar.gz
-        sha256: "20ce366836b97ef63ec4649ff911b23c86b4e8d5f13c54b07e8d1098f526b698"
+        sha256: "59cd09dedec1537d571af47deee70dbc9abb864a3f1aa27bcdca5467db43962e"
         dest: "pomolin"
         only-arches:
           - aarch64

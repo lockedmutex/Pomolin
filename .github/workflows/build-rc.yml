@@ -1,12 +1,12 @@
-# .github/workflows/build_test.yml
-# This workflow builds, packages, and creates a draft release for the application on Windows (x64),
-# macOS (x64, arm64), and Linux (x64, arm64), including AppImage for Linux.
+# .github/workflows/build-rc.yml
+# This workflow builds, packages, and creates a pre-release for the application on Windows (x64),
+# macOS (x64, arm64), and Linux (x64, arm64), including AppImage and flatpak for Linux.
 
-name: Build and Release Testing
+name: Build and Release RC
 
 on:
-  #  push:
-  #    branches: [ "test-workflow" ]
+  push:
+    branches: [ "release-candidate" ]
 
   workflow_dispatch:
 
@@ -180,13 +180,31 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
-      - name: Get Project Version
+      - name: Get Project Version and RC Number
         id: get_version
         run: |
-          # Extracts the version from the line 'packageVersion = "1.0.0"'
           VERSION=$(grep 'packageVersion = ' composeApp/build.gradle.kts | head -n 1 | sed -e 's/.*packageVersion = "\(.*\)"/\1/')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          LAST_STABLE_TAG=$(git tag -l "v*" --sort=-version:refname | grep -v "rc" | head -n 1)
+          echo "Last stable tag: $LAST_STABLE_TAG"
+
+          if [ -z "$LAST_STABLE_TAG" ]; then
+            RC_NUMBER=1
+          else
+            RC_COUNT=$(git tag -l "v${VERSION}-rc*" | wc -l)
+            RC_NUMBER=$((RC_COUNT + 1))
+          fi
+
+          echo "rc_number=$RC_NUMBER" >> $GITHUB_OUTPUT
+          echo "RC Number: $RC_NUMBER"
+
+          FULL_TAG="v${VERSION}-rc${RC_NUMBER}"
+          echo "full_tag=$FULL_TAG" >> $GITHUB_OUTPUT
+          echo "Full tag: $FULL_TAG"
 
       - name: Download all build artifacts
         uses: actions/download-artifact@v4
@@ -196,11 +214,11 @@ jobs:
       - name: Create Draft Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Pomolin v${{ steps.get_version.outputs.version }} Beta Test
           draft: false
           prerelease: true
           make_latest: false
-          tag_name: v${{ steps.get_version.outputs.version }}-test
+          name: Pomolin v${{ steps.get_version.outputs.version }} RC${{ steps.get_version.outputs.rc_number }}
+          tag_name: ${{ steps.get_version.outputs.full_tag }}
           body: |
             ## Description
             
@@ -274,12 +292,21 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
-      - name: Get Project Version
+      - name: Get Project Version and RC Number
         id: get_version
         run: |
           VERSION=$(grep 'packageVersion = ' composeApp/build.gradle.kts | head -n 1 | sed -e 's/.*packageVersion = "\(.*\)"/\1/')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          RC_COUNT=$(git tag -l "v${VERSION}-rc*" | wc -l)
+          RC_NUMBER=$((RC_COUNT))
+
+          echo "rc_number=$RC_NUMBER" >> $GITHUB_OUTPUT
+          FULL_TAG="v${VERSION}-rc${RC_NUMBER}"
+          echo "full_tag=$FULL_TAG" >> $GITHUB_OUTPUT
 
       - name: Install Flatpak dependencies
         run: |
@@ -304,4 +331,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload v${{ steps.get_version.outputs.version }}-test pomolin-${{ matrix.flatpak_arch }}.flatpak --clobber
+          gh release upload ${{ steps.get_version.outputs.full_tag }} pomolin-${{ matrix.flatpak_arch }}.flatpak --clobber
