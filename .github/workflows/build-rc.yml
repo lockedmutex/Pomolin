@@ -79,7 +79,7 @@ jobs:
       - name: Install Dependencies for Rocky Linux
         if: matrix.os_name == 'rocky-linux-8'
         run: |
-          sudo apt-get install -y curl wget git gnupg ca-certificates libfuse2 curl unzip binutils file libglib2.0-0
+          sudo apt-get install -y curl wget git gnupg ca-certificates libfuse2 curl unzip binutils file libglib2.0-0 podman
 
       - name: Set up JDK 21 for Windows ARM
         if: matrix.os == 'windows-11-arm'
@@ -129,7 +129,7 @@ jobs:
         if: matrix.os_name == 'rocky-linux-8'
         shell: bash
         run: |
-          docker run --rm \
+          podman run --rm \
             -v ${{ github.workspace }}:${{ github.workspace }} \
             -w ${{ github.workspace }} \
             -e ARCH=${{ matrix.arch }} \
