@@ -2,21 +2,21 @@
   <img src="gitAssets/Pomolin.svg" alt="Pomolin app icon" width="200"/>
 </p>
 
-
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Kotlin-2.2.0-7F52FF.svg?style=for-the-badge&logo=kotlin" alt="Kotlin badge"/>
-  <img src="https://img.shields.io/badge/Jetpack%20Compose-1.8.2-4285F4.svg?style=for-the-badge&logo=jetpackcompose" alt="Jetpack Compose badge"/>
-  <img src="https://img.shields.io/badge/Gradle-8.14.3-02303A.svg?style=for-the-badge&logo=gradle" alt="Gradle badge"/>
-  <img src="https://img.shields.io/badge/pomodoro-technique-ff4500.svg?style=for-the-badge" alt="Pomodoro badge"/>
-</p>
-
 <h1 align="center">Pomolin</h1>
 
+
+<div align="center">
+
+![Kotlin 2.2.0](https://img.shields.io/badge/Kotlin-2.2.0-7F52FF?style=plastic&logo=kotlin&logoColor=white)
+![Jetpack Compose 1.8.2](https://img.shields.io/badge/Jetpack%20Compose-1.8.2-4285F4?style=plastic&logo=jetpackcompose&logoColor=white)
+![Gradle 8.14.3](https://img.shields.io/badge/Gradle-8.14.3-02303A?style=plastic&logo=gradle&logoColor=white)
+![Pomodoro Technique](https://img.shields.io/badge/Pomodoro-Technique-FF4500?style=plastic&logo=clock&logoColor=white)
+
+</div>
+
 <p align="center">
-  <img src="gitAssets/pomolin.avif" width="40%"  alt="Pomolin Screenshot"/>
-  &nbsp;&nbsp;
-  <img src="gitAssets/pomolin.gif" width="40%"  alt="Pomolin Animation"/>
+  <img src="gitAssets/pomolin.png" width="45%"  alt="Pomolin Screenshot"/>
+  <img src="gitAssets/app_screenshots/screenshot6.png" width="45%"  alt="Pomolin Timer Running Screenshot"/>
 </p>
 
 #### A simple, beautiful, and minimalist Pomodoro timer for your desktop. Designed to help you stay focused and productive, it provides an elegant and straightforward way to manage your work and break intervals.

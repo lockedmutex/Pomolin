@@ -39,21 +39,21 @@
 
 	<screenshots>
 		<screenshot type="default">
-			<caption>Pomolin in Focus Mode.</caption>
+			<caption>Pomolin in Focus Mode</caption>
 			<image>
 				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot1.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
-			<caption>Pomolin in Short Break Mode.</caption>
+			<caption>Pomolin in Short Break Mode</caption>
 			<image>
 				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot2.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
-			<caption>Pomolin in Long Break Mode.</caption>
+			<caption>Pomolin in Long Break Mode</caption>
 			<image>
 				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot3.png
 			</image>
@@ -80,6 +80,12 @@
 			</image>
 		</screenshot>
 	</screenshots>
+
+	<content_rating type="oars-1.1"/>
+
+	<url type="homepage">https://redddfoxxyy.github.io/Pomolin/</url>
+	<url type="bugtracker">https://github.com/RedddFoxxyy/Pomolin/issues</url>
+	<url type="vcs-browser">https://github.com/RedddFoxxyy/Pomolin</url>
 
 	<releases>
 		<release date="2025-09-06" version="1.1.9">
@@ -121,10 +127,4 @@
 
 		<release date="2025-08-08" version="1.1.5"/>
 	</releases>
-
-	<content_rating type="oars-1.1"/>
-
-	<url type="homepage">https://redddfoxxyy.github.io/Pomolin/</url>
-	<url type="bugtracker">https://github.com/RedddFoxxyy/Pomolin/issues</url>
-	<url type="vcs-browser">https://github.com/RedddFoxxyy/Pomolin</url>
 </component>
