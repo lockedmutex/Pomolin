@@ -22,6 +22,7 @@ import io.github.kdroidfilter.platformtools.darkmodedetector.isSystemInDarkMode
 import io.github.redddfoxxyy.pomolin.data.AppSettings
 import io.github.redddfoxxyy.pomolin.data.ThemeMode
 import io.github.redddfoxxyy.pomolin.ui.ThemeManager
+import org.apache.commons.lang3.SystemUtils
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
 import pomolin.composeapp.generated.resources.*
@@ -36,7 +37,13 @@ fun main() = application {
 	val isDark = when (AppSettings.themeMode) {
 		ThemeMode.Light -> false
 		ThemeMode.Dark -> true
-		ThemeMode.Automatic -> isSystemInDarkMode()
+		ThemeMode.Automatic -> {
+			if (SystemUtils.IS_OS_WINDOWS) {
+				true
+			} else {
+				isSystemInDarkMode()
+			}
+		}
 	}
 	ThemeManager.enableDarkMode(isDark)
 

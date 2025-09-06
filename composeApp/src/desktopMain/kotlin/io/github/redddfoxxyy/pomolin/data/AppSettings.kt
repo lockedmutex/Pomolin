@@ -56,7 +56,7 @@ object AppSettings {
 				FileInputStream(configFile).use { input ->
 					settingsProperties.load(input)
 					themeMode =
-						ThemeMode.valueOf(settingsProperties.getProperty("themeMode", ThemeMode.Automatic.name))
+						ThemeMode.valueOf(settingsProperties.getProperty("themeMode", ThemeMode.Dark.name))
 					enableProgressIndicator =
 						settingsProperties.getProperty("enableProgressIndicator", "true")
 							.toBoolean()

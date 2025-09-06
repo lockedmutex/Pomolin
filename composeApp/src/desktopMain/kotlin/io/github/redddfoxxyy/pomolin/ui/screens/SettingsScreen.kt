@@ -16,6 +16,7 @@ import io.github.redddfoxxyy.pomolin.data.AppSettings
 import io.github.redddfoxxyy.pomolin.data.PomoDoro
 import io.github.redddfoxxyy.pomolin.data.ThemeMode
 import io.github.redddfoxxyy.pomolin.ui.ThemeManager
+import org.apache.commons.lang3.SystemUtils
 import org.jetbrains.compose.resources.painterResource
 import pomolin.composeapp.generated.resources.Res
 import pomolin.composeapp.generated.resources.arrow_drop_down
@@ -162,13 +163,15 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 											themeExpanded = false
 										}
 									)
-									DropdownMenuItem(
-										text = { Text("Automatic", color = ThemeManager.colors.text) },
-										onClick = {
-											AppSettings.setTheme(ThemeMode.Automatic)
-											themeExpanded = false
-										}
-									)
+									if (!SystemUtils.IS_OS_WINDOWS) {
+										DropdownMenuItem(
+											text = { Text("Automatic", color = ThemeManager.colors.text) },
+											onClick = {
+												AppSettings.setTheme(ThemeMode.Automatic)
+												themeExpanded = false
+											}
+										)
+									}
 								}
 							}
 						}
