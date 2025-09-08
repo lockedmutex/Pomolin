@@ -23,7 +23,7 @@
 
 > ⚠️ We’re looking for package maintainers to publish and maintain Pomolin across platforms/repositories (Nix, Debian,
 > Arch/AUR,
-> Fedora, Guix, etc.). If you can help, please open an issue; PR—maintainers will be credited.
+> Fedora, Guix, etc.). If you can help, please open an issue; maintainers will be credited.
 
 ## Features
 
