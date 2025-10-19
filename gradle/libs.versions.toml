@@ -1,8 +1,8 @@
 [versions]
-composeHotReload = "1.0.0-alpha11"
-composeMultiplatform = "1.8.2"
+composeHotReload = "1.0.0-beta01"
+composeMultiplatform = "1.9.1"
 junit = "4.13.2"
-kotlin = "2.2.0"
+kotlin = "2.2.20"
 kotlinx-coroutines = "1.10.2"
 
 [libraries]
