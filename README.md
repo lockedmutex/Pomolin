@@ -7,9 +7,9 @@
 
 <div align="center">
 
-![Kotlin 2.2.0](https://img.shields.io/badge/Kotlin-2.2.0-7F52FF?style=plastic&logo=kotlin&logoColor=white&logoWidth=60)
-![Jetpack Compose 1.8.2](https://img.shields.io/badge/Jetpack%20Compose-1.8.2-4285F4?style=plastic&logo=jetpackcompose&logoColor=white&logoWidth=60)
-![Gradle 8.14.3](https://img.shields.io/badge/Gradle-9.0.0-02303A?style=plastic&logo=gradle&logoColor=white&logoWidth=60)
+![Kotlin 2.2.20](https://img.shields.io/badge/Kotlin-2.2.20-7F52FF?style=plastic&logo=kotlin&logoColor=white&logoWidth=60)
+![Jetpack Compose 1.9.1](https://img.shields.io/badge/Jetpack%20Compose-1.9.1-4285F4?style=plastic&logo=jetpackcompose&logoColor=white&logoWidth=60)
+![Gradle 9.1.0](https://img.shields.io/badge/Gradle-9.1.0-02303A?style=plastic&logo=gradle&logoColor=white&logoWidth=60)
 ![Pomodoro Technique](https://img.shields.io/badge/Pomodoro-Technique-FF4500?style=plastic&logo=clock&logoColor=white&logoWidth=60)
 
 </div>
