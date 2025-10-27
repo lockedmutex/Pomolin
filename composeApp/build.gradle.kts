@@ -34,6 +34,7 @@ kotlin {
 			implementation("ch.qos.logback:logback-classic:1.5.18")
 			implementation("org.apache.commons:commons-lang3:3.18.0")
 			implementation("io.github.kdroidfilter:platformtools.darkmodedetector:0.5.0")
+			implementation("dev.dirs:directories:26")
 		}
 	}
 }

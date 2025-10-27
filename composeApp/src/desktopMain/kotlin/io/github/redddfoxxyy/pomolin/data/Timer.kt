@@ -3,11 +3,7 @@ package io.github.redddfoxxyy.pomolin.data
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 internal class Timer(durationMinutes: Float, val audio: Audio, private val onFinished: () -> Unit) {
 
@@ -30,7 +26,7 @@ internal class Timer(durationMinutes: Float, val audio: Audio, private val onFin
 			isTimerRunning = true
 
 			while (isTimerRunning && remainingTimeMillis > 0) {
-				delay(50L)
+				delay(200L)
 				val elapsed = System.currentTimeMillis() - lastUpdateTime
 				remainingTimeMillis -= elapsed
 				lastUpdateTime = System.currentTimeMillis()
