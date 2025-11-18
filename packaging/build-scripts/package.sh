@@ -21,12 +21,12 @@ if [[ "$arch" == x86_64 ]]; then
   wget https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.1%2B8/OpenJDK25U-jdk_x64_linux_hotspot_25.0.1_8.tar.gz
   tar -xzf OpenJDK25U-jdk_x64_linux_hotspot_25.0.1_8.tar.gz
   mkdir -p /usr/lib/jvm/temurin25
-  mv OpenJDK25U-jdk_x64_linux_hotspot_25.0.1_8/jdk-25.0.1+8/* /usr/lib/jvm/temurin25/
+  mv jdk-25.0.1+8/* /usr/lib/jvm/temurin25/
 else
   wget https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.1%2B8/OpenJDK25U-jdk_aarch64_linux_hotspot_25.0.1_8.tar.gz
   tar -xzf OpenJDK25U-jdk_aarch64_linux_hotspot_25.0.1_8.tar.gz
   mkdir -p /usr/lib/jvm/temurin25
-  mv OpenJDK25U-jdk_aarch64_linux_hotspot_25.0.1_8/jdk-25.0.1+8/* /usr/lib/jvm/temurin25/
+  mv jdk-25.0.1+8/* /usr/lib/jvm/temurin25/
 fi
 
 echo "Setting JAVA_HOME and PATH..."
