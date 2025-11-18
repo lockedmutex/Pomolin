@@ -10,7 +10,7 @@ plugins {
 kotlin {
 	jvm("desktop")
 
-    jvmToolchain(24)
+//    jvmToolchain(25)
 
 	sourceSets {
 		val desktopMain by getting

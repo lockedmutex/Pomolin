@@ -83,18 +83,18 @@ jobs:
 
       - name: Set up JDK 21 for Windows ARM
         if: matrix.os == 'windows-11-arm'
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
+          distribution: 'temurin'
           java-version: '21'
           architecture: ${{ matrix.arch }}
 
-      - name: Set up JDK 24 for other architectures
+      - name: Set up JDK 25 for other architectures
         if: ${{ matrix.os != 'windows-11-arm' && matrix.os_name != 'rocky-linux-8' }}
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
-          java-version: '24'
+          distribution: 'temurin'
+          java-version: '25'
           architecture: ${{ matrix.arch }}
 
       - name: Remove JVM args for Windows ARM
@@ -102,9 +102,9 @@ jobs:
         shell: powershell
         run: |
           $content = Get-Content composeApp/build.gradle.kts
-          $content = $content | Where-Object { 
-            $_ -notmatch '"--enable-native-access=ALL-UNNAMED",' -and 
-            $_ -notmatch '"--illegal-native-access=deny"' 
+          $content = $content | Where-Object {
+            $_ -notmatch '"--enable-native-access=ALL-UNNAMED",' -and
+            $_ -notmatch '"--illegal-native-access=deny"'
           }
           $content | Set-Content composeApp/build.gradle.kts
 
