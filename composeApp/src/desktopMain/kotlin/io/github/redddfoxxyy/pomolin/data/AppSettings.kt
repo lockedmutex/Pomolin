@@ -15,7 +15,7 @@ enum class ThemeMode {
 }
 
 object AppSettings {
-	var themeMode by mutableStateOf(ThemeMode.Automatic)
+	var themeMode by mutableStateOf(ThemeMode.Dark)
 	var enableProgressIndicator by mutableStateOf(true)
 	var enableWindowDecorations by mutableStateOf(true)
 	var enableWindowBorders by mutableStateOf(false)

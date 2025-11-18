@@ -54,8 +54,8 @@ internal fun TimerDisplay(
 		val progressIndicatorColor by animateColorAsState(
 			targetValue = when (PomoDoro.currentRoutine) {
 				PomoDoroRoutines.Working -> ThemeManager.colors.primaryAccent
-				PomoDoroRoutines.ShortBreak -> ThemeManager.colors.primaryBreak
-				PomoDoroRoutines.LongBreak -> ThemeManager.colors.primaryLBreak
+				PomoDoroRoutines.ShortBreak -> ThemeManager.colors.breakAccent
+				PomoDoroRoutines.LongBreak -> ThemeManager.colors.longBreakAccent
 			},
 			animationSpec = tween(durationMillis = 400),
 			label = "ProgressColorAnimation"
@@ -87,7 +87,7 @@ internal fun TimerDisplay(
 //                    } else {
 //                        (squareSize.value / 2.5f).sp
 //                    }
-					val fontSize = (squareSize.value / 3.5f).sp
+					val fontSize = (squareSize.value / 3.6f).sp
 
 					time.forEach { char ->
 						AnimatedContent(

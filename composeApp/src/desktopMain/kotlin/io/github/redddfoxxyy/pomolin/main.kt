@@ -110,7 +110,7 @@ fun main() = application {
 										.align(Alignment.TopEnd)
 										.size(22.dp)
 										.background(
-											color = ThemeManager.colors.red.copy(alpha = 0.8f),
+											color = ThemeManager.colors.resetButtonAccent.copy(alpha = 0.8f),
 											shape = CircleShape
 										),
 									contentAlignment = Alignment.Center
@@ -138,7 +138,7 @@ fun main() = application {
 										.align(Alignment.TopEnd)
 										.size(22.dp)
 										.background(
-											color = ThemeManager.colors.green.copy(alpha = 0.8f),
+											color = ThemeManager.colors.playButtonAccent.copy(alpha = 0.8f),
 											shape = CircleShape
 										),
 									contentAlignment = Alignment.Center
