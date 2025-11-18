@@ -81,12 +81,12 @@ jobs:
         run: |
           sudo apt-get install -y curl wget git gnupg ca-certificates libfuse2 curl unzip binutils file libglib2.0-0
 
-      - name: Set up JDK 21 for Windows ARM
+      - name: Set up JDK 25 for Windows ARM
         if: matrix.os == 'windows-11-arm'
         uses: actions/setup-java@v5
         with:
           distribution: 'zulu'
-          java-version: '21'
+          java-version: '25'
           architecture: ${{ matrix.arch }}
 
       - name: Set up JDK 24 for other architectures
@@ -94,19 +94,19 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: 'zulu'
-          java-version: '24'
+          java-version: '25'
           architecture: ${{ matrix.arch }}
 
-      - name: Remove JVM args for Windows ARM
-        if: matrix.os == 'windows-11-arm'
-        shell: powershell
-        run: |
-          $content = Get-Content composeApp/build.gradle.kts
-          $content = $content | Where-Object { 
-            $_ -notmatch '"--enable-native-access=ALL-UNNAMED",' -and 
-            $_ -notmatch '"--illegal-native-access=deny"' 
-          }
-          $content | Set-Content composeApp/build.gradle.kts
+#      - name: Remove JVM args for Windows ARM
+#        if: matrix.os == 'windows-11-arm'
+#        shell: powershell
+#        run: |
+#          $content = Get-Content composeApp/build.gradle.kts
+#          $content = $content | Where-Object {
+#            $_ -notmatch '"--enable-native-access=ALL-UNNAMED",' -and
+#            $_ -notmatch '"--illegal-native-access=deny"'
+#          }
+#          $content | Set-Content composeApp/build.gradle.kts
 
       - name: Grant execute permission for gradlew
         if: runner.os != 'Windows'

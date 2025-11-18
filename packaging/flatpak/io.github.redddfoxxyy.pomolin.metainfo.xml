@@ -93,7 +93,9 @@
                 <ul>
                     <li>Reduced the timer size by small amount.</li>
                     <li>'Dark' is the default theme mode replacing 'Automatic'. This was done because Automatic mode had problems
-                        detecting current system theme in some systems.</li>
+                        detecting current system theme in some systems.
+                    </li>
+                    <li>JRE upgraded to v25.</li>
                 </ul>
             </description>
         </release>
