@@ -39,9 +39,9 @@ jobs:
             os_name: "rocky-linux-8"
             name: "Build AppImage arm64 and package tar.gz"
 
-          - os: macos-13
+          - os: macos-14
             arch: "x64"
-            runner: "macos-13"
+            runner: "macos-14"
             gradle_task: "packageReleaseDmg packageReleasePkg"
             os_name: "macos"
             name: "Build Dmg and Pkg x86-64"

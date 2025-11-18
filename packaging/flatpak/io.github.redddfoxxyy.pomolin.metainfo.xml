@@ -41,42 +41,42 @@
 		<screenshot type="default">
 			<caption>Pomolin in Focus Mode</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot1.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.10/gitAssets/app_screenshots/screenshot1.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Pomolin in Short Break Mode</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot2.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.10/gitAssets/app_screenshots/screenshot2.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Pomolin in Long Break Mode</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot3.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.10/gitAssets/app_screenshots/screenshot3.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Timer Settings</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot4.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.10/gitAssets/app_screenshots/screenshot4.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Appearance Settings Dark Mode</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot5.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.10/gitAssets/app_screenshots/screenshot5.png
 			</image>
 		</screenshot>
 
 		<screenshot type="default">
 			<caption>Timer Running</caption>
 			<image>
-				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.9/gitAssets/app_screenshots/screenshot6.png
+				https://raw.githubusercontent.com/RedddFoxxyy/Pomolin/v1.1.10/gitAssets/app_screenshots/screenshot6.png
 			</image>
 		</screenshot>
 	</screenshots>
@@ -88,6 +88,15 @@
 	<url type="vcs-browser">https://github.com/RedddFoxxyy/Pomolin</url>
 
 	<releases>
+        <release date="2025-09-06" version="1.1.10">
+            <description>
+                <ul>
+                    <li>Reduced the timer size by small amount.</li>
+                    <li>'Dark' is the default theme mode replacing 'Automatic'. This was done because Automatic mode had problems
+                        detecting current system theme in some systems.</li>
+                </ul>
+            </description>
+        </release>
 		<release date="2025-09-06" version="1.1.9">
 			<description>
 				<ul>

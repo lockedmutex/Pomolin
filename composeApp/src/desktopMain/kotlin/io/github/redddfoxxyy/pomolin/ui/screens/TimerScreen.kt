@@ -142,7 +142,7 @@ fun ControlButtons(
 		label = "ResetIconRotation"
 	)
 	val actionButtonColor by animateColorAsState(
-		targetValue = if (isRunning) ThemeManager.colors.primaryLBreak else ThemeManager.colors.green,
+		targetValue = if (isRunning) ThemeManager.colors.pauseButtonAccent else ThemeManager.colors.playButtonAccent,
 		label = "ButtonColor"
 	)
 
@@ -181,7 +181,7 @@ fun ControlButtons(
 				resetIconRotation.value -= 360f
 			},
 			colors = ButtonDefaults.buttonColors(
-				containerColor = ThemeManager.colors.red,
+				containerColor = ThemeManager.colors.resetButtonAccent,
 				contentColor = ThemeManager.colors.text
 			),
 			modifier = Modifier.padding(5.dp)
