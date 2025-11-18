@@ -16,6 +16,7 @@ import io.github.redddfoxxyy.pomolin.data.AppSettings
 import io.github.redddfoxxyy.pomolin.data.PomoDoro
 import io.github.redddfoxxyy.pomolin.data.ThemeMode
 import io.github.redddfoxxyy.pomolin.ui.ThemeManager
+import org.apache.commons.lang3.SystemUtils
 import org.jetbrains.compose.resources.painterResource
 import pomolin.composeapp.generated.resources.Res
 import pomolin.composeapp.generated.resources.arrow_drop_down
@@ -56,7 +57,7 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 							onValueChange = { PomoDoro.changeWorkingDuration(it) },
 							valueSuffix = "min",
 							valueRange = 1f..120f,
-							color = ThemeManager.colors.primaryAccent,
+							color = ThemeManager.colors.workAccent,
 							// icon = painterResource(Res.drawable.ic_brain)
 						)
 						HorizontalDivider(
@@ -70,8 +71,7 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 							onValueChange = { PomoDoro.changeShortBreakDuration(it) },
 							valueSuffix = "min",
 							valueRange = 1f..60f,
-							color = ThemeManager.colors.primaryBreak,
-							// icon = painterResource(Res.drawable.ic_coffee)
+							color = ThemeManager.colors.breakAccent,
 						)
 						HorizontalDivider(
 							modifier = Modifier.padding(horizontal = 16.dp),
@@ -84,8 +84,7 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 							onValueChange = { PomoDoro.changeLongBreakDuration(it) },
 							valueSuffix = "min",
 							valueRange = 1f..120f,
-							color = ThemeManager.colors.primaryLBreak,
-							// icon = painterResource(Res.drawable.ic_long_coffee)
+							color = ThemeManager.colors.longBreakAccent,
 						)
 					}
 
@@ -97,7 +96,7 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 							onValueChange = { PomoDoro.changeWorkSessionDuration(it) },
 							valueSuffix = "sessions",
 							valueRange = 1f..10f,
-							color = ThemeManager.colors.blue,
+							color = ThemeManager.colors.sessionsAccent,
 							// icon = painterResource(Res.drawable.ic_target)
 						)
 					}
@@ -162,13 +161,15 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 											themeExpanded = false
 										}
 									)
-									DropdownMenuItem(
-										text = { Text("Automatic", color = ThemeManager.colors.text) },
-										onClick = {
-											AppSettings.setTheme(ThemeMode.Automatic)
-											themeExpanded = false
-										}
-									)
+									if (!SystemUtils.IS_OS_WINDOWS) {
+										DropdownMenuItem(
+											text = { Text("Automatic", color = ThemeManager.colors.text) },
+											onClick = {
+												AppSettings.setTheme(ThemeMode.Automatic)
+												themeExpanded = false
+											}
+										)
+									}
 								}
 							}
 						}
@@ -214,8 +215,8 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 					style = ScrollbarStyle(
 						thickness = 6.dp,
 						shape = RoundedCornerShape(3.dp),
-						unhoverColor = ThemeManager.colors.primaryAccent.copy(alpha = 0.3f),
-						hoverColor = ThemeManager.colors.primaryAccent,
+						unhoverColor = ThemeManager.colors.scrollBarAccent.copy(alpha = 0.3f),
+						hoverColor = ThemeManager.colors.scrollBarAccent,
 						hoverDurationMillis = 300,
 						minimalHeight = 100.dp,
 					)
@@ -268,15 +269,12 @@ fun TimerOption(
 	valueSuffix: String,
 	valueRange: ClosedFloatingPointRange<Float>,
 	color: Color,
-	// icon: Painter,
 ) {
 	Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
 		Row(
 			verticalAlignment = Alignment.CenterVertically,
 			modifier = Modifier.fillMaxWidth()
 		) {
-			// Icon(painter = icon, contentDescription = label, tint = ThemeManager.colors.mauve, modifier = Modifier.size(20.dp))
-			// Spacer(Modifier.width(12.dp))
 			Text(
 				text = label,
 				color = ThemeManager.colors.text,

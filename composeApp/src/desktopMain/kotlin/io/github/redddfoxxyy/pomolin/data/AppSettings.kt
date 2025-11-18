@@ -3,18 +3,19 @@ package io.github.redddfoxxyy.pomolin.data
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import org.apache.commons.lang3.SystemUtils
+import dev.dirs.ProjectDirectories
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.util.*
+
 
 enum class ThemeMode {
 	Light, Dark, Automatic
 }
 
 object AppSettings {
-	var themeMode by mutableStateOf(ThemeMode.Automatic)
+	var themeMode by mutableStateOf(ThemeMode.Dark)
 	var enableProgressIndicator by mutableStateOf(true)
 	var enableWindowDecorations by mutableStateOf(true)
 	var enableWindowBorders by mutableStateOf(false)
@@ -23,31 +24,14 @@ object AppSettings {
 	private val configFile = getConfigurationFile()
 
 	private fun getConfigurationFile(): File {
-		val userHome = System.getProperty("user.home")
-		val xdgConfig = System.getenv("XDG_CONFIG_HOME")?.let { File(it) }
-		val configDir: File
-
-		when {
-			SystemUtils.IS_OS_WINDOWS -> {
-				val appData = System.getenv("APPDATA")
-				configDir =
-					if (appData != null) File(appData, "Pomolin") else File(userHome, ".pomolin")
-			}
-
-			SystemUtils.IS_OS_MAC -> {
-				configDir = File(userHome, "Library/Application Support/Pomolin")
-			}
-
-			else -> {
-				configDir = (xdgConfig ?: File(userHome, ".config")).resolve("Pomolin")
-			}
-		}
-
+		val pomolinDirs = ProjectDirectories.from("io.github", "redddfoxxyy", "Pomolin")
+		val configDir = File(pomolinDirs.configDir)
 		if (!configDir.exists()) {
 			configDir.mkdirs()
 		}
+		val configFile = File(configDir, "config.properties")
 
-		return File(configDir, "config.properties")
+		return configFile
 	}
 
 	private fun loadSettings() {
@@ -56,7 +40,7 @@ object AppSettings {
 				FileInputStream(configFile).use { input ->
 					settingsProperties.load(input)
 					themeMode =
-						ThemeMode.valueOf(settingsProperties.getProperty("themeMode", ThemeMode.Automatic.name))
+						ThemeMode.valueOf(settingsProperties.getProperty("themeMode", ThemeMode.Dark.name))
 					enableProgressIndicator =
 						settingsProperties.getProperty("enableProgressIndicator", "true")
 							.toBoolean()

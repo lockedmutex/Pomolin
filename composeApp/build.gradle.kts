@@ -10,6 +10,8 @@ plugins {
 kotlin {
 	jvm("desktop")
 
+    jvmToolchain(24)
+
 	sourceSets {
 		val desktopMain by getting
 
@@ -34,6 +36,7 @@ kotlin {
 			implementation("ch.qos.logback:logback-classic:1.5.18")
 			implementation("org.apache.commons:commons-lang3:3.18.0")
 			implementation("io.github.kdroidfilter:platformtools.darkmodedetector:0.5.0")
+			implementation("dev.dirs:directories:26")
 		}
 	}
 }
@@ -51,7 +54,7 @@ compose.desktop {
 				TargetFormat.Rpm
 			)
 			packageName = "pomolin"
-			packageVersion = "1.1.9"
+			packageVersion = "1.1.10"
 			description = "A simple Pomodoro App written in Kotlin. Focus on what matters! "
 			vendor = "Suyog Tandel"
 			licenseFile.set(project.file("../LICENSE"))

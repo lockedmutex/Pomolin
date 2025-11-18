@@ -33,7 +33,7 @@
 -keepattributes Signature,SourceFile,LineNumberTable,EnclosingMethod
 
 # Keep main application class and Composable functions
--keep class com.redddfoxxyy.pomolin.MainKt {
+-keep class io.github.redddfoxxyy.pomolin.MainKt {
     public static void main(java.lang.String[]);
 }
 -keepclasseswithmembers public class * {

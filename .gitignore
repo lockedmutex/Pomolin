@@ -21,3 +21,4 @@ packaging/flatpak/build-dir
 packaging/flatpak/repo
 packaging/flatpak/pomolin.flatpak
 *.db
+gradle-cache

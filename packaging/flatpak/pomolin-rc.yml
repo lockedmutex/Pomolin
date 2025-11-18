@@ -2,6 +2,8 @@ app-id: io.github.redddfoxxyy.pomolin
 runtime: org.freedesktop.Platform
 runtime-version: "25.08"
 sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.openjdk
 
 command: pomolin
 finish-args:
@@ -11,29 +13,42 @@ finish-args:
   - --device=dri
 
 modules:
+  - name: openjdk
+    buildsystem: simple
+    build-commands:
+      - /usr/lib/sdk/openjdk/install.sh
+    cleanup:
+      - "*"
+
   - name: pomolin
     buildsystem: simple
+    build-options:
+      env:
+        JAVA_HOME: /usr/lib/sdk/openjdk
+        PATH: /usr/lib/sdk/openjdk/bin:/usr/bin:/bin
+      build-args:
+        - --share=network
+
     sources:
       - type: git
         url: https://github.com/RedddFoxxyy/Pomolin.git
-        tag: v1.1.9
+        branch: release-candidate
 
-      - type: archive
-        url: https://github.com/RedddFoxxyy/Pomolin/releases/download/v1.1.9/pomolin_x86_64_linux.tar.gz
-        sha256: "95fd484ffae3eaca13eccef21a10ce476bb376ff83e1ce91b9487fbe7e2b5718"
-        dest: "pomolin"
-        only-arches:
-          - x86_64
-
-      - type: archive
-        url: https://github.com/RedddFoxxyy/Pomolin/releases/download/v1.1.9/pomolin_aarch64_linux.tar.gz
-        sha256: "59cd09dedec1537d571af47deee70dbc9abb864a3f1aa27bcdca5467db43962e"
-        dest: "pomolin"
-        only-arches:
-          - aarch64
+    cleanup:
+      - /usr/lib/sdk/openjdk
+      - "*.a"
+      - "*.la"
+      - /include
+      - /lib/pkgconfig
+      - /share/man
 
     build-commands:
-      - cp -r pomolin/* /app/
+      - chmod +x ./gradlew
+      - ./gradlew createReleaseDistributable
+      - cp -r composeApp/build/compose/binaries/main-release/app/pomolin/* /app/
+
+      # Remove the invalid JVM argument from the app's config file
+      - "sed -i '/--illegal-native-access=deny/d' /app/lib/app/pomolin.cfg"
 
       - install -Dm644 packaging/flatpak/io.github.redddfoxxyy.pomolin.desktop /app/share/applications/io.github.redddfoxxyy.pomolin.desktop
       - install -Dm644 packaging/flatpak/io.github.redddfoxxyy.pomolin.svg /app/share/icons/hicolor/scalable/apps/io.github.redddfoxxyy.pomolin.svg

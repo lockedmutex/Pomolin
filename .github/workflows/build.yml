@@ -21,41 +21,49 @@ jobs:
             runner: "ubuntu-22.04"
             gradle_task: "packageReleaseDeb"
             os_name: "ubuntu"
+            name: "Build Deb x86-64"
           - os: ubuntu-22.04-arm
             arch: "arm64"
             runner: "ubuntu-22.04-arm"
             gradle_task: "packageReleaseDeb"
             os_name: "ubuntu"
+            name: "Build Deb arm64 and package tar.gz"
           - os: ubuntu-latest
             arch: "x64"
             runner: "ubuntu-latest"
             os_name: "rocky-linux-8"
+            name: "Build AppImage x86-64"
           - os: ubuntu-24.04-arm
             arch: "arm64"
             runner: "ubuntu-24.04-arm"
             os_name: "rocky-linux-8"
+            name: "Build AppImage arm64 and package tar.gz"
 
-          - os: macos-13
+          - os: macos-14
             arch: "x64"
-            runner: "macos-13"
+            runner: "macos-14"
             gradle_task: "packageReleaseDmg packageReleasePkg"
             os_name: "macos"
+            name: "Build Dmg and Pkg x86-64"
           - os: macos-latest
             arch: "arm64"
             runner: "macos-15"
             gradle_task: "packageReleaseDmg packageReleasePkg"
             os_name: "macos"
+            name: "Build Dmg and Pkg arm64"
 
           - os: windows-latest
             arch: "x64"
             runner: "windows-latest"
             gradle_task: "packageReleaseMsi packageReleaseExe"
             os_name: "windows"
+            name: "Build Msi and Exe x86-64"
           - os: windows-11-arm
             arch: "arm64"
             runner: "windows-11-arm"
             gradle_task: "packageReleaseMsi packageReleaseExe"
             os_name: "windows"
+            name: "Build Msi and Exe arm64"
 
     runs-on: ${{ matrix.runner }}
 
@@ -196,7 +204,7 @@ jobs:
       - name: Create Draft Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Pomolin v${{ steps.get_version.outputs.version }} Beta
+          name: Pomolin v${{ steps.get_version.outputs.version }}
           draft: false
           prerelease: false
           make_latest: true
@@ -286,9 +294,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y flatpak-builder
           sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          sudo flatpak install --noninteractive flathub org.freedesktop.Sdk/${{ matrix.flatpak_arch }}/24.08
-          sudo flatpak install --noninteractive flathub org.freedesktop.Platform/${{ matrix.flatpak_arch }}/24.08
-          sudo flatpak install --noninteractive flathub org.freedesktop.Sdk.Extension.openjdk/${{ matrix.flatpak_arch }}/24.08
+          sudo flatpak install --noninteractive flathub org.freedesktop.Sdk/${{ matrix.flatpak_arch }}/25.08
+          sudo flatpak install --noninteractive flathub org.freedesktop.Platform/${{ matrix.flatpak_arch }}/25.08
+          sudo flatpak install --noninteractive flathub org.freedesktop.Sdk.Extension.openjdk/${{ matrix.flatpak_arch }}/25.08
 
       - name: Build Flatpak Bundle
         run: |

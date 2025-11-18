@@ -2,24 +2,28 @@
   <img src="gitAssets/Pomolin.svg" alt="Pomolin app icon" width="200"/>
 </p>
 
-
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Kotlin-2.2.0-7F52FF.svg?style=for-the-badge&logo=kotlin" alt="Kotlin badge"/>
-  <img src="https://img.shields.io/badge/Jetpack%20Compose-1.8.2-4285F4.svg?style=for-the-badge&logo=jetpackcompose" alt="Jetpack Compose badge"/>
-  <img src="https://img.shields.io/badge/Gradle-8.14.3-02303A.svg?style=for-the-badge&logo=gradle" alt="Gradle badge"/>
-  <img src="https://img.shields.io/badge/pomodoro-technique-ff4500.svg?style=for-the-badge" alt="Pomodoro badge"/>
-</p>
-
 <h1 align="center">Pomolin</h1>
 
+
+<div align="center">
+
+![Kotlin 2.2.20](https://img.shields.io/badge/Kotlin-2.2.20-7F52FF?style=plastic&logo=kotlin&logoColor=white&logoWidth=60)
+![Jetpack Compose 1.9.1](https://img.shields.io/badge/Jetpack%20Compose-1.9.1-4285F4?style=plastic&logo=jetpackcompose&logoColor=white&logoWidth=60)
+![Gradle 9.1.0](https://img.shields.io/badge/Gradle-9.1.0-02303A?style=plastic&logo=gradle&logoColor=white&logoWidth=60)
+![Pomodoro Technique](https://img.shields.io/badge/Pomodoro-Technique-FF4500?style=plastic&logo=clock&logoColor=white&logoWidth=60)
+
+</div>
+
 <p align="center">
-  <img src="gitAssets/pomolin.avif" width="40%"  alt="Pomolin Screenshot"/>
-  &nbsp;&nbsp;
-  <img src="gitAssets/pomolin.gif" width="40%"  alt="Pomolin Animation"/>
+  <img src="gitAssets/pomolin.png" width="45%"  alt="Pomolin Screenshot"/>
+  <img src="gitAssets/app_screenshots/screenshot6.png" width="45%"  alt="Pomolin Timer Running Screenshot"/>
 </p>
 
 #### A simple, beautiful, and minimalist Pomodoro timer for your desktop. Designed to help you stay focused and productive, it provides an elegant and straightforward way to manage your work and break intervals.
+
+> ⚠️ We’re looking for package maintainers to publish and maintain Pomolin across platforms/repositories (Nix, Debian,
+> Arch/AUR,
+> Fedora, Guix, etc.). If you can help, please open an issue; maintainers will be credited.
 
 ## Features
 
@@ -27,15 +31,17 @@
   pleasing experience.
 * **Routine Management:** Switch between **Pomodoro (25 min)**, **Short Break (5
   min)**, and **Long Break (20 min)** routines.
-* **Custom Work/Break Durations:** Change the working or break durations in settings menu.
+* **Custom Work/Break Durations:** Change the working or break durations in the settings menu.
 * **Cross-Platform:** Native installers are provided for Windows, macOS, and Linux on
   both `x64` and `arm64` architectures.
-* **Pastel Color Palette:** UI uses Catppuccin Mocha Color Palette as the default theme.
+* **Pastel Color Palette:** UI uses Catppuccin Mocha/Latte Color Palette as the default dark/light theme.
 
-## Download & Run
+## Download & Installation
 
-You can download the latest version of Pomolin from the
-**[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)** page.
+- Download the latest version from the **[official website](https://redddfoxxyy.github.io/Pomolin/)**.
+- Get it from **[Itch.io](https://redddfoxxyy.itch.io/pomolin)**.
+- You can download the latest version of Pomolin from the
+  **[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)** page.
 
 ### Windows
 
@@ -45,7 +51,7 @@ You can download the latest version of Pomolin from the
    > **NOTE**:
    >
    > Browsers may say that the files can be harmful, you can bypass that message and continue download. Windows
-   > Defender will also try to stop you from running the installer, just click on `more options` and then click
+   > Defender will also try to stop you from running the installer, click on `more options` and then click
    `run anyway`.
 
 ### macOS
