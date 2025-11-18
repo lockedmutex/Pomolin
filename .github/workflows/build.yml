@@ -81,12 +81,12 @@ jobs:
         run: |
           sudo apt-get install -y curl wget git gnupg ca-certificates libfuse2 curl unzip binutils file libglib2.0-0
 
-      - name: Set up JDK 25 for Windows ARM
+      - name: Set up JDK 21 for Windows ARM
         if: matrix.os == 'windows-11-arm'
         uses: actions/setup-java@v5
         with:
-          distribution: 'jetbrains'
-          java-version: '25'
+          distribution: 'temurin'
+          java-version: '21'
           architecture: ${{ matrix.arch }}
 
       - name: Set up JDK 25 for other architectures
