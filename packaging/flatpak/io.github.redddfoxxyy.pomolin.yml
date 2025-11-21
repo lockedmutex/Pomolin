@@ -16,18 +16,18 @@ modules:
     sources:
       - type: git
         url: https://github.com/RedddFoxxyy/Pomolin.git
-        tag: v1.1.9
+        tag: v1.1.10
 
       - type: archive
-        url: https://github.com/RedddFoxxyy/Pomolin/releases/download/v1.1.9/pomolin_x86_64_linux.tar.gz
-        sha256: "95fd484ffae3eaca13eccef21a10ce476bb376ff83e1ce91b9487fbe7e2b5718"
+        url: https://github.com/RedddFoxxyy/Pomolin/releases/download/v1.1.10/pomolin_x86_64_linux.tar.gz
+        sha256: "18695b635e301c889e1cc89104e6f550d621ec4e30a7f5ecdeba28f899c0aeb7"
         dest: "pomolin"
         only-arches:
           - x86_64
 
       - type: archive
-        url: https://github.com/RedddFoxxyy/Pomolin/releases/download/v1.1.9/pomolin_aarch64_linux.tar.gz
-        sha256: "59cd09dedec1537d571af47deee70dbc9abb864a3f1aa27bcdca5467db43962e"
+        url: https://github.com/RedddFoxxyy/Pomolin/releases/download/v1.1.10/pomolin_aarch64_linux.tar.gz
+        sha256: "503aa99d9a9c30510b4255e50d1e14d952509e434ef167786ced26362174429d"
         dest: "pomolin"
         only-arches:
           - aarch64

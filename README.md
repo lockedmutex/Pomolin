@@ -88,15 +88,15 @@
 ### JVM
 
 1. Download the `.jar` file for your OS and CPU.
-2. Run it using JRE/JDK 24:
+2. Run it using JRE/JDK 25:
 
    ```bash
-   java -jar pomolin-macos-arm64-1.1.7-release.jar 
+   java -jar pomolin-macos-arm64-1.1.10-release.jar 
    ```
 
    > **NOTE**:
-   > Make sure that you use java24 to run the jars. (Java21 on Windows Arm64).
-   > Preferably use Temurin or ZULU JRE/JDK.
+   > Make sure that you use java25 to run the jars. (Java21 on Windows Arm64).
+   > Preferably use Temurin JRE/JDK.
 
 ## Building from Source
 

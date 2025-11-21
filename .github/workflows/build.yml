@@ -228,8 +228,8 @@ jobs:
             - **Package**: Download `.deb` for Debian/Ubuntu-based systems or `.tar.gz` for manual extraction
             
             ### Java
-            - **JAR File**: Requires Java 24 installed (Java 21 for Windows 11 ARM64)
-            - **Run Command**: `java -jar pomolin-windows-x64-1.1.8-release.jar`
+            - **JAR File**: Requires Java 25 installed (Java 21 for Windows 11 ARM64)
+            - **Run Command**: `java -jar pomolin-windows-x64-1.1.10-release.jar`
             
             #### Linux Installation Tools
             For AppImage files, consider using:
@@ -238,8 +238,8 @@ jobs:
             
             ## System Requirements
             
-              - **Java Runtime**: Java 24 required for JAR files (Java 21 for Windows 11 ARM64)
-              - **Operating Systems**: Windows 10+, macOS 10.14+, Linux (distributions released after 2019)
+              - **Java Runtime**: Java 25 required for JAR files (Java 21 for Windows 11 ARM64)
+              - **Operating Systems**: Windows 10+, macOS 10.14+, Linux (distributions released after 2020)
               - **Architecture Support**: x64, ARM64
             
             ## Download Instructions
