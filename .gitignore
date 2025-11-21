@@ -20,3 +20,4 @@ packaging/.flatpak-builder
 packaging/build-dir
 packaging/repo
 packaging/pomolin.flatpak
+/.vscode/settings.json
