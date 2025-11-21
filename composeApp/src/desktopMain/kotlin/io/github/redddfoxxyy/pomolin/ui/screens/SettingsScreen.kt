@@ -238,6 +238,7 @@ internal fun SettingsScreen(onNavigateBack: () -> Unit, restartWindow: () -> Uni
 }
 
 @Composable
+@Preview
 fun SettingItemCard(
 	title: String,
 	content: @Composable ColumnScope.() -> Unit
@@ -262,6 +263,7 @@ fun SettingItemCard(
 
 
 @Composable
+@Preview
 fun TimerOption(
 	label: String,
 	value: Float,
@@ -304,6 +306,7 @@ fun TimerOption(
 }
 
 @Composable
+@Preview
 fun ToggleOption(
 	label: String,
 	isChecked: Boolean,

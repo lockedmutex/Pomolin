@@ -100,6 +100,7 @@ internal fun TimerScreen(onNavigateToSettings: () -> Unit) {
 }
 
 @Composable
+@Preview
 fun RoutineSelector(
 	modifier: Modifier = Modifier,
 	routines: List<PomoDoroRoutines>,
@@ -129,6 +130,7 @@ fun RoutineSelector(
 }
 
 @Composable
+@Preview
 fun ControlButtons(
 	modifier: Modifier = Modifier,
 	isRunning: Boolean,

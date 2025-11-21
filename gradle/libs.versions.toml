@@ -1,15 +1,30 @@
 [versions]
-composeHotReload = "1.0.0-beta01"
+composeHotReload = "1.0.0-beta04"
 composeMultiplatform = "1.9.1"
 junit = "4.13.2"
 kotlin = "2.2.20"
 kotlinx-coroutines = "1.10.2"
+soundlibs-basicplayer = "3.0.0.0"
+soundlibs-mp3spi = "1.9.5.4"
+logback-classic = "1.5.18"
+commons-lang3 = "3.18.0"
+platformtools-darkmodedetector = "0.5.0"
+dirs-directories = "26"
 
 [libraries]
+# Tests:
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { module = "junit:junit", version.ref = "junit" }
+
+# Application Dependencis:
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+soundlibs-basicplayer = { module = "com.googlecode.soundlibs:basicplayer", version.ref = "soundlibs-basicplayer" }
+soundlibs-mp3spi = { module = "com.googlecode.soundlibs:mp3spi", version.ref = "soundlibs-mp3spi" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-classic" }
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
+platformtools-darkmodedetector = { module = "io.github.kdroidfilter:platformtools.darkmodedetector", version.ref = "platformtools-darkmodedetector" }
+dirs-directories = {module = "dev.dirs:directories", version.ref = "dirs-directories" }
 
 [plugins]
 composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }

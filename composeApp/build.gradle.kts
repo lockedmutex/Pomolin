@@ -28,15 +28,15 @@ kotlin {
 		}
 		desktopMain.dependencies {
 			implementation(compose.desktop.currentOs)
+            implementation(compose.components.resources)
+            implementation(compose.animation)
 			implementation(libs.kotlinx.coroutinesSwing)
-			implementation(compose.components.resources)
-			implementation(compose.animation)
-			implementation("com.googlecode.soundlibs:mp3spi:1.9.5.4")
-			implementation("com.googlecode.soundlibs:basicplayer:3.0.0.0")
-			implementation("ch.qos.logback:logback-classic:1.5.18")
-			implementation("org.apache.commons:commons-lang3:3.18.0")
-			implementation("io.github.kdroidfilter:platformtools.darkmodedetector:0.5.0")
-			implementation("dev.dirs:directories:26")
+			implementation(libs.soundlibs.basicplayer)
+            implementation(libs.soundlibs.mp3spi)
+			implementation(libs.logback.classic)
+			implementation(libs.commons.lang3)
+			implementation(libs.platformtools.darkmodedetector)
+			implementation(libs.dirs.directories)
 		}
 	}
 }
@@ -108,7 +108,6 @@ compose.desktop {
             isEnabled.set(false)
             obfuscate.set(false)
             optimize.set(false)
-//			configurationFiles.from("proguard-rules.pro")
 		}
 	}
 }

@@ -82,11 +82,6 @@ internal fun TimerDisplay(
 					horizontalArrangement = Arrangement.Center,
 					verticalAlignment = Alignment.CenterVertically,
 				) {
-//                    val fontSize = if (pomoDoroManager.appSettings.enableProgressIndicator) {
-//                        (squareSize.value / 3.5f).sp
-//                    } else {
-//                        (squareSize.value / 2.5f).sp
-//                    }
 					val fontSize = (squareSize.value / 3.6f).sp
 
 					time.forEach { char ->
