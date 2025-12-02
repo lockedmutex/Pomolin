@@ -160,6 +160,12 @@ to the `LICENSE.md` file located in each such directory:
 - `composeApp/src/desktopMain/composeResources/drawable/`
 - `packaging/flatpak/`
 
+## Repository Mirrors:
+
+- [GitHub](https://github.com/RedddFoxxyy/pomolin)
+- [GitLab](https://gitlab.com/RedddFoxxyy/Pomolin)
+- [CodeBerg](https://codeberg.org/RedddFoxxyy/Pomolin)
+
 ## Maintainers
 
 [@RedddFoxxyy](https://github.com/RedddFoxxyy)
