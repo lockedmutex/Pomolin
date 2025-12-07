@@ -1,3 +1,14 @@
+> [!NOTE]
+> **Canonical Repository Notice**
+>
+> The official source code and active development for this project is hosted on **Codeberg**.
+>
+> If you are viewing this repository on GitHub or another mirror, please note that **Issues and Pull Requests are not monitored here.**
+>
+> 👉 **Join us at the Official Home:** [https://codeberg.org/lockedmutex/pomolin](https://codeberg.org/lockedmutex/pomolin)
+
+---
+
 <p align="center">
   <img src="gitAssets/Pomolin.svg" alt="Pomolin app icon" width="200"/>
 </p>
@@ -41,7 +52,7 @@
 - Download the latest version from the **[official website](https://redddfoxxyy.github.io/Pomolin/)**.
 - Get it from **[Itch.io](https://redddfoxxyy.itch.io/pomolin)**.
 - You can download the latest version of Pomolin from the
-  **[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)** page.
+  **[Latest Release](https://codeberg.org/lockedmutex/pomolin/releases/latest)** page.
 
 ### Windows
 
@@ -162,10 +173,10 @@ to the `LICENSE.md` file located in each such directory:
 
 ## Repository Mirrors:
 
-- [GitHub](https://github.com/RedddFoxxyy/pomolin)
-- [GitLab](https://gitlab.com/RedddFoxxyy/Pomolin)
-- [CodeBerg](https://codeberg.org/RedddFoxxyy/Pomolin)
+- [GitHub](https://github.com/lockedmutex/Pomolin)
+- [GitLab](https://gitlab.com/lockedmutex/Pomolin)
+- [CodeBerg](https://codeberg.org/lockedmutex/Pomolin)
 
 ## Maintainers
 
-[@RedddFoxxyy](https://github.com/RedddFoxxyy)
+[@lockedmutex](https://codeberg.org/lockedmutex)
