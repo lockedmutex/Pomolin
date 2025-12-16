@@ -110,7 +110,7 @@ jobs:
             -w ${{ github.workspace }} \
             -e ARCH=${{ matrix.arch }} \
             -e WORKSPACE_PATH="${{ github.workspace }}" \
-            rockylinux:8 /bin/bash -c "dnf install -y python3 && python3 packaging/build-scripts/package.py"
+            rockylinux:8 /bin/bash -c "dnf install -y python3.11 && python3.11 packaging/build-scripts/package.py"
 
       - name: Rename Packages for Release
         shell: bash
