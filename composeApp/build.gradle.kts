@@ -10,7 +10,7 @@ plugins {
 kotlin {
 	jvm("desktop")
 
-//   jvmToolchain(25)
+    jvmToolchain(21)
 
 	sourceSets {
 		val desktopMain by getting
@@ -54,7 +54,7 @@ compose.desktop {
 				TargetFormat.Rpm
 			)
 			packageName = "pomolin"
-			packageVersion = "1.1.10"
+			packageVersion = "1.2.0"
 			description = "A simple Pomodoro App written in Kotlin. Focus on what matters! "
 			vendor = "Suyog Tandel"
 			licenseFile.set(project.file("../LICENSE"))
@@ -100,8 +100,8 @@ compose.desktop {
 			"-XX:MaxGCPauseMillis=100",
 			"-XX:+UseStringDeduplication",
 			"-XX:+PerfDisableSharedMem",
-			"--enable-native-access=ALL-UNNAMED",
-			"--illegal-native-access=deny"
+//			"--enable-native-access=ALL-UNNAMED",
+//			"--illegal-native-access=deny"
 		)
 
 		buildTypes.release.proguard {

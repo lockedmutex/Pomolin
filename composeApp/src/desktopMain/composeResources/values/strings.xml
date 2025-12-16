@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Pomolin</string>
+    <string name="settings_title">Settings</string>
+    <string name="timer_work">Pomodoro</string>
+    <string name="timer_short_break">Short Break</string>
+    <string name="timer_long_break">Long Break</string>
+</resources>

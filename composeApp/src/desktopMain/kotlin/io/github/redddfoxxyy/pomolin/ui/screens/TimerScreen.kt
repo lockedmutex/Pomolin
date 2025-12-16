@@ -56,22 +56,12 @@ internal fun TimerScreen(onNavigateToSettings: () -> Unit) {
 				onRoutineSelected = { PomoDoro.setRoutine(it) }
 			)
 
-			Box(
-				modifier = Modifier
-					.weight(1f)
-					.padding(25.dp),
-				contentAlignment = Alignment.Center
-			) {
-				TimerDisplay(
-					modifier = Modifier
-						.widthIn(max = 450.dp)
-						.fillMaxSize(),
-					time = formattedTime
-				)
-			}
+			TimerDisplay(
+				time = formattedTime
+			)
 
 			ControlButtons(
-				modifier = Modifier.padding(bottom = 75.dp),
+				modifier = Modifier.padding(bottom = 25.dp),
 				isRunning = isRunning,
 				onPlayPauseClick = {
 					if (isRunning) PomoDoro.pauseTimer() else PomoDoro.startTimer()

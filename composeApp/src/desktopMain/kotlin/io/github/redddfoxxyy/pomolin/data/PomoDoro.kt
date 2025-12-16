@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import io.github.redddfoxxyy.pomolin.data.Notif
 
 enum class PomoDoroRoutines(val displayName: String) {
 	Working("Pomodoro"),
@@ -83,14 +84,17 @@ internal object PomoDoro {
 				workSessionsCompleted++
 				if (workSessionsCompleted >= pomoDoroSettings.workSessionDuration) {
 					setRoutine(PomoDoroRoutines.LongBreak)
+					Notif.sendNotification("Pomolin", "Time for a long break!")
 					workSessionsCompleted = 0
 				} else {
 					setRoutine(PomoDoroRoutines.ShortBreak)
+					Notif.sendNotification("Pomolin", "Time for a short break!")
 				}
 			}
 
 			PomoDoroRoutines.ShortBreak, PomoDoroRoutines.LongBreak -> {
 				setRoutine(PomoDoroRoutines.Working)
+				Notif.sendNotification("Pomolin", "Time to focus!")
 			}
 		}
 	}

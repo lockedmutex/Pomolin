@@ -76,25 +76,12 @@ jobs:
         run: |
           sudo apt-get update
 
-      - name: Install Dependencies for Rocky Linux
-        if: matrix.os_name == 'rocky-linux-8'
-        run: |
-          sudo apt-get install -y curl wget git gnupg ca-certificates libfuse2 curl unzip binutils file libglib2.0-0
-
-      - name: Set up JDK 21 for Windows ARM
-        if: matrix.os == 'windows-11-arm'
+      - name: Set up JDK 21
+        if: matrix.os_name != 'rocky-linux-8'
         uses: actions/setup-java@v5
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '21'
-          architecture: ${{ matrix.arch }}
-
-      - name: Set up JDK 25 for other architectures
-        if: ${{ matrix.os != 'windows-11-arm' && matrix.os_name != 'rocky-linux-8' }}
-        uses: actions/setup-java@v5
-        with:
-          distribution: 'temurin'
-          java-version: '25'
           architecture: ${{ matrix.arch }}
 
       - name: Remove JVM args for Windows ARM
@@ -134,7 +121,7 @@ jobs:
             -w ${{ github.workspace }} \
             -e ARCH=${{ matrix.arch }} \
             -e WORKSPACE_PATH="${{ github.workspace }}" \
-            rockylinux:8 /bin/bash packaging/build-scripts/package.sh
+            rockylinux:8 /bin/bash -c "dnf install -y python3 && python3 packaging/build-scripts/package.py"
 
       - name: Rename Packages for Release
         shell: bash
@@ -228,7 +215,7 @@ jobs:
             - **Package**: Download `.deb` for Debian/Ubuntu-based systems or `.tar.gz` for manual extraction
             
             ### Java
-            - **JAR File**: Requires Java 25 installed (Java 21 for Windows 11 ARM64)
+            - **JAR File**: Requires Java 21 installed
             - **Run Command**: `java -jar pomolin-windows-x64-1.1.10-release.jar`
             
             #### Linux Installation Tools
@@ -238,7 +225,7 @@ jobs:
             
             ## System Requirements
             
-              - **Java Runtime**: Java 25 required for JAR files (Java 21 for Windows 11 ARM64)
+              - **Java Runtime**: Java 21 required for JAR files
               - **Operating Systems**: Windows 10+, macOS 10.14+, Linux (distributions released after 2020)
               - **Architecture Support**: x64, ARM64
             

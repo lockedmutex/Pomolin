@@ -36,7 +36,7 @@ internal class Timer(durationMinutes: Float, val audio: Audio, private val onFin
 					remainingTimeMillis = 0L
 				}
 
-				if (remainingTimeMillis <= 1800L && !completionAudioPlayed) {
+				if (remainingTimeMillis <= 1000L && !completionAudioPlayed) {
 					audio.playCompletionSound()
 					completionAudioPlayed = true
 				}

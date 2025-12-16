@@ -99,7 +99,7 @@
 ### JVM
 
 1. Download the `.jar` file for your OS and CPU.
-2. Run it using JRE/JDK 25:
+2. Run it using JRE/JDK 21:
 
    ```bash
    java -jar pomolin-macos-arm64-1.1.10-release.jar 
@@ -111,7 +111,7 @@
 
 ## Building from Source
 
-To build Pomolin from the source code, you'll need to have **JDK 21** or later installed.
+To build Pomolin from the source code, you'll need to have **JDK 21** installed, if not, Gradle will install it during the build process.
 
 1. **Clone the repository:**
    ```bash

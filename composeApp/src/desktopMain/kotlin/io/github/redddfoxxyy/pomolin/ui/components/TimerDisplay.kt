@@ -11,13 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import io.github.redddfoxxyy.pomolin.data.AppSettings
 import io.github.redddfoxxyy.pomolin.data.PomoDoro
@@ -43,14 +39,12 @@ internal fun TimerDisplay(
 		label = "ProgressAnimation"
 	)
 
-	var size by remember { mutableStateOf(IntSize.Zero) }
-	val density = LocalDensity.current
+	val squareSize = 250.dp
 
 	Box(
-		modifier = modifier.onSizeChanged { size = it },
+		modifier = modifier.size(squareSize),
 		contentAlignment = Alignment.Center
 	) {
-		val squareSize = with(density) { min(size.width.toDp(), size.height.toDp()) }
 		val progressIndicatorColor by animateColorAsState(
 			targetValue = when (PomoDoro.currentRoutine) {
 				PomoDoroRoutines.Working -> ThemeManager.colors.primaryAccent
@@ -82,7 +76,7 @@ internal fun TimerDisplay(
 					horizontalArrangement = Arrangement.Center,
 					verticalAlignment = Alignment.CenterVertically,
 				) {
-					val fontSize = (squareSize.value / 3.6f).sp
+					val fontSize = (squareSize.value / 4.4f).sp
 
 					time.forEach { char ->
 						AnimatedContent(

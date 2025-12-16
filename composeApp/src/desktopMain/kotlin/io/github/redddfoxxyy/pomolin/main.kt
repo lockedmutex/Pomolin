@@ -32,7 +32,7 @@ import javax.swing.SwingUtilities
 fun main() = application {
 	var windowRestartTrigger by remember { mutableStateOf(false) }
 	var windowDecorations by remember { mutableStateOf(AppSettings.enableWindowDecorations) }
-	val minWindowDimensions = Pair(390, 540)
+	val minWindowDimensions = Pair(380, 500)
 
 	val isDark = when (AppSettings.themeMode) {
 		ThemeMode.Light -> false
