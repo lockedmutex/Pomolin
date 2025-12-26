@@ -1,11 +1,10 @@
 > [!NOTE]
-> **Canonical Repository Notice**
 >
-> The official source code and active development for this project is hosted on **Codeberg**.
+> The official source code and active development for this project is hosted on **GitHub**.
 >
-> If you are viewing this repository on GitHub or another mirror, please note that **Issues and Pull Requests are not monitored here.**
+> If you are viewing this repository on CodeBerg or another mirror, please note that **Issues and Pull Requests are not monitored here.**
 >
-> 👉 **Join us at the Official Home:** [https://codeberg.org/lockedmutex/pomolin](https://codeberg.org/lockedmutex/pomolin)
+> 👉 **Join us at the Official Home:** [https://github.com/lockedmutex/Pomolin](https://github.com/lockedmutex/Pomolin)
 
 ---
 
@@ -14,7 +13,6 @@
 </p>
 
 <h1 align="center">Pomolin</h1>
-
 
 <div align="center">
 
@@ -30,7 +28,7 @@
   <img src="gitAssets/app_screenshots/screenshot6.png" width="45%"  alt="Pomolin Timer Running Screenshot"/>
 </p>
 
-#### A simple, beautiful, and minimalist Pomodoro timer for your desktop. Designed to help you stay focused and productive, it provides an elegant and straightforward way to manage your work and break intervals.
+#### A simple, beautiful, and minimalist Pomodoro timer for your desktop. Designed to help you stay focused and productive, it provides an elegant and straightforward way to manage your work and break intervals
 
 > ⚠️ We’re looking for package maintainers to publish and maintain Pomolin across platforms/repositories (Nix, Debian,
 > Arch/AUR,
@@ -49,9 +47,9 @@
 
 ## Download & Installation
 
-- Download the latest version from the **[official website](https://redddfoxxyy.github.io/Pomolin/)**.
-- Get it from **[Itch.io](https://redddfoxxyy.itch.io/pomolin)**.
-- You can download the latest version of Pomolin from the
+* Download the latest version from the **[official website](https://redddfoxxyy.github.io/Pomolin/)**.
+* Get it from **[Itch.io](https://redddfoxxyy.itch.io/pomolin)**.
+* You can download the latest version of Pomolin from the
   **[Latest Release](https://codeberg.org/lockedmutex/pomolin/releases/latest)** page.
 
 ### Windows
@@ -92,9 +90,9 @@
   **[Latest Release](https://github.com/RedddFoxxyy/pomolin/releases/latest)**.
 
   > **NOTE**:
-  > - Install `AppImage` using `AppImageLauncher`/`Gear Lever` or equivalent. You can run the AppImage just by
-	  double-clicking on it too, no need to install it.
-  > - Flatpaks and AppImages are the preferred ways to run the app on Linux-based distributions.
+  > * Install `AppImage` using `AppImageLauncher`/`Gear Lever` or equivalent. You can run the AppImage just by
+   double-clicking on it too, no need to install it.
+  > * Flatpaks and AppImages are the preferred ways to run the app on Linux-based distributions.
 
 ### JVM
 
@@ -114,6 +112,7 @@
 To build Pomolin from the source code, you'll need to have **JDK 21** installed, if not, Gradle will install it during the build process.
 
 1. **Clone the repository:**
+
    ```bash
    git clone [https://github.com/RedddFoxxyy/pomolin.git](https://github.com/RedddFoxxyy/pomolin.git)
    cd pomolin
@@ -121,18 +120,25 @@ To build Pomolin from the source code, you'll need to have **JDK 21** installed,
 
 2. **Build the application using Gradle:**
 
-	* On **Linux**:
-	    ```bash
-		./gradlew packageReleaseDeb
-		```
-	* On **macOS**:
-	    ```bash
-		./gradlew packageReleaseDmg
-		```
-	* On **Windows**:
-	    ```bash
-		.\gradlew.bat packageReleaseMsi
-		```
+* On **Linux**:
+
+     ```bash
+
+  ./gradlew packageReleaseDeb
+
+  ```
+ * On **macOS**:
+     ```bash
+  ./gradlew packageReleaseDmg
+  ```
+
+* On **Windows**:
+
+     ```bash
+
+  .\gradlew.bat packageReleaseMsi
+
+  ```
 
 3. The compiled application will be available in the `composeApp/build/compose/binaries/` directory.
 
@@ -144,6 +150,7 @@ the [LICENSE](LICENSE) file for details.
 Contributions made by all contributors are licensed strictly under **GNU AGPL v3.0 only**.
 
 ```
+
     Copyright (C) 2025  RedddFoxxyy(Suyog Tandel)
 
     This program is free software: you can redistribute it and/or modify
@@ -158,6 +165,7 @@ Contributions made by all contributors are licensed strictly under **GNU AGPL v3
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 ```
 
 ### Licensed Assets (CC BY-NC-ND 4.0)
@@ -167,15 +175,15 @@ Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4
 For full details, refer
 to the `LICENSE.md` file located in each such directory:
 
-- `gitAssets/`
-- `composeApp/src/desktopMain/composeResources/drawable/`
-- `packaging/flatpak/`
+* `gitAssets/`
+* `composeApp/src/desktopMain/composeResources/drawable/`
+* `packaging/flatpak/`
 
-## Repository Mirrors:
+## Repository Mirrors
 
-- [GitHub](https://github.com/lockedmutex/Pomolin)
-- [GitLab](https://gitlab.com/lockedmutex/Pomolin)
-- [CodeBerg](https://codeberg.org/lockedmutex/Pomolin)
+* [GitHub](https://github.com/lockedmutex/Pomolin)
+* [GitLab](https://gitlab.com/lockedmutex/Pomolin)
+* [CodeBerg](https://codeberg.org/lockedmutex/Pomolin)
 
 ## Maintainers
 
